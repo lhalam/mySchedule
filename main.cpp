@@ -1,6 +1,6 @@
 #pragma comment(lib, "Ws2_32.lib")
-#include "webserver.h"
-#include "Socket.h"
+#include "Server\webserver.h"
+#include "Server\Socket.h"
 #include <iostream>
 using namespace std;
 
