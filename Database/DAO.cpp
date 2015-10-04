@@ -141,3 +141,76 @@ vector<User> DAO::getUsersByGroup(string group) const
 
 	return result;
 }
+
+//Setters
+void DAO::addUser(const User& user) const
+{
+	try
+	{
+		getResult("INSERT INTO users (name, surname, role) VALUES ('" + user.getName() + "', '" + user.getSurname() + "', " + std::to_string(user.getRole()) + ")");
+	}
+	catch (SQLException& exp)
+	{
+		cerr << "An SQL exception in addUser() occured.\n";
+		cerr << exp.what() << endl;
+	}
+	catch (exception& exp)
+	{
+		cerr << "An exception in addUser() occured.\n";
+		cerr << exp.what() << endl;
+	}
+}
+void DAO::updateUserName(const User& user, string newName) const
+{
+	try
+	{
+		getResult("UPDATE users SET name='" + newName + "' WHERE id=" + std::to_string(user.getId()));
+	}
+	catch (SQLException& exp)
+	{
+		cerr << "An SQL exception in addUser() occured.\n";
+		cerr << exp.what() << endl;
+	}
+	catch (exception& exp)
+	{
+		cerr << "An exception in addUser() occured.\n";
+		cerr << exp.what() << endl;
+	}
+}
+void DAO::updateUserSurname(const User& user, string newSurName) const
+{
+	try
+	{
+		getResult("UPDATE users SET surname='" + newSurName + "' WHERE id=" + std::to_string(user.getId()));
+	}
+	catch (SQLException& exp)
+	{
+		cerr << "An SQL exception in addUser() occured.\n";
+		cerr << exp.what() << endl;
+	}
+	catch (exception& exp)
+	{
+		cerr << "An exception in addUser() occured.\n";
+		cerr << exp.what() << endl;
+	}
+}
+void DAO::updateUserRole(const User& user, int newRole) const
+{
+	/*
+	checking availability of the role newRole
+	*/
+	try
+	{
+		getResult("UPDATE users SET role=" + std::to_string(newRole) + " WHERE id=" + std::to_string(user.getID()));
+	}
+	catch (SQLException& exp)
+	{
+		cerr << "An SQL exception in addUser() occured.\n";
+		cerr << exp.what() << endl;
+	}
+	catch (exception& exp)
+	{
+		cerr << "An exception in addUser() occured.\n";
+		cerr << exp.what() << endl;
+	}
+}

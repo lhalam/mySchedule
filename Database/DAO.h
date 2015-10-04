@@ -1,3 +1,7 @@
+/*
+Database access object (DAO) - an object, used to create a connection with a database and 
+execute queries.
+*/
 #pragma once
 
 #include <string>
@@ -31,11 +35,19 @@ class DAO
 
 public:
 	DAO(string HOST, string USER, string PASSWORD, string DB);
+
+	/*USER*/
+	//Getters
 	User getUserById(unsigned int id) const;
 	User getUserByName(string name) const;
 	User getUserBySurname(string surname) const;
 	User getUserByFullName(string name, string surname) const;
 	vector<User> getUsersByGroup(string group) const;
+	//Setters
+	void addUser(const User& user) const;
+	void updateUserName(const User& user, string newName) const;
+	void updateUserSurname(const User& user, string newSurName) const;
+	void updateUserRole(const User& user, int newRole) const;
 
 private:
 	auto_ptr<ResultSet> getResult(string sql) const;
