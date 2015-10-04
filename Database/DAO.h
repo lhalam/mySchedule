@@ -37,13 +37,15 @@ class DAO
 public:
 	DAO(string HOST, string USER, string PASSWORD, string DB);
 
-	/*USER*/
+	/* USER */
+
 	//Getters
 	User getUserById(unsigned int id) const;
 	User getUserByName(string name) const;
 	User getUserBySurname(string surname) const;
 	User getUserByFullName(string name, string surname) const;
 	vector<User> getUsersByGroup(string group) const;
+
 	//Setters
 	void addUser(const User& user) const;
 	void updateUserName(const User& user, string newName) const;
@@ -57,5 +59,5 @@ public:
 	
 
 private:
-	auto_ptr<ResultSet> getResult(string sql) const;
+	auto_ptr<ResultSet> query(string sql) const;
 };
