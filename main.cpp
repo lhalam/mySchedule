@@ -1,10 +1,12 @@
 #pragma comment(lib, "Ws2_32.lib")
 #include "Server\webserver.h"
 #include "Server\Socket.h"
-#include <iostream>
+#include <fstream>
+#include <ctime>
 using namespace std;
 
-void Get(webserver::http_request* r) {
+void Request_Handler(webserver::http_request* r)
+{
   Socket s = *(r->s_);
 
   std::string title;
@@ -18,17 +20,20 @@ void Get(webserver::http_request* r) {
       "<br><a href='/header'>show some HTTP header details</a> "
       ;
 
-  if(r->path_ == "/") {
-    title = "Web Server Example";
-    body  = "<h1>Web Server Example</h1>"
+  if(r->path_ == "/")
+  {
+    title = "Our Web Server";
+    body  = "<h1>Our Web Server</h1>"
             "I wonder what you're going to click"  + links;
   }
-  else if (r->path_ == "/red") {
+  else if (r->path_ == "/red")
+  {
     bgcolor = "#ff4444";
     title   = "You chose red";
     body    = "<h1>Red</h1>" + links;
   }
-  else if (r->path_ == "/blue") {
+  else if (r->path_ == "/blue")
+  {
     bgcolor = "#4444ff";
     title   = "You chose blue";
     body    = "<h1>Blue</h1>" + links;
@@ -81,7 +86,8 @@ void Get(webserver::http_request* r) {
   //            "</table>"                                                +
   //            links;
   //}
-  else {
+  else
+  {
     r->status_ = "404 Not Found";
     title      = "Wrong URL";
     body       = "<h1>Wrong URL</h1>";
@@ -93,9 +99,14 @@ void Get(webserver::http_request* r) {
   r->answer_ += "</title></head><body bgcolor='" + bgcolor + "'>";
   r->answer_ += body;
   r->answer_ += "</body></html>";
+
+  //logging
+  ofstream fout("Logs.txt", ios::app);
+  fout << '[' << __TIMESTAMP__ <<']' << '\t' << r->status_ << '\t' << '\t' << r->method_ << endl;
+  fout.close();
 }
 
 int main()
 {
-	webserver(8080, Get);
+	webserver(8080, Request_Handler);
 }
