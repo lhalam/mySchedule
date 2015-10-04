@@ -24,7 +24,7 @@ DAO::DAO(string HOST, string USER, string PASSWORD, string DB):
 	}
 }
 
-auto_ptr<ResultSet> DAO::getResult(string sql) const
+auto_ptr<ResultSet> DAO::query(string sql) const
 {
 	auto_ptr<sql::Statement> stmt(connection->createStatement());
 	stmt->execute(sql);
@@ -35,11 +35,14 @@ auto_ptr<ResultSet> DAO::getResult(string sql) const
 	return res;
 }
 
+/* USER */
+
+//Getters
 User DAO::getUserById(unsigned int id) const
 {
 	try
 	{
-		auto_ptr<ResultSet> res = getResult("select (id, name, surname, role) from users where id='" + std::to_string(id) + "'");
+		auto_ptr<ResultSet> res = query("select (id, name, surname, role) from users where id='" + std::to_string(id) + "'");
 		return User(res->getInt("id"), res->getString("name"), res->getString("surname"), res->getInt("role"));
 	} catch (SQLException& exp)
 	{
@@ -58,7 +61,7 @@ User DAO::getUserByName(string name) const
 {
 	try
 	{
-		auto_ptr<ResultSet> res = getResult("select (id, name, surname, role) from users where name='" + name + "'");
+		auto_ptr<ResultSet> res = query("select (id, name, surname, role) from users where name='" + name + "'");
 		return User(res->getInt("id"), res->getString("name"), res->getString("surname"), res->getInt("role"));
 	} catch (SQLException& exp)
 	{
@@ -77,7 +80,7 @@ User DAO::getUserBySurname(string surname) const
 {
 	try
 	{
-		auto_ptr<ResultSet> res = getResult("select (id, name, surname, role) from users where surname='" + surname + "'");
+		auto_ptr<ResultSet> res = query("select (id, name, surname, role) from users where surname='" + surname + "'");
 		return User(res->getInt("id"), res->getString("name"), res->getString("surname"), res->getInt("role"));
 	} catch (SQLException& exp)
 	{
@@ -96,7 +99,7 @@ User DAO::getUserByFullName(string name, string surname) const
 {
 	try
 	{
-		auto_ptr<ResultSet> res = getResult("select (id, name, surname, role) from users where name='" + name + "' AND surname='" + surname + "'");
+		auto_ptr<ResultSet> res = query("select (id, name, surname, role) from users where name='" + name + "' AND surname='" + surname + "'");
 		return User(res->getInt("id"), res->getString("name"), res->getString("surname"), res->getInt("role"));
 	} catch (SQLException& exp)
 	{
@@ -147,7 +150,7 @@ void DAO::addUser(const User& user) const
 {
 	try
 	{
-		getResult("INSERT INTO users (name, surname, role) VALUES ('" + user.getName() + "', '" + user.getSurname() + "', " + std::to_string(user.getRole()) + ")");
+		query("INSERT INTO users (name, surname, role) VALUES ('" + user.getName() + "', '" + user.getSurname() + "', " + std::to_string(user.getRole()) + ")");
 	}
 	catch (SQLException& exp)
 	{
@@ -160,11 +163,12 @@ void DAO::addUser(const User& user) const
 		cerr << exp.what() << endl;
 	}
 }
+
 void DAO::updateUserName(const User& user, string newName) const
 {
 	try
 	{
-		getResult("UPDATE users SET name='" + newName + "' WHERE id=" + std::to_string(user.getId()));
+		query("UPDATE users SET name='" + newName + "' WHERE id=" + std::to_string(user.getId()));
 	}
 	catch (SQLException& exp)
 	{
@@ -177,11 +181,12 @@ void DAO::updateUserName(const User& user, string newName) const
 		cerr << exp.what() << endl;
 	}
 }
+
 void DAO::updateUserSurname(const User& user, string newSurName) const
 {
 	try
 	{
-		getResult("UPDATE users SET surname='" + newSurName + "' WHERE id=" + std::to_string(user.getId()));
+		query("UPDATE users SET surname='" + newSurName + "' WHERE id=" + std::to_string(user.getId()));
 	}
 	catch (SQLException& exp)
 	{
@@ -194,6 +199,7 @@ void DAO::updateUserSurname(const User& user, string newSurName) const
 		cerr << exp.what() << endl;
 	}
 }
+
 void DAO::updateUserRole(const User& user, int newRole) const
 {
 	/*
@@ -201,7 +207,7 @@ void DAO::updateUserRole(const User& user, int newRole) const
 	*/
 	try
 	{
-		getResult("UPDATE users SET role=" + std::to_string(newRole) + " WHERE id=" + std::to_string(user.getID()));
+		query("UPDATE users SET role=" + std::to_string(newRole) + " WHERE id=" + std::to_string(user.getID()));
 	}
 	catch (SQLException& exp)
 	{
