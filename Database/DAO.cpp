@@ -214,3 +214,45 @@ void DAO::updateUserRole(const User& user, int newRole) const
 		cerr << exp.what() << endl;
 	}
 }
+
+
+/*GROUP*/
+//Getters
+Group DAO::getGroupById(int id) const
+{
+	try
+	{
+		auto_ptr<ResultSet> res = getResult("select (id, name) from groups where id="+std::to_string(id));
+		vector<User> students = getUsersByGroup(res->getString("name"));
+		return Group(res->getInt("id"), res->getString("name"), students);
+	}
+	catch (SQLException& exp)
+	{
+		cerr << "An SQL exception in getGroupById() occured.\n";
+		cerr << exp.what() << endl;
+	}
+	catch (exception& exp)
+	{
+		cerr << "An exception in getGroupById() occured.\n";
+		cerr << exp.what() << endl;
+	}
+}
+Group DAO::getGroupByName(string name) const
+{
+	try
+	{
+		auto_ptr<ResultSet> res = getResult("select (id, name) from groups where name=" + name);
+		vector<User> students = getUsersByGroup(res->getString("name"));
+		return Group(res->getInt("id"), res->getString("name"), students);
+	}
+	catch (SQLException& exp)
+	{
+		cerr << "An SQL exception in getGroupByName() occured.\n";
+		cerr << exp.what() << endl;
+	}
+	catch (exception& exp)
+	{
+		cerr << "An exception in getGroupByName() occured.\n";
+		cerr << exp.what() << endl;
+	}
+}

@@ -17,6 +17,7 @@ execute queries.
 #include <cppconn/prepared_statement.h>
 
 #include "User.h"
+#include "Group.h"
 
 using std::string;
 using std::vector;
@@ -48,6 +49,12 @@ public:
 	void updateUserName(const User& user, string newName) const;
 	void updateUserSurname(const User& user, string newSurName) const;
 	void updateUserRole(const User& user, int newRole) const;
+
+	/*GROUP*/
+	//Getters
+	Group getGroupById(int id) const;
+	Group getGroupByName(string name) const;
+	
 
 private:
 	auto_ptr<ResultSet> getResult(string sql) const;
