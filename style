@@ -1,0 +1,42 @@
+.bdrform_tabl {
+background-color: whiteSmoke;
+padding: 14px 16px 16px 18px;
+border: 1px solid #DFDFDF;
+border-radius: 10px;
+}
+
+form {
+display: block;
+margin-top: 0em;
+}
+
+.zvzd {
+padding-right: 5px;
+font: 22px Arial,Helvetica;
+color: #D30B15;
+
+}
+table#bdr_w td.bt1 {
+border-top: 1px solid
+white;
+}
+
+table#bdr_w td {
+padding-bottom: 8px;
+padding-top: 8px;
+}
+
+.formreg td {
+height: 35px;
+padding: 0 4px 6px 0;
+}
+
+#messenger {
+width: 90%;
+margin: 5px 0px;
+padding: 5px;
+border: #F06 dotted 1px;
+background: #F7CAE0;
+border-radius: 7px;
+display: none;
+}
