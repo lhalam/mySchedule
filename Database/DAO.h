@@ -1,7 +1,8 @@
 /*
-Database access object (DAO) - an object, used to create a connection with a database and 
-execute queries.
+	Database access object (DAO) - an object,
+	used to get or update entities in a database.
 */
+
 #pragma once
 
 #include <string>
@@ -16,17 +17,22 @@ execute queries.
 #include <cppconn/statement.h>
 #include <cppconn/prepared_statement.h>
 
-#include "User.h"
-#include "Group.h"
+#include "Entity.h"
 
 using std::string;
 using std::vector;
 using std::auto_ptr;
+using std::exception;
+using std::cerr;
+using std::endl;
 
 using sql::ResultSet;
+using sql::SQLException;
 
 class DAO
 {
+protected:
+	//Obsolete fields - will be deleted after creation of BaseConnection class
 	string HOST;
 	string USER;
 	string PASSWORD;
@@ -35,29 +41,10 @@ class DAO
 	auto_ptr<sql::Connection> connection;
 
 public:
+	virtual Entity getById(unsigned id) = 0;
+	
+protected:
 	DAO(string HOST, string USER, string PASSWORD, string DB);
 
-	/* USER */
-
-	//Getters
-	User getUserById(unsigned int id) const;
-	User getUserByName(string name) const;
-	User getUserBySurname(string surname) const;
-	User getUserByFullName(string name, string surname) const;
-	vector<User> getUsersByGroup(string group) const;
-
-	//Setters
-	void addUser(const User& user) const;
-	void updateUserName(const User& user, string newName) const;
-	void updateUserSurname(const User& user, string newSurName) const;
-	void updateUserRole(const User& user, int newRole) const;
-
-	/*GROUP*/
-	//Getters
-	Group getGroupById(int id) const;
-	Group getGroupByName(string name) const;
-	
-
-private:
 	auto_ptr<ResultSet> query(string sql) const;
 };
