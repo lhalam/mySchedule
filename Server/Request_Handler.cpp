@@ -1,5 +1,7 @@
 #include "Request_Handler.h"
 #include "socket.h"
+#include "../Logger/LogMessage.h"
+#include <fstream>
 
 void Request_Handler(webserver::http_request* r)
 {
@@ -97,7 +99,9 @@ void Request_Handler(webserver::http_request* r)
 	r->answer_ += "</body></html>";
 
 	//logging
+
 	/*std::ofstream fout("Logs.txt", std::ios::app);
-	fout << '[' << __TIMESTAMP__ << ']' << '\t' << r->status_ << '\t' << '\t' << r->method_ << std::endl;
+	LogMessage log(r->status_, r->method_);
+	fout << log;
 	fout.close();*/
 }
