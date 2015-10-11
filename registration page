@@ -1,3 +1,5 @@
+<!DOCTYPE html>
+<link rel="stylesheet" type="text/css" href=style for login and registration.css>
 <table width="100%" border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="bdrform_tabl">
 <form class="formreg" action="обработчик.php" method="post" enctype="multipart/form-data">
 <table width="100%" border="0" cellspacing="0" cellpadding="0" id="bdr_w">
