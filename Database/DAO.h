@@ -17,7 +17,8 @@
 #include <cppconn/statement.h>
 #include <cppconn/prepared_statement.h>
 
-#include "Entity.h"
+#include "../Entity.h"
+#include "BaseConnection.h"
 
 using std::string;
 using std::vector;
@@ -32,19 +33,10 @@ using sql::SQLException;
 class DAO
 {
 protected:
-	//Obsolete fields - will be deleted after creation of BaseConnection class
-	string HOST;
-	string USER;
-	string PASSWORD;
-	string DB;
-	sql::Driver* driver;
-	auto_ptr<sql::Connection> connection;
-
+	BaseConnection connection;
 public:
 	virtual Entity getById(unsigned id) = 0;
 	
 protected:
-	DAO(string HOST, string USER, string PASSWORD, string DB);
-
-	auto_ptr<ResultSet> query(string sql) const;
+	DAO(BaseConnection conn);
 };

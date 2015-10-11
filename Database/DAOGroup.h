@@ -1,15 +1,12 @@
 #pragma once
 
 #include "DAO.h"
-#include "Group.h"
+#include "../Group.h"
 
 class DAOGroup : public DAO
 {
 public:
-	DAOGroup(string HOST, string USER, string PASSWORD, string DB) :
-		DAO(HOST, USER, PASSWORD, DB)
-	{
-	}
+	DAOGroup(BaseConnection conn);
 
 	//Getters
 

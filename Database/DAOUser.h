@@ -6,10 +6,7 @@
 class DAOUser : public DAO
 {
 public:
-	DAOUser(string HOST, string USER, string PASSWORD, string DB) :
-		DAO(HOST, USER, PASSWORD, DB)
-	{
-	}
+	DAOUser(BaseConnection conn);
 
 	//Getters
 

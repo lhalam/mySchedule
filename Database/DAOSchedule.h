@@ -6,10 +6,7 @@
 class DAOSchedule : public DAO
 {
 public:
-	DAOSchedule(string HOST, string USER, string PASSWORD, string DB) :
-		DAO(HOST, USER, PASSWORD, DB)
-	{
-	}
+	DAOSchedule(BaseConnection conn);
 
 	//Getters
 
