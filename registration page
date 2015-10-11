@@ -16,7 +16,7 @@
 <td>
 </td>
 <td width="23%">
-Ім’я (логін):
+Ім’я:
 </td>
 <td width="38%"> 
 <input name="login" id="login" type="text" class="fld" value=""></td>
@@ -25,6 +25,40 @@
 кирилиці різного регістру, цифр і знака минус (-), і має бути довжиною від 5 
 до 15 символів.
 </td>
+</tr>
+<tr valign="top">
+<td>
+</td>
+<td class="bt1">
+</tr>
+<tr valign="top">
+<td>
+</td>
+<td width="23%">
+Логін:
+</td>
+<td width="38%"> 
+<input name="login" id="login" type="text" class="fld" value=""></td>
+<td> –</td>
+<td width="39%">Вибраний Вами логін може складатись із букв латинського алфавіту або 
+кирилиці різного регістру, цифр і знака минус (-), і має бути довжиною від 5 
+до 15 символів.
+</td>
+</tr>
+<tr valign="top">
+<td>
+</td>
+<td width="23%">
+Група:
+</td>
+<td width="38%"> 
+<input name="login" id="login" type="text" class="fld" value=""></td>
+</td>
+</tr>
+<tr valign="top">
+<td>
+</td>
+<td class="bt1">
 </tr>
 <tr valign="top">
 <td>
