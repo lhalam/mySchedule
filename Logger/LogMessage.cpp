@@ -2,19 +2,22 @@
 
 LogMessage::LogMessage() :
 _status(""),
-_method("")
+_method(""),
+_llevel(LogLevel::logError)
 {
 }
 
-LogMessage::LogMessage(string status, string method) :
+LogMessage::LogMessage(string status, string method, LogLevel level) :
 _status(status),
-_method(method)
+_method(method),
+_llevel(level)
 {
 }
 
 LogMessage::LogMessage(const LogMessage & obj) :
 _status(obj._status),
-_method(obj._method)
+_method(obj._method),
+_llevel(obj._llevel)
 {
 }
 

@@ -1,7 +1,13 @@
 #include "Request_Handler.h"
 #include "socket.h"
-#include "../Logger/LogMessage.h"
+#include "../Logger/Logger.h"
 #include <fstream>
+
+//Initializing a global static pointer
+Logger* Logger::instanceUnique = NULL;
+
+//Stating the default logging level
+LogLevel Logger::ReportingLevel = LogLevel::logError;
 
 void Request_Handler(webserver::http_request* r)
 {
@@ -99,9 +105,5 @@ void Request_Handler(webserver::http_request* r)
 	r->answer_ += "</body></html>";
 
 	//logging
-
-	/*std::ofstream fout("Logs.txt", std::ios::app);
-	LogMessage log(r->status_, r->method_);
-	fout << log;
-	fout.close();*/
+	Logger::Instance()->Log(LogMessage(r->status_, r->method_));
 }
