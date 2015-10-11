@@ -1,4 +1,4 @@
-#include "mySchedule\Logger\Logger.h"
+#include "Logger.h"
 
 void Logger::Log(const LogMessage& msg)
 {
