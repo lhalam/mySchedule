@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<link rel="stylesheet" type="text/css" href=style for login and registration.css>
+<link rel="stylesheet" type="text/css" href=authorization.css>
 <title>Вхід</title>
   
 <form id="contact-form" action="script.php" method="post">
