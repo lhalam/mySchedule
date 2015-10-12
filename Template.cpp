@@ -12,7 +12,7 @@ Template::Template()
 
 string Template::render(Template temp, map<TKey key, Entity obj> mp)
 {
-	std::string str = std::to_string(mp.obj.User.property);
+	std::string str = std::to_string(mp.find(key));
 
 	return str;
 }
