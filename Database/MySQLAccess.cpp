@@ -33,3 +33,9 @@ sql::Connection* MySQLAccess::getConnection() {
 bool MySQLAccess::execute(const sql::SQLString& sql) {
 	return stmt->execute(sql);
 }
+
+auto_ptr<sql::ResultSet> MySQLAccess::getResultSet() {
+	auto_ptr<sql::ResultSet> retVal;
+	retVal.reset(stmt->getResultSet());
+	return retVal;
+}
