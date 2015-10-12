@@ -1,0 +1,96 @@
+body {
+	color: #ffffff;
+	padding-top: 60px;
+	padding-bottom: 40px;
+	background-image: url('http://www.iop.kiev.ua/~nano2015/images%20filmstrip/Univ1.jpg');
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+	background-position: center center;
+	background-size: cover;
+}
+
+.menu  a {
+  color: #ffffff;
+  font-size: 18px;
+  font-weight: bold;
+  padding: 14px 10px;
+  text-transform: uppercase;
+}
+
+.nav li {
+  display: inline;
+}
+
+.profile {
+	background-color: #000000;
+}
+
+.content {
+	color: #ffffff;
+	top: 25px;
+}
+
+.content h1 {
+	color: #ffffff;
+	font-size: 24px;  
+	font-family: 'Open Sans', sans-serif;
+	font-weight: bold;
+}
+
+.content h2 {
+	color: #ffffff; 
+	font-family: 'Shift', sans-serif;
+	font-size: 18px;
+	font-weight: bold;
+}
+
+.content .schedule{
+	color: #ffffff;
+	font-family: 'Open Sans', sans-serif;
+	text-shadow: none;
+}
+
+.content p{
+	font-size: 12px;
+	font-family: 'Open Sans', sans-serif;
+	text-shadow: none;
+}
+
+.content a {
+	font-size: 15px;
+	font-weight: bold;
+	padding: 14px 10px;
+	color: #ffffff;
+}
+
+.content .group{
+	color: #ffffff;
+	font-family: 'Open Sans', sans-serif;
+	text-shadow: none;
+}
+
+.content .group  p{
+	font-family: 'Shift', sans-serif;
+	font-size: 14px;
+	color: #ffffff;
+}
+
+.learn-more {
+  background-color: #f7f7f7;
+}
+
+.learn-more h3 {
+  font-family: 'Shift', sans-serif;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.learn-more p {
+  font-family: 'Shift', sans-serif;
+  font-size: 13px;
+  color: #000000;
+}
+
+.learn-more a {
+  color: #000000;
+}

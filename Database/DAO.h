@@ -33,7 +33,7 @@ using sql::SQLException;
 class DAO
 {
 protected:
-	MySQLAccess connection;
+	mutable MySQLAccess connection;
 public:
 	//Returns a poiter which must be deleted afterwards
 	virtual Entity * getById(unsigned id) const = 0;

@@ -1,6 +1,6 @@
 #pragma once
 
-#include <stdlib.h>
+#include <cstdlib>
 #include <iostream>
 #include <sstream>
 #include <stdexcept>
@@ -22,6 +22,7 @@ public:
 	~MySQLAccess();
 	sql::Connection* getConnection();
 	bool execute(const sql::SQLString&);
+	auto_ptr<sql::ResultSet> getResultSet();
 
 private:
 	auto_ptr<sql::Connection> con;

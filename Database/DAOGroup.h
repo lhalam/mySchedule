@@ -10,9 +10,11 @@ public:
 
 	//Getters
 
-	Entity getById(unsigned id) const;
+	Entity * getById(unsigned id) const;
 	Group getByName(string name) const;
 
 	// Setters
 
+	void addGroup(const Group& group) const;
+	void updateName(const Group& group, string newName) const;
 };
