@@ -13,6 +13,11 @@ protected:
 	uni id;
 
 public:
+	Entity() :
+		id(0)
+	{
+	}
+
 	Entity(uni id_) :
 		id(id_)
 	{

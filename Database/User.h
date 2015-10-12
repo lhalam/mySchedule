@@ -7,12 +7,22 @@ class User : public Entity
 	
 private:
 	Role role;
-	str firstName;
-	str lastName;
+	str name;
+	str surname;
 	str login;
 	str password;
 	
 public:
+	User() :
+		Entity(),
+		role(),
+		name(),
+		surname(),
+		login(),
+		password()
+	{
+	}
+
 	User(
 		unsigned int personalID,
 		unsigned int roleID,
@@ -25,8 +35,8 @@ public:
 
 		Entity(personalID),
 		role(roleID, roleStatus),
-		firstName(fName),
-		lastName(lName),
+		name(fName),
+		surname(lName),
 		password(personalPassword),
 		login(personalLogin)
 	{
@@ -35,26 +45,13 @@ public:
 	User(const User& user) :
 		Entity(user.id),
 		role(user.role),
-		firstName(user.firstName),
-		lastName(user.lastName),
+		name(user.name),
+		surname(user.surname),
 		password(user.password),
 		login(user.login)
 	{
 	}
 
-	User& operator = (const User& user)
-	{
-		if (!(this->equals(user)))
-		{
-			this->id = user.id;
-			this->role = user.role;
-			this->firstName = user.firstName;
-			this->lastName = user.lastName;
-			this->password = user.password;
-			this->login = user.login;
-		}
-		return (*this);
-	}
 
 	void setID(unsigned int id_) { this->id = id_; }
 	unsigned int getID() const { return this->id; }
@@ -62,14 +59,14 @@ public:
 	void setRoleID(unsigned int id) { this->role.setID(id); }
 	unsigned int getRoleID() const { return this->role.getID(); }
 
-	void setFirstName(str fName) { this->firstName = fName; }
-	str getFirstName() const { return this->firstName; }
+	void setname(str fName) { this->name = fName; }
+	str getname() const { return this->name; }
 
-	void setLastName(str lName) { this->lastName = lName; }
-	str getLastName() const { return this->lastName; }
+	void setsurname(str lName) { this->surname = lName; }
+	str getsurname() const { return this->surname; }
 
-	void setStatus(str status) { this->role.setStatus(status); }
-	str getStatus() const { return this->role.getStatus(); }
+	void setStatus(str status) { this->role.setName(status); }
+	str getStatus() const { return this->role.getName(); }
 
 	void setPassword(str pass) { this->password = pass; }
 	str getPassword() const { return this->password; }
@@ -77,20 +74,4 @@ public:
 	void setLogin(str l) { this->login = l; }
 	str getLogin() const { return this->login; }
 
-	bool equals(const User& user)
-	{
-		if (this->id != user.id)
-			return false;
-
-		if (!(this->role.equals(user.role)))
-			return false;
-
-		if (this->firstName != user.firstName || this->lastName != user.lastName)
-			return false;
-
-		if (this->login != user.login)
-			return false;
-
-		return true;
-	}
 };
