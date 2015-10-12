@@ -1,7 +1,7 @@
 #include "DAOUser.h"
 #include "DAORole.h"
 
-DAOUser::DAOUser(BaseConnection conn):
+DAOUser::DAOUser(MySQLAccess conn):
 	DAO(conn)
 {
 }
@@ -35,7 +35,7 @@ vector<User> DAOUser::getByName(string name) const
 	try
 	{
 		auto_ptr<ResultSet> res = connection.execute("select (id, name, surname, role) from users where name='" + name + "' ORDER BY id");
-		
+
 		while (res->next())
 		{
 			result.push_back(User(res->getInt("id"), res->getString("name"), res->getString("surname"), res->getInt("role")));

@@ -1,6 +1,6 @@
 #include "DAOGroup.h"
 
-DAOGroup::DAOGroup(BaseConnection conn) :
+DAOGroup::DAOGroup(MySQLAccess conn) :
 	DAO(conn)
 {
 }

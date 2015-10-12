@@ -6,7 +6,7 @@
 class DAOAssignment : public DAO
 {
 public:
-	DAOAssignment(BaseConnection conn);
+	DAOAssignment(MySQLAccess conn);
 
 	//Getters
 

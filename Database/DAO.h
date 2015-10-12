@@ -18,7 +18,7 @@
 #include <cppconn/prepared_statement.h>
 
 #include "Entity.h"
-#include "BaseConnection.h"
+#include "MySQLAccess.h"
 
 using std::string;
 using std::vector;
@@ -33,11 +33,11 @@ using sql::SQLException;
 class DAO
 {
 protected:
-	BaseConnection connection;
+	MySQLAccess connection;
 public:
 	//Returns a poiter which must be deleted afterwards
 	virtual Entity * getById(unsigned id) const = 0;
-	
+
 protected:
-	DAO(BaseConnection conn);
+	DAO(MySQLAccess conn);
 };

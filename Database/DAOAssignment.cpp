@@ -1,6 +1,6 @@
 #include "DAOAssignment.h"
 
-DAOAssignment::DAOAssignment(BaseConnection conn):
+DAOAssignment::DAOAssignment(MySQLAccess conn):
 	DAO(conn)
 {
 }

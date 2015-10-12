@@ -6,7 +6,7 @@
 class DAOUser : public DAO
 {
 public:
-	DAOUser(BaseConnection conn);
+	DAOUser(MySQLAccess conn);
 
 	//Getters
 

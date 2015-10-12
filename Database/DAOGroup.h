@@ -6,7 +6,7 @@
 class DAOGroup : public DAO
 {
 public:
-	DAOGroup(BaseConnection conn);
+	DAOGroup(MySQLAccess conn);
 
 	//Getters
 

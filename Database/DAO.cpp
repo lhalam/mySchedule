@@ -1,6 +1,6 @@
 #include "DAO.h"
 
-DAO::DAO(BaseConnection conn):
+DAO::DAO(MySQLAccess conn):
 	connection(conn)
 {
 }

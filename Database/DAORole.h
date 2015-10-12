@@ -7,11 +7,11 @@
 class DAORole : public DAO
 {
 public:
-	DAORole(BaseConnection conn) :
+	DAORole(MySQLAccess conn) :
 		DAO(conn)
 	{
 	}
-	
+
 	//Getters
 
 	virtual Entity * getById(unsigned id) const;
