@@ -38,5 +38,5 @@ Role DAORole::getByName(string name) const
 		cerr << exp.what() << endl;
 	}
 
-	return Role(0, "0");
+	return Role();
 }

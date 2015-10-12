@@ -46,7 +46,7 @@ Group DAOGroup::getByName(string name) const
 		cerr << exp.what() << endl;
 	}
 
-	return Group(0, "0");
+	return Group();
 }
 
 //Setters

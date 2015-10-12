@@ -59,11 +59,11 @@ public:
 	void setRoleID(unsigned int id) { this->role.setID(id); }
 	unsigned int getRoleID() const { return this->role.getID(); }
 
-	void setname(str fName) { this->name = fName; }
-	str getname() const { return this->name; }
+	void setName(str fName) { this->name = fName; }
+	str getName() const { return this->name; }
 
-	void setsurname(str lName) { this->surname = lName; }
-	str getsurname() const { return this->surname; }
+	void setSurname(str lName) { this->surname = lName; }
+	str getSurname() const { return this->surname; }
 
 	void setStatus(str status) { this->role.setName(status); }
 	str getStatus() const { return this->role.getName(); }

@@ -16,7 +16,7 @@ Entity * DAOUser::getById(unsigned id) const
 		auto_ptr<ResultSet> res = connection.getResultSet();
 		Role *role = dynamic_cast<Role*>(DAORole(connection).getById(res->getInt("role")));
 
-		User *user =  new User(res->getInt("id"), role->getID(), role->getStatus(),
+		User *user =  new User(res->getInt("id"), role->getID(), role->getName(),
 			res->getString("name").asStdString(), res->getString("surname").asStdString(),
 			res->getString("login").asStdString(), res->getString("password").asStdString());
 
@@ -48,7 +48,7 @@ vector<User> DAOUser::getByName(string name) const
 		{
 			Role *role = dynamic_cast<Role*>(DAORole(connection).getById(res->getInt("role")));
 
-			User user(unsigned(res->getInt("id")), role->getID(), role->getStatus(),
+			User user(unsigned(res->getInt("id")), role->getID(), role->getName(),
 				res->getString("name").asStdString(), res->getString("surname").asStdString(),
 				res->getString("login").asStdString(), res->getString("password").asStdString());
 
@@ -81,7 +81,7 @@ vector<User> DAOUser::getBySurname(string surname) const
 		{
 			Role *role = dynamic_cast<Role*>(DAORole(connection).getById(res->getInt("role")));
 
-			User user(unsigned(res->getInt("id")), role->getID(), role->getStatus(),
+			User user(unsigned(res->getInt("id")), role->getID(), role->getName(),
 				res->getString("name").asStdString(), res->getString("surname").asStdString(),
 				res->getString("login").asStdString(), res->getString("password").asStdString());
 
@@ -114,7 +114,7 @@ vector<User> DAOUser::getByFullName(string name, string surname) const
 		{
 			Role *role = dynamic_cast<Role*>(DAORole(connection).getById(res->getInt("role")));
 
-			User user(unsigned(res->getInt("id")), role->getID(), role->getStatus(),
+			User user(unsigned(res->getInt("id")), role->getID(), role->getName(),
 				res->getString("name").asStdString(), res->getString("surname").asStdString(),
 				res->getString("login").asStdString(), res->getString("password").asStdString());
 
@@ -147,7 +147,7 @@ vector<User> DAOUser::getByGroup(string group) const
 		{
 			Role *role = dynamic_cast<Role*>(DAORole(connection).getById(res->getInt("role")));
 
-			User user(unsigned(res->getInt("id")), role->getID(), role->getStatus(),
+			User user(unsigned(res->getInt("id")), role->getID(), role->getName(),
 				res->getString("name").asStdString(), res->getString("surname").asStdString(),
 				res->getString("login").asStdString(), res->getString("password").asStdString());
 
@@ -173,7 +173,7 @@ void DAOUser::addUser(const User& user) const
 {
 	try
 	{
-		connection.execute("INSERT INTO users (name, surname, role) VALUES ('" + user.getFirstName() + "', '" + user.getLastName() + "', " + std::to_string(user.getRoleID()) + ")");
+		connection.execute("INSERT INTO users (name, surname, role) VALUES ('" + user.getName() + "', '" + user.getSurname() + "', " + std::to_string(user.getRoleID()) + ")");
 	} catch (SQLException& exp)
 	{
 		cerr << "An SQL exception in DAOUser::addUser() occured.\n";

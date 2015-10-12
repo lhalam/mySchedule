@@ -6,4 +6,6 @@
 int main()
 {
 	webserver(8080, Request_Handler);
+
+	return 0;
 }
