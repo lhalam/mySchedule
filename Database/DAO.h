@@ -17,7 +17,7 @@
 #include <cppconn/statement.h>
 #include <cppconn/prepared_statement.h>
 
-#include "../Entity.h"
+#include "Entity.h"
 #include "BaseConnection.h"
 
 using std::string;

@@ -18,7 +18,7 @@ public:
 	{
 	}
 	
-	virtual void setID(uni id) = 0;
+	virtual void setID(uni) = 0;
 
 	virtual uni getID() const = 0;
 

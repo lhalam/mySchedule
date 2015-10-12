@@ -1,7 +1,7 @@
 #pragma once
 
 #include "DAO.h"
-#include "../Group.h"
+#include "Group.h"
 
 class DAOGroup : public DAO
 {

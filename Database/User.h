@@ -9,8 +9,9 @@ private:
 	Role role;
 	str firstName;
 	str lastName;
+	str login;
 	str password;
-
+	
 public:
 	User(
 		unsigned int personalID,
@@ -18,6 +19,7 @@ public:
 		str roleStatus,
 		str fName,
 		str lName,
+		str personalLogin,
 		str personalPassword
 		) :
 
@@ -25,8 +27,33 @@ public:
 		role(roleID, roleStatus),
 		firstName(fName),
 		lastName(lName),
-		password(personalPassword)
+		password(personalPassword),
+		login(personalLogin)
 	{
+	}
+
+	User(const User& user) :
+		Entity(user.id),
+		role(user.role),
+		firstName(user.firstName),
+		lastName(user.lastName),
+		password(user.password),
+		login(user.login)
+	{
+	}
+
+	User& operator = (const User& user)
+	{
+		if (!(this->equals(user)))
+		{
+			this->id = user.id;
+			this->role = user.role;
+			this->firstName = user.firstName;
+			this->lastName = user.lastName;
+			this->password = user.password;
+			this->login = user.login;
+		}
+		return (*this);
 	}
 
 	void setID(unsigned int id_) { this->id = id_; }
@@ -47,4 +74,23 @@ public:
 	void setPassword(str pass) { this->password = pass; }
 	str getPassword() const { return this->password; }
 
+	void setLogin(str l) { this->login = l; }
+	str getLogin() const { return this->login; }
+
+	bool equals(const User& user)
+	{
+		if (this->id != user.id)
+			return false;
+
+		if (!(this->role.equals(user.role)))
+			return false;
+
+		if (this->firstName != user.firstName || this->lastName != user.lastName)
+			return false;
+
+		if (this->login != user.login)
+			return false;
+
+		return true;
+	}
 };
