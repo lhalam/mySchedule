@@ -3,10 +3,10 @@
 #include "DAO.h"
 #include "Schedule.h"
 
-class DAOSchedule : public DAO
+class DAOAssignment : public DAO
 {
 public:
-	DAOSchedule(BaseConnection conn);
+	DAOAssignment(BaseConnection conn);
 
 	//Getters
 

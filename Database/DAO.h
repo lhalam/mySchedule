@@ -35,7 +35,8 @@ class DAO
 protected:
 	BaseConnection connection;
 public:
-	virtual Entity getById(unsigned id) = 0;
+	//Returns a poiter which must be deleted afterwards
+	virtual Entity * getById(unsigned id) const = 0;
 	
 protected:
 	DAO(BaseConnection conn);
