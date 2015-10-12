@@ -1,15 +1,20 @@
 #include "DAOUser.h"
+#include "DAORole.h"
 
 DAOUser::DAOUser(BaseConnection conn):
 	DAO(conn)
 {
 }
-Entity DAOUser::getById(unsigned id) const
+
+Entity * DAOUser::getById(unsigned id) const
 {
 	try
 	{
-		auto_ptr<ResultSet> res = connection.execute("select (id, name, surname, role) from users where id='" + std::to_string(id) + "'");
-		return User(res->getInt("id"), res->getString("name"), res->getString("surname"), res->getInt("role"));
+		auto_ptr<ResultSet> res = connection.execute("select (id, login, password, name, surname, role) from users where id='" + std::to_string(id) + "'");
+		Role *role = dynamic_cast<Role*>(DAORole(connection).getById(res->getInt("role")));
+		User *user =  new User(unsigned(res->getInt("id")), role->getID(), role->getStatus(), res->getString("name"), res->getString("surname"), res->getString("password"));
+		delete role;
+		return user;
 	} catch (SQLException& exp)
 	{
 		cerr << "An SQL exception in DAOUser::getById() occured.\n";
@@ -20,7 +25,7 @@ Entity DAOUser::getById(unsigned id) const
 		cerr << exp.what() << endl;
 	}
 
-	return User();
+	return nullptr;
 }
 
 vector<User> DAOUser::getByName(string name) const

@@ -10,7 +10,7 @@ public:
 
 	//Getters
 
-	Entity getById(unsigned id) const;
+	virtual Entity * getById(unsigned id) const;
 	vector<User> getByName(string name) const;
 	vector<User> getBySurname(string name) const;
 	vector<User> getByFullName(string name, string surname) const;
