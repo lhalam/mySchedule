@@ -2,7 +2,7 @@
 
 //Getters
 
-Entity * DAOGroup::getById(BaseConnection connection, unsigned id) const
+Entity * DAOGroup::getById(MySQLAccess connection, unsigned id) const
 {
 	try
 	{
@@ -23,7 +23,7 @@ Entity * DAOGroup::getById(BaseConnection connection, unsigned id) const
 	return nullptr;
 }
 
-Group DAOGroup::getByName(BaseConnection connection, string name) const
+Group DAOGroup::getByName(MySQLAccess connection, string name) const
 {
 	try
 	{
@@ -46,7 +46,7 @@ Group DAOGroup::getByName(BaseConnection connection, string name) const
 
 //Setters
 
-void DAOGroup::addGroup(BaseConnection connection, const Group& group) const
+void DAOGroup::addGroup(MySQLAccess connection, const Group& group) const
 {
 	try
 	{
@@ -62,7 +62,7 @@ void DAOGroup::addGroup(BaseConnection connection, const Group& group) const
 	}
 }
 
-void DAOGroup::updateName(BaseConnection connection, const Group& group, string newName) const
+void DAOGroup::updateName(MySQLAccess connection, const Group& group, string newName) const
 {
 	try
 	{

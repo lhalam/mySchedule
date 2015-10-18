@@ -3,7 +3,7 @@
 
 //Getters
 
-Entity * DAOUser::getById(BaseConnection connection, unsigned id) const
+Entity * DAOUser::getById(MySQLAccess connection, unsigned id) const
 {
 	try
 	{
@@ -24,7 +24,7 @@ Entity * DAOUser::getById(BaseConnection connection, unsigned id) const
 	return nullptr;
 }
 
-vector<User> DAOUser::getByName(BaseConnection connection, string name) const
+vector<User> DAOUser::getByName(MySQLAccess connection, string name) const
 {
 	vector<User> result;
 
@@ -51,7 +51,7 @@ vector<User> DAOUser::getByName(BaseConnection connection, string name) const
 	return result;
 }
 
-vector<User> DAOUser::getBySurname(BaseConnection connection, string surname) const
+vector<User> DAOUser::getBySurname(MySQLAccess connection, string surname) const
 {
 	vector<User> result;
 
@@ -78,7 +78,7 @@ vector<User> DAOUser::getBySurname(BaseConnection connection, string surname) co
 	return result;
 }
 
-vector<User> DAOUser::getByFullName(BaseConnection connection, string name, string surname) const
+vector<User> DAOUser::getByFullName(MySQLAccess connection, string name, string surname) const
 {
 	vector<User> result;
 
@@ -105,7 +105,7 @@ vector<User> DAOUser::getByFullName(BaseConnection connection, string name, stri
 	return result;
 }
 
-vector<User> DAOUser::getByGroup(BaseConnection connection, string group) const
+vector<User> DAOUser::getByGroup(MySQLAccess connection, string group) const
 {
 	vector<User> result;
 
@@ -135,7 +135,7 @@ vector<User> DAOUser::getByGroup(BaseConnection connection, string group) const
 
 //Setters
 
-void DAOUser::addUser(BaseConnection connection, const User& user) const
+void DAOUser::addUser(MySQLAccess connection, const User& user) const
 {
 	try
 	{
@@ -151,7 +151,7 @@ void DAOUser::addUser(BaseConnection connection, const User& user) const
 	}
 }
 
-void DAOUser::updateName(BaseConnection connection, const User& user, string newName) const
+void DAOUser::updateName(MySQLAccess connection, const User& user, string newName) const
 {
 	try
 	{
@@ -167,7 +167,7 @@ void DAOUser::updateName(BaseConnection connection, const User& user, string new
 	}
 }
 
-void DAOUser::updateSurname(BaseConnection connection, const User& user, string newSurname) const
+void DAOUser::updateSurname(MySQLAccess connection, const User& user, string newSurname) const
 {
 	try
 	{
@@ -183,7 +183,7 @@ void DAOUser::updateSurname(BaseConnection connection, const User& user, string 
 	}
 }
 
-void DAOUser::updateRole(BaseConnection connection, const User& user, int newRole) const
+void DAOUser::updateRole(MySQLAccess connection, const User& user, int newRole) const
 {
 	/*
 		check availability of the role newRole

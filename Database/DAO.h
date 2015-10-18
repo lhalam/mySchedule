@@ -33,6 +33,6 @@ using sql::SQLException;
 class DAO
 {
 public:
-	//Returns a poiter which must be deleted afterwards (What??)
+	//Returns a poiter which must be deleted afterwards (What??) (What "What"??)
 	virtual Entity * getById(BaseConnection connection, unsigned id) const = 0;
 };
