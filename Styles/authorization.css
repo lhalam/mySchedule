@@ -1,37 +1,35 @@
-.bdrform_tabl { 
-      background-color: whiteSmoke; 
-      padding: 14px 16px 16px 18px; 
-      border: 1px solid #DFDFDF; 
-      border-radius: 10px; 
+html {
+    background-color: white; 
+    padding: 140px;  
+    border-radius: 10px; 
+    font-family: sans-serif;
+    font-weight: bold;
+    text-align: center;
 } 
 
 form { 
-      display: block; 
-      margin-top: 0em; 
+    display: block; 
+    color: black; 
+    border: 5px solid;
+    border-color: black;
+    padding: 14px 16px 16px 18px; 
+    border-radius: 20px; 
+    border-bottom-width: medium;
 } 
 
-table#bdr_w td.bt1 { 
-      border-top: 1px solid 
-      white; 
-} 
+input {
+    border-color: black;
+    border-left-color: grey;
+    border-radius: 20px;
+    font-size: 1em;
+    text-indent: 10px;
+}
 
-table#bdr_w td { 
-      padding-bottom: 8px; 
-      padding-top: 8px; 
-} 
-
-.formreg td { 
-      height: 35px; 
-      padding: 0 4px 6px 0; 
-} 
-
-// Прихований блок для відображення помилок при вводі інформації 
-#messenger { 
-      width: 90%; 
-      margin: 5px 0px; 
-      padding: 5px; 
-      border: #F06 dotted 1px; 
-      background: #F7CAE0; 
-      border-radius: 7px; 
-      display: none; 
+button {
+    border-radius: 20px;
+    border-color: black;
+    border-left-color: grey;
+    padding: 7px;
+    border-bottom: 10px;
+    font-weight: bold;
 }
