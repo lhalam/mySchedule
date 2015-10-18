@@ -33,3 +33,17 @@ button {
     border-bottom: 10px;
     font-weight: bold;
 }
+
+.hide {
+    display: none; 
+}
+
+.hide + label ~ div {
+    display: none;
+}
+
+.hide:checked + label + div {
+    display: flex;
+    margin-left: 395px;
+    padding: 10px; 
+}
