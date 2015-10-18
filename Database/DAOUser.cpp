@@ -1,14 +1,9 @@
 #include "DAOUser.h"
 #include "DAORole.h"
 
-DAOUser::DAOUser(MySQLAccess conn):
-	DAO(conn)
-{
-}
-
 //Getters
 
-Entity * DAOUser::getById(unsigned id) const
+Entity * DAOUser::getById(BaseConnection connection, unsigned id) const
 {
 	try
 	{
@@ -29,7 +24,7 @@ Entity * DAOUser::getById(unsigned id) const
 	return nullptr;
 }
 
-vector<User> DAOUser::getByName(string name) const
+vector<User> DAOUser::getByName(BaseConnection connection, string name) const
 {
 	vector<User> result;
 
@@ -56,7 +51,7 @@ vector<User> DAOUser::getByName(string name) const
 	return result;
 }
 
-vector<User> DAOUser::getBySurname(string surname) const
+vector<User> DAOUser::getBySurname(BaseConnection connection, string surname) const
 {
 	vector<User> result;
 
@@ -83,7 +78,7 @@ vector<User> DAOUser::getBySurname(string surname) const
 	return result;
 }
 
-vector<User> DAOUser::getByFullName(string name, string surname) const
+vector<User> DAOUser::getByFullName(BaseConnection connection, string name, string surname) const
 {
 	vector<User> result;
 
@@ -110,7 +105,7 @@ vector<User> DAOUser::getByFullName(string name, string surname) const
 	return result;
 }
 
-vector<User> DAOUser::getByGroup(string group) const
+vector<User> DAOUser::getByGroup(BaseConnection connection, string group) const
 {
 	vector<User> result;
 
@@ -140,7 +135,7 @@ vector<User> DAOUser::getByGroup(string group) const
 
 //Setters
 
-void DAOUser::addUser(const User& user) const
+void DAOUser::addUser(BaseConnection connection, const User& user) const
 {
 	try
 	{
@@ -156,7 +151,7 @@ void DAOUser::addUser(const User& user) const
 	}
 }
 
-void DAOUser::updateName(const User& user, string newName) const
+void DAOUser::updateName(BaseConnection connection, const User& user, string newName) const
 {
 	try
 	{
@@ -172,7 +167,7 @@ void DAOUser::updateName(const User& user, string newName) const
 	}
 }
 
-void DAOUser::updateSurname(const User& user, string newSurname) const
+void DAOUser::updateSurname(BaseConnection connection, const User& user, string newSurname) const
 {
 	try
 	{
@@ -188,7 +183,7 @@ void DAOUser::updateSurname(const User& user, string newSurname) const
 	}
 }
 
-void DAOUser::updateRole(const User& user, int newRole) const
+void DAOUser::updateRole(BaseConnection connection, const User& user, int newRole) const
 {
 	/*
 		check availability of the role newRole

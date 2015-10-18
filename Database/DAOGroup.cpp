@@ -1,13 +1,8 @@
 #include "DAOGroup.h"
 
-DAOGroup::DAOGroup(MySQLAccess conn) :
-	DAO(conn)
-{
-}
-
 //Getters
 
-Entity * DAOGroup::getById(unsigned id) const
+Entity * DAOGroup::getById(BaseConnection connection, unsigned id) const
 {
 	try
 	{
@@ -28,7 +23,7 @@ Entity * DAOGroup::getById(unsigned id) const
 	return nullptr;
 }
 
-Group DAOGroup::getByName(string name) const
+Group DAOGroup::getByName(BaseConnection connection, string name) const
 {
 	try
 	{
@@ -51,7 +46,7 @@ Group DAOGroup::getByName(string name) const
 
 //Setters
 
-void DAOGroup::addGroup(const Group& group) const
+void DAOGroup::addGroup(BaseConnection connection, const Group& group) const
 {
 	try
 	{
@@ -67,7 +62,7 @@ void DAOGroup::addGroup(const Group& group) const
 	}
 }
 
-void DAOGroup::updateName(const Group& group, string newName) const
+void DAOGroup::updateName(BaseConnection connection, const Group& group, string newName) const
 {
 	try
 	{
