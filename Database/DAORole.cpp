@@ -7,7 +7,7 @@ Entity * DAORole::getById(unsigned id) const
 		connection.execute("select (id, name) from roles where id='" + std::to_string(id) + "'");
 		auto_ptr<ResultSet> res = connection.getResultSet();
 
-		return new Role(unsigned(res->getInt("id")), res->getString("name"));
+		return new Role(res.get());
 	} catch (SQLException& exp)
 	{
 		cerr << "An SQL exception in DAORole::getById() occured.\n";
@@ -27,7 +27,8 @@ Role DAORole::getByName(string name) const
 	{
 		connection.execute("select (id, name) from roles where name='" + name + "'");
 		auto_ptr<ResultSet> res = connection.getResultSet();
-		return Role(unsigned(res->getInt("id")), res->getString("name"));
+
+		return Role(res.get());
 	} catch (SQLException& exp)
 	{
 		cerr << "An SQL exception in DAORole::getByName() occured.\n";

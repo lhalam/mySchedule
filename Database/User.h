@@ -24,34 +24,32 @@ public:
 	}
 
 	User(
-		unsigned int personalID,
-		unsigned int roleID,
-		str roleStatus,
+		unsigned int ID,
+		Role r,
 		str fName,
 		str lName,
 		str personalLogin,
 		str personalPassword
 		) :
 
-		Entity(personalID),
-		role(roleID, roleStatus),
+		Entity(ID),
+		role(r),
 		name(fName),
 		surname(lName),
-		password(personalPassword),
-		login(personalLogin)
+		login(personalLogin),
+		password(personalPassword)
 	{
 	}
 
-	User(const User& user) :
-		Entity(user.id),
-		role(user.role),
-		name(user.name),
-		surname(user.surname),
-		password(user.password),
-		login(user.login)
+	User(const ResultSet *res) :
+		Entity(res),
+		role(res),
+		name(res->getString("name").asStdString()),
+		surname(res->getString("surname").asStdString()),
+		login(res->getString("login").asStdString()),
+		password(res->getString("password").asStdString())
 	{
 	}
-
 
 	void setID(unsigned int id_) { this->id = id_; }
 	unsigned int getID() const { return this->id; }
@@ -73,5 +71,4 @@ public:
 
 	void setLogin(str l) { this->login = l; }
 	str getLogin() const { return this->login; }
-
 };

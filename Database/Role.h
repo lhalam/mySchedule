@@ -12,7 +12,7 @@ private:
 public:
 	Role() :
 		Entity(),
-		name(str())
+		name()
 	{
 	}
 
@@ -26,17 +26,15 @@ public:
 	{
 	}
 
-	Role(const Role& role) :
-		Entity(role.id),
-		name(role.name)
+	Role(const ResultSet *res) :
+		Entity(res),
+		name(res->getString("name").asStdString())
 	{
 	}
-
 
 	void setID(unsigned int id_) { this->id = id_; }
 	unsigned int getID() const { return this->id; }
 
 	void setName(str st) { this->name = st; }
 	str getName() const { return this->name; }
-
 };

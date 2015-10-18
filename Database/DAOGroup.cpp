@@ -14,7 +14,7 @@ Entity * DAOGroup::getById(unsigned id) const
 		connection.execute("select (id, name) from groups where id=" + std::to_string(id));
 		auto_ptr<ResultSet> res = connection.getResultSet();
 
-		return new Group(res->getInt("id"), res->getString("name"));
+		return new Group(res.get());
 	} catch (SQLException& exp)
 	{
 		cerr << "An SQL exception in DAOGroup::getById() occured.\n";
@@ -35,7 +35,7 @@ Group DAOGroup::getByName(string name) const
 		connection.execute("select (id, name) from groups where name=" + name);
 		auto_ptr<ResultSet> res = connection.getResultSet();
 
-		return Group(res->getInt("id"), res->getString("name"));
+		return Group(res.get());
 	} catch (SQLException& exp)
 	{
 		cerr << "An SQL exception in DAOGroup::getByName() occured.\n";

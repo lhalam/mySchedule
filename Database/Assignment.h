@@ -33,11 +33,11 @@ public:
 	{
 	}
 
-	Assignment(const Assignment& h_a) :
-		Entity(h_a.id),
-		subjectName(h_a.subjectName),
-		group(h_a.group),
-		lecturer(h_a.lecturer)
+	Assignment(const ResultSet *res) :
+		Entity(res),
+		subjectName(res->getString("name").asStdString()),
+		group(res),
+		lecturer(res)
 	{
 	}
 

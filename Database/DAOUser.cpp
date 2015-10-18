@@ -14,14 +14,8 @@ Entity * DAOUser::getById(unsigned id) const
 	{
 		connection.execute("select (id, login, password, name, surname, role) from users where id='" + std::to_string(id) + "'");
 		auto_ptr<ResultSet> res = connection.getResultSet();
-		Role *role = dynamic_cast<Role*>(DAORole(connection).getById(res->getInt("role")));
 
-		User *user =  new User(res->getInt("id"), role->getID(), role->getName(),
-			res->getString("name").asStdString(), res->getString("surname").asStdString(),
-			res->getString("login").asStdString(), res->getString("password").asStdString());
-
-		delete role;
-		return user;
+		return new User(res.get());
 	} catch (SQLException& exp)
 	{
 		cerr << "An SQL exception in DAOUser::getById() occured.\n";
@@ -46,13 +40,7 @@ vector<User> DAOUser::getByName(string name) const
 
 		while (res->next())
 		{
-			Role *role = dynamic_cast<Role*>(DAORole(connection).getById(res->getInt("role")));
-
-			User user(unsigned(res->getInt("id")), role->getID(), role->getName(),
-				res->getString("name").asStdString(), res->getString("surname").asStdString(),
-				res->getString("login").asStdString(), res->getString("password").asStdString());
-
-			delete role;
+			User user(res.get());
 			result.push_back(user);
 		}
 	} catch (SQLException& exp)
@@ -79,13 +67,7 @@ vector<User> DAOUser::getBySurname(string surname) const
 
 		while (res->next())
 		{
-			Role *role = dynamic_cast<Role*>(DAORole(connection).getById(res->getInt("role")));
-
-			User user(unsigned(res->getInt("id")), role->getID(), role->getName(),
-				res->getString("name").asStdString(), res->getString("surname").asStdString(),
-				res->getString("login").asStdString(), res->getString("password").asStdString());
-
-			delete role;
+			User user(res.get());
 			result.push_back(user);
 		}
 	} catch (SQLException& exp)
@@ -112,13 +94,7 @@ vector<User> DAOUser::getByFullName(string name, string surname) const
 
 		while (res->next())
 		{
-			Role *role = dynamic_cast<Role*>(DAORole(connection).getById(res->getInt("role")));
-
-			User user(unsigned(res->getInt("id")), role->getID(), role->getName(),
-				res->getString("name").asStdString(), res->getString("surname").asStdString(),
-				res->getString("login").asStdString(), res->getString("password").asStdString());
-
-			delete role;
+			User user(res.get());
 			result.push_back(user);
 		}
 	} catch (SQLException& exp)
@@ -145,13 +121,8 @@ vector<User> DAOUser::getByGroup(string group) const
 
 		while (res->next())
 		{
-			Role *role = dynamic_cast<Role*>(DAORole(connection).getById(res->getInt("role")));
+			User user(res.get());
 
-			User user(unsigned(res->getInt("id")), role->getID(), role->getName(),
-				res->getString("name").asStdString(), res->getString("surname").asStdString(),
-				res->getString("login").asStdString(), res->getString("password").asStdString());
-
-			delete role;
 			result.push_back(user);
 		}
 	} catch (SQLException& exp)
