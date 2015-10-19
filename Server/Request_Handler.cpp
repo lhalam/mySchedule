@@ -122,6 +122,63 @@ void Request_Handler(webserver::http_request* r)
 
 
 	}
+	
+	else if (r->path_ == "/registerpage")
+ 	{
+		map<string, string> params;
+		params = r->params_;
+		MySQLAccess connection = MySQLManager::getInstance("MySchedule", "", "", 10).getConnection();
+
+    		User user;
+
+		for (auto i = params.begin(); i != params.end(); i++)
+		{
+			if (i->first == name)
+			{
+				user.setName(i->second);
+			}
+
+			if (i->first == surname)
+			{
+				user.setSurname(i->second);
+			}
+
+			if (i->first == status)
+			{
+				user.setStatus(i->second);
+			}
+
+			if (i->first == password)
+			{
+				user.setPassword(i->second);
+			}
+		}
+
+		for (auto i = params.begin(); i != params.end(); i++)
+		{
+			user = DAOUser().getByLogin(connection, i->second);
+			if (user.getLogin() != i->second)
+			{
+				++i;
+				status = true;
+				DAOUser::getInstance().add(connect, user);
+			
+			}
+	
+		}
+
+		if (status)
+		{
+			r->answer_ = ("true");
+		}
+
+		else
+		{
+			r->answer_ = ("false");
+		}
+
+
+	}
 	else
 	{
 		r->status_ = "404 Not Found";
