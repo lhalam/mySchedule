@@ -2,6 +2,8 @@
 #include <vector>
 #include <string>
 
+#include "MySQLAccess.h"
+
 using std::vector;
 using std::string;
 

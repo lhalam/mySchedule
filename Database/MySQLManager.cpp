@@ -10,6 +10,7 @@ MySQLManager::MySQLManager(string database, string user, string password, unsign
 	password(password)
 {
 }
+
 MySQLManager& MySQLManager::getInstance(string database, string user, string password, unsigned int maxNumOfConnections)
 {
 	static MySQLManager manager(database, user, password, maxNumOfConnections);
@@ -20,7 +21,7 @@ MySQLAccess MySQLManager::getConnection()
 {
 	if (numberOfConnections() < maxNumOfConnections)
 	{
-		MySQLAccess newConnection();
+		MySQLAccess newConnection(database, user, password);
 		connections.push_back(newConnection);
 
 		return newConnection;
