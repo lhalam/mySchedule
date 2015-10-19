@@ -1,6 +1,6 @@
 #pragma once
 
-#include <cstdlib>
+#include <stdlib.h>
 #include <iostream>
 #include <sstream>
 #include <stdexcept>
@@ -18,13 +18,19 @@ using namespace std;
 
 class MySQLAccess {
 public:
-	MySQLAccess(const string, const string, const string);
+	MySQLAccess(const string, const string, const string, const string);
+	//MySQLAccess(const MySQLAccess&);
+	//MySQLAccess& operator=(const MySQLAccess&);
 	~MySQLAccess();
-	sql::Connection* getConnection();
+	void close();
 	bool execute(const sql::SQLString&);
-	auto_ptr<sql::ResultSet> getResultSet();
+	int executeUpdate(const sql::SQLString&);
+	sql::ResultSet* executeQuery(const sql::SQLString&);
+	
 
 private:
+	void exceptionResult(sql::SQLException&);
+
 	auto_ptr<sql::Connection> con;
 	auto_ptr<sql::Statement> stmt;
 };
