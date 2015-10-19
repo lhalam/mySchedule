@@ -9,7 +9,7 @@ const DAOUser& DAOUser::getInstance()
 
 //Getters
 
-Entity * DAOUser::getById(MySQLAccess connection, unsigned id) const
+Entity * DAOUser::getById(MySQLAccess& connection, unsigned id) const
 {
 	try
 	{
@@ -30,7 +30,7 @@ Entity * DAOUser::getById(MySQLAccess connection, unsigned id) const
 	return nullptr;
 }
 
-User DAOUser::getByLogin(MySQLAccess connection, string login) const
+User DAOUser::getByLogin(MySQLAccess& connection, string login) const
 {
 	try
 	{
@@ -51,7 +51,7 @@ User DAOUser::getByLogin(MySQLAccess connection, string login) const
 	return User();
 }
 
-vector<User> DAOUser::getByName(MySQLAccess connection, string name) const
+vector<User> DAOUser::getByName(MySQLAccess& connection, string name) const
 {
 	vector<User> result;
 
@@ -78,7 +78,7 @@ vector<User> DAOUser::getByName(MySQLAccess connection, string name) const
 	return result;
 }
 
-vector<User> DAOUser::getBySurname(MySQLAccess connection, string surname) const
+vector<User> DAOUser::getBySurname(MySQLAccess& connection, string surname) const
 {
 	vector<User> result;
 
@@ -105,7 +105,7 @@ vector<User> DAOUser::getBySurname(MySQLAccess connection, string surname) const
 	return result;
 }
 
-vector<User> DAOUser::getByFullName(MySQLAccess connection, string name, string surname) const
+vector<User> DAOUser::getByFullName(MySQLAccess& connection, string name, string surname) const
 {
 	vector<User> result;
 
@@ -132,7 +132,7 @@ vector<User> DAOUser::getByFullName(MySQLAccess connection, string name, string 
 	return result;
 }
 
-vector<User> DAOUser::getByGroup(MySQLAccess connection, string group) const
+vector<User> DAOUser::getByGroup(MySQLAccess& connection, string group) const
 {
 	vector<User> result;
 
@@ -161,7 +161,7 @@ vector<User> DAOUser::getByGroup(MySQLAccess connection, string group) const
 
 //Setters
 
-void DAOUser::add(MySQLAccess connection, const User& user) const
+void DAOUser::add(MySQLAccess& connection, const User& user) const
 {
 	try
 	{
@@ -177,7 +177,7 @@ void DAOUser::add(MySQLAccess connection, const User& user) const
 	}
 }
 
-void DAOUser::updateLogin(MySQLAccess connection, const User& user, string newLogin) const
+void DAOUser::updateLogin(MySQLAccess& connection, const User& user, string newLogin) const
 {
 	try
 	{
@@ -193,7 +193,7 @@ void DAOUser::updateLogin(MySQLAccess connection, const User& user, string newLo
 	}
 }
 
-void DAOUser::updateName(MySQLAccess connection, const User& user, string newName) const
+void DAOUser::updateName(MySQLAccess& connection, const User& user, string newName) const
 {
 	try
 	{
@@ -209,7 +209,7 @@ void DAOUser::updateName(MySQLAccess connection, const User& user, string newNam
 	}
 }
 
-void DAOUser::updateSurname(MySQLAccess connection, const User& user, string newSurname) const
+void DAOUser::updateSurname(MySQLAccess& connection, const User& user, string newSurname) const
 {
 	try
 	{
@@ -225,7 +225,7 @@ void DAOUser::updateSurname(MySQLAccess connection, const User& user, string new
 	}
 }
 
-void DAOUser::updateRole(MySQLAccess connection, const User& user, int newRole) const
+void DAOUser::updateRole(MySQLAccess& connection, const User& user, int newRole) const
 {
 	try
 	{

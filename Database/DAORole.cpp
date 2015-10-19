@@ -1,10 +1,16 @@
 #include "DAORole.h"
 
-Entity * DAORole::getById(unsigned id) const
+const DAORole& DAORole::getInstance()
+{
+	static DAORole instance;
+	return instance;
+}
+
+Entity * DAORole::getById(MySQLAccess& connection, unsigned id) const
 {
 	try
 	{
-		connection.execute("select (id, name) from roles where id='" + std::to_string(id) + "'");
+		connection.execute("select (id, name) from role where id='" + std::to_string(id) + "'");
 		auto_ptr<ResultSet> res = connection.getResultSet();
 
 		return new Role(res.get());
@@ -21,11 +27,11 @@ Entity * DAORole::getById(unsigned id) const
 	return nullptr;
 }
 
-Role DAORole::getByName(string name) const
+Role DAORole::getByName(MySQLAccess& connection, string name) const
 {
 	try
 	{
-		connection.execute("select (id, name) from roles where name='" + name + "'");
+		connection.execute("select (id, name) from role where name='" + name + "'");
 		auto_ptr<ResultSet> res = connection.getResultSet();
 
 		return Role(res.get());
@@ -40,4 +46,36 @@ Role DAORole::getByName(string name) const
 	}
 
 	return Role();
+}
+
+void DAORole::add(MySQLAccess& connection, const Role& role) const
+{
+	try
+	{
+		connection.execute("INSERT INTO role (name) VALUES ('" + role.getName() + "')");
+	} catch (SQLException& exp)
+	{
+		cerr << "An SQL exception in DAORole::add() occured.\n";
+		cerr << exp.what() << endl;
+	} catch (exception& exp)
+	{
+		cerr << "An exception in DAORole::add() occured.\n";
+		cerr << exp.what() << endl;
+	}
+}
+
+void DAORole::updateName(MySQLAccess& connection, const Role& role, string newName) const
+{
+	try
+	{
+		connection.execute("UPDATE role SET name='" + newName + "' WHERE id=" + std::to_string(role.getID()));
+	} catch (SQLException& exp)
+	{
+		cerr << "An SQL exception in DAORole::updateName() occured.\n";
+		cerr << exp.what() << endl;
+	} catch (exception& exp)
+	{
+		cerr << "An exception in DAORole::updateName() occured.\n";
+		cerr << exp.what() << endl;
+	}
 }

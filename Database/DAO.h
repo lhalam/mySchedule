@@ -34,5 +34,5 @@ class DAO
 {
 public:
 	//Returns a poiter which must be deleted afterwards
-	virtual Entity * getById(MySQLAccess connection, unsigned id) const = 0;
+	virtual Entity * getById(MySQLAccess& connection, unsigned id) const = 0;
 };

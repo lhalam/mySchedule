@@ -1,12 +1,18 @@
 #include "DAOGroup.h"
 
+const DAOGroup& DAOGroup::getInstance()
+{
+	static DAOGroup instance;
+	return instance;
+}
+
 //Getters
 
-Entity * DAOGroup::getById(MySQLAccess connection, unsigned id) const
+Entity * DAOGroup::getById(MySQLAccess& connection, unsigned id) const
 {
 	try
 	{
-		connection.execute("select (id, name) from groups where id=" + std::to_string(id));
+		connection.execute("select (id, name) from group where id=" + std::to_string(id));
 		auto_ptr<ResultSet> res = connection.getResultSet();
 
 		return new Group(res.get());
@@ -23,11 +29,11 @@ Entity * DAOGroup::getById(MySQLAccess connection, unsigned id) const
 	return nullptr;
 }
 
-Group DAOGroup::getByName(MySQLAccess connection, string name) const
+Group DAOGroup::getByName(MySQLAccess& connection, string name) const
 {
 	try
 	{
-		connection.execute("select (id, name) from groups where name=" + name);
+		connection.execute("select (id, name) from group where name=" + name);
 		auto_ptr<ResultSet> res = connection.getResultSet();
 
 		return Group(res.get());
@@ -46,27 +52,27 @@ Group DAOGroup::getByName(MySQLAccess connection, string name) const
 
 //Setters
 
-void DAOGroup::addGroup(MySQLAccess connection, const Group& group) const
+void DAOGroup::add(MySQLAccess& connection, const Group& group) const
 {
 	try
 	{
-		connection.execute("INSERT INTO groups (name) VALUES ('" + group.getName() + ")");
+		connection.execute("INSERT INTO group (name) VALUES ('" + group.getName() + ")");
 	} catch (SQLException& exp)
 	{
-		cerr << "An SQL exception in DAOUGroup::addGroup() occured.\n";
+		cerr << "An SQL exception in DAOUGroup::add() occured.\n";
 		cerr << exp.what() << endl;
 	} catch (exception& exp)
 	{
-		cerr << "An exception in DAOUGroup::addGroup() occured.\n";
+		cerr << "An exception in DAOUGroup::add() occured.\n";
 		cerr << exp.what() << endl;
 	}
 }
 
-void DAOGroup::updateName(MySQLAccess connection, const Group& group, string newName) const
+void DAOGroup::updateName(MySQLAccess& connection, const Group& group, string newName) const
 {
 	try
 	{
-		connection.execute("UPDATE groups SET name='" + newName + "' WHERE id=" + std::to_string(group.getID()));
+		connection.execute("UPDATE group SET name='" + newName + "' WHERE id=" + std::to_string(group.getID()));
 	} catch (SQLException& exp)
 	{
 		cerr << "An SQL exception in DAOUGroup::updateName() occured.\n";
