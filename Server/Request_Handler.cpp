@@ -100,7 +100,8 @@ void Request_Handler(webserver::http_request* r)
 		for (auto i = params.begin(); i != params.end();i++)
 		{
 			User user; 
-			user = DAOUser().getByLogin(connection, i->second);
+			user = DAOUser::getInstance().getByLogin(connection, i->second);
+			
 			if (user.getLogin() == i->second)
 			{
 				++i;
