@@ -1,41 +1,64 @@
 #include "MySQLAccess.h"
 
-MySQLAccess::MySQLAccess(const string url, const string user, const string pass) {
+void MySQLAccess::exceptionResult(sql::SQLException& e) {
+	/*
+	MySQL Connector/C++ throws three different exceptions:
+	- sql::MethodNotImplementedException (derived from sql::SQLException)
+	- sql::InvalidArgumentException (derived from sql::SQLException)
+	- sql::SQLException (derived from std::runtime_error)
+	*/
+	cout << "# ERR: SQLException in " << __FILE__;
+	cout << "(" << __FUNCTION__ << ") on line " << __LINE__ << endl;
+	/* what() (derived from std::runtime_error) fetches error message */
+	cout << "# ERR: " << e.what();
+	cout << " (MySQL error code: " << e.getErrorCode();
+	cout << ", SQLState: " << e.getSQLState() << " )" << endl;
+}
+
+MySQLAccess::MySQLAccess(const string url, const string user, const string pass, const string db) {
 	try {
 		sql::Driver* driver(get_driver_instance());
 		con = auto_ptr<sql::Connection>(driver->connect(url, user, pass));
+		con->setSchema(db);
 		stmt = auto_ptr<sql::Statement>(con->createStatement());
 	}
-	catch (sql::SQLException &e) {
-		/*
-		MySQL Connector/C++ throws three different exceptions:
-		- sql::MethodNotImplementedException (derived from sql::SQLException)
-		- sql::InvalidArgumentException (derived from sql::SQLException)
-		- sql::SQLException (derived from std::runtime_error)
-		*/
-		cout << "# ERR: SQLException in " << __FILE__;
-		cout << "(" << __FUNCTION__ << ") on line " << __LINE__ << endl;
-		/* what() (derived from std::runtime_error) fetches error message */
-		cout << "# ERR: " << e.what();
-		cout << " (MySQL error code: " << e.getErrorCode();
-		cout << ", SQLState: " << e.getSQLState() << " )" << endl;
+	catch (sql::SQLException& e) {
+		exceptionResult(e);
 	}
+	catch (...) { cout << "WTF"; }
 }
 
 MySQLAccess::~MySQLAccess() {
 	con->close();
 }
 
-sql::Connection* MySQLAccess::getConnection() {
-	return con.get();
+void MySQLAccess::close() {
+	con->close();
 }
 
 bool MySQLAccess::execute(const sql::SQLString& sql) {
-	return stmt->execute(sql);
+	try {
+		return stmt->execute(sql);
+	}
+	catch (sql::SQLException& e) {
+		exceptionResult(e);
+	}
 }
 
-auto_ptr<sql::ResultSet> MySQLAccess::getResultSet() {
-	auto_ptr<sql::ResultSet> retVal;
-	retVal.reset(stmt->getResultSet());
-	return retVal;
+int MySQLAccess::executeUpdate(const sql::SQLString& sql) {
+	try {
+		return stmt->executeUpdate(sql);
+	}
+	catch (sql::SQLException& e) {
+		exceptionResult(e);
+	}
+}
+
+sql::ResultSet* MySQLAccess::executeQuery(const sql::SQLString& sql) {
+	try {
+		return stmt->executeQuery(sql);
+	}
+	catch (sql::SQLException& e) {
+		exceptionResult(e);
+	}
 }
