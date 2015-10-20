@@ -10,12 +10,16 @@ const DAOAssignment& DAOAssignment::getInstance()
 
 Entity * DAOAssignment::getById(MySQLAccess& connection, unsigned id) const
 {
+	ResultSet *res = nullptr;
+
 	try
 	{
-		connection.execute("select (id, name) from assignment where id=" + std::to_string(id));
-		auto_ptr<ResultSet> res = connection.getResultSet();
+		res = connection.executeQuery(
+			"select (id, name) from assignment where id=" + std::to_string(id));
 
-		return new Assignment(res.get());
+		Assignment *assignment = new Assignment(res);
+		delete res;
+		return assignment;
 	} catch (SQLException& exp)
 	{
 		cerr << "An SQL exception in DAOAssignment::getById() occured.\n";
@@ -26,17 +30,22 @@ Entity * DAOAssignment::getById(MySQLAccess& connection, unsigned id) const
 		cerr << exp.what() << endl;
 	}
 
+	delete res;
 	return nullptr;
 }
 
 Assignment DAOAssignment::getByName(MySQLAccess& connection, string name) const
 {
+	ResultSet *res = nullptr;
+
 	try
 	{
-		connection.execute("select (id, name) from assignment where name='" + name + "'");
-		auto_ptr<ResultSet> res = connection.getResultSet();
+		res = connection.executeQuery(
+			"select (id, name) from assignment where name='" + name + "'");
 
-		return Assignment(res.get());
+		Assignment assignment(res);
+		delete res;
+		return assignment;
 	} catch (SQLException& exp)
 	{
 		cerr << "An SQL exception in DAOAssignment::getByName() occured.\n";
@@ -47,6 +56,7 @@ Assignment DAOAssignment::getByName(MySQLAccess& connection, string name) const
 		cerr << exp.what() << endl;
 	}
 
+	delete res;
 	return Assignment();
 }
 

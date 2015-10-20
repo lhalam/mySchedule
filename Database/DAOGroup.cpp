@@ -10,12 +10,16 @@ const DAOGroup& DAOGroup::getInstance()
 
 Entity * DAOGroup::getById(MySQLAccess& connection, unsigned id) const
 {
+	ResultSet *res = nullptr;
+
 	try
 	{
-		connection.execute("select (id, name) from group where id=" + std::to_string(id));
-		auto_ptr<ResultSet> res = connection.getResultSet();
+		res = connection.executeQuery(
+			"select (id, name) from group where id=" + std::to_string(id));
 
-		return new Group(res.get());
+		Group *group = new Group(res);
+		delete res;
+		return group;
 	} catch (SQLException& exp)
 	{
 		cerr << "An SQL exception in DAOGroup::getById() occured.\n";
@@ -26,17 +30,22 @@ Entity * DAOGroup::getById(MySQLAccess& connection, unsigned id) const
 		cerr << exp.what() << endl;
 	}
 
+	delete res;
 	return nullptr;
 }
 
 Group DAOGroup::getByName(MySQLAccess& connection, string name) const
 {
+	ResultSet *res = nullptr;
+
 	try
 	{
-		connection.execute("select (id, name) from group where name=" + name);
-		auto_ptr<ResultSet> res = connection.getResultSet();
+		res = connection.executeQuery(
+			"select (id, name) from group where name=" + name);
 
-		return Group(res.get());
+		Group group(res);
+		delete res;
+		return group;
 	} catch (SQLException& exp)
 	{
 		cerr << "An SQL exception in DAOGroup::getByName() occured.\n";
@@ -47,6 +56,7 @@ Group DAOGroup::getByName(MySQLAccess& connection, string name) const
 		cerr << exp.what() << endl;
 	}
 
+	delete res;
 	return Group();
 }
 

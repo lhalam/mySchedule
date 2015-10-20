@@ -8,12 +8,16 @@ const DAORole& DAORole::getInstance()
 
 Entity * DAORole::getById(MySQLAccess& connection, unsigned id) const
 {
+	ResultSet *res = nullptr;
+
 	try
 	{
-		connection.execute("select (id, name) from role where id='" + std::to_string(id) + "'");
-		auto_ptr<ResultSet> res = connection.getResultSet();
+		res = connection.executeQuery(
+			"select (id, name) from role where id='" + std::to_string(id) + "'");
 
-		return new Role(res.get());
+		Role *role = new Role(res);
+		delete res;
+		return role;
 	} catch (SQLException& exp)
 	{
 		cerr << "An SQL exception in DAORole::getById() occured.\n";
@@ -24,17 +28,22 @@ Entity * DAORole::getById(MySQLAccess& connection, unsigned id) const
 		cerr << exp.what() << endl;
 	}
 
+	delete res;
 	return nullptr;
 }
 
 Role DAORole::getByName(MySQLAccess& connection, string name) const
 {
+	ResultSet *res = nullptr;
+
 	try
 	{
-		connection.execute("select (id, name) from role where name='" + name + "'");
-		auto_ptr<ResultSet> res = connection.getResultSet();
+		res = connection.executeQuery(
+			"select (id, name) from role where name='" + name + "'");
 
-		return Role(res.get());
+		Role role(res);
+		delete res;
+		return role;
 	} catch (SQLException& exp)
 	{
 		cerr << "An SQL exception in DAORole::getByName() occured.\n";
@@ -45,6 +54,7 @@ Role DAORole::getByName(MySQLAccess& connection, string name) const
 		cerr << exp.what() << endl;
 	}
 
+	delete res;
 	return Role();
 }
 

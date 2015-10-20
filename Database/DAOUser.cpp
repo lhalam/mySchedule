@@ -11,12 +11,16 @@ const DAOUser& DAOUser::getInstance()
 
 Entity * DAOUser::getById(MySQLAccess& connection, unsigned id) const
 {
+	ResultSet *res = nullptr;
 	try
 	{
-		connection.execute("select (id, login, password, name, surname, role) from user where id='" + std::to_string(id) + "'");
-		auto_ptr<ResultSet> res = connection.getResultSet();
+		res = connection.executeQuery(
+			"select (id, login, password, name, surname, role) from user "
+			"where id='" + std::to_string(id) + "'");
 
-		return new User(res.get());
+		User *user = new User(res);
+		delete res;
+		return user;
 	} catch (SQLException& exp)
 	{
 		cerr << "An SQL exception in DAOUser::getById() occured.\n";
@@ -27,17 +31,23 @@ Entity * DAOUser::getById(MySQLAccess& connection, unsigned id) const
 		cerr << exp.what() << endl;
 	}
 
+	delete res;
 	return nullptr;
 }
 
 User DAOUser::getByLogin(MySQLAccess& connection, string login) const
 {
+	ResultSet *res = nullptr;
+
 	try
 	{
-		connection.execute("select (id, login, password, name, surname, role) from user where login='" + login + "'");
-		auto_ptr<ResultSet> res = connection.getResultSet();
+		res = connection.executeQuery(
+			"select (id, login, password, name, surname, role) from user "
+			"where login='" + login + "'");
 
-		return User(res.get());
+		User user(res);
+		delete res;
+		return user;
 	} catch (SQLException& exp)
 	{
 		cerr << "An SQL exception in DAOUser::getByLogin() occured.\n";
@@ -48,21 +58,24 @@ User DAOUser::getByLogin(MySQLAccess& connection, string login) const
 		cerr << exp.what() << endl;
 	}
 
+	delete res;
 	return User();
 }
 
 vector<User> DAOUser::getByName(MySQLAccess& connection, string name) const
 {
 	vector<User> result;
+	ResultSet *res = nullptr;
 
 	try
 	{
-		connection.execute("select (id, name, surname, role) from user where name='" + name + "' ORDER BY id");
-		auto_ptr<ResultSet> res = connection.getResultSet();
+		res = connection.executeQuery(
+			"select (id, login, password, name, surname, role) from user "
+			"where name='" + name + "' ORDER BY id");
 
 		while (res->next())
 		{
-			User user(res.get());
+			User user(res);
 			result.push_back(user);
 		}
 	} catch (SQLException& exp)
@@ -75,21 +88,24 @@ vector<User> DAOUser::getByName(MySQLAccess& connection, string name) const
 		cerr << exp.what() << endl;
 	}
 
+	delete res;
 	return result;
 }
 
 vector<User> DAOUser::getBySurname(MySQLAccess& connection, string surname) const
 {
 	vector<User> result;
+	ResultSet *res = nullptr;
 
 	try
 	{
-		connection.execute("select (id, name, surname, role) from user where surname='" + surname + "' ORDER BY id");
-		auto_ptr<ResultSet> res = connection.getResultSet();
+		res = connection.executeQuery(
+			"select (id, login, password, name, surname, role) from user "
+			"where surname='" + surname + "' ORDER BY id");
 
 		while (res->next())
 		{
-			User user(res.get());
+			User user(res);
 			result.push_back(user);
 		}
 	} catch (SQLException& exp)
@@ -102,21 +118,24 @@ vector<User> DAOUser::getBySurname(MySQLAccess& connection, string surname) cons
 		cerr << exp.what() << endl;
 	}
 
+	delete res;
 	return result;
 }
 
 vector<User> DAOUser::getByFullName(MySQLAccess& connection, string name, string surname) const
 {
 	vector<User> result;
+	ResultSet *res = nullptr;
 
 	try
 	{
-		connection.execute("select (id, name, surname, role) from user where name='" + name + "' AND surname='" + surname + "'");
-		auto_ptr<ResultSet> res = connection.getResultSet();
+		res = connection.executeQuery(
+			"select (id, login, password, name, surname, role) from user "
+			"where name='" + name + "' AND surname='" + surname + "'");
 
 		while (res->next())
 		{
-			User user(res.get());
+			User user(res);
 			result.push_back(user);
 		}
 	} catch (SQLException& exp)
@@ -129,21 +148,24 @@ vector<User> DAOUser::getByFullName(MySQLAccess& connection, string name, string
 		cerr << exp.what() << endl;
 	}
 
+	delete res;
 	return result;
 }
 
 vector<User> DAOUser::getByGroup(MySQLAccess& connection, string group) const
 {
 	vector<User> result;
+	ResultSet *res = nullptr;
 
 	try
 	{
-		connection.execute("select (id, name, surname, role) from user where group='" + group + "' ORDER BY surname");
-		auto_ptr<ResultSet> res = connection.getResultSet();
+		res = connection.executeQuery(
+			"select (id, name, surname, role) from user "
+			"where group='" + group + "' ORDER BY surname");
 
 		while (res->next())
 		{
-			User user(res.get());
+			User user(res);
 			result.push_back(user);
 		}
 	} catch (SQLException& exp)
@@ -156,6 +178,7 @@ vector<User> DAOUser::getByGroup(MySQLAccess& connection, string group) const
 		cerr << exp.what() << endl;
 	}
 
+	delete res;
 	return result;
 }
 
