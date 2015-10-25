@@ -1,36 +1,42 @@
-html {
-    background-color: white; 
-    padding: 140px;  
-    border-radius: 10px; 
-    font-family: sans-serif;
-    font-weight: bold;
-    text-align: center;
-} 
-
-form { 
-    display: block; 
-    color: black; 
-    border: 5px solid;
-    border-color: black;
-    padding: 14px 16px 16px 18px; 
-    border-radius: 20px; 
+form {
+    margin: auto;
+    margin-top: 50px;
+    background-color: #182045;
+    color: white; 
+    border: none;
+    padding: 10px; 
+    border-radius: 15px; 
     border-bottom-width: medium;
+    text-align: center;
+    width: 40%;
 } 
 
-input {
+#group {
+    margin: 0 auto;
+}
+
+#passAuth, #emailAuth, #loginAuth, #nameAuth, #group {
     border-color: black;
-    border-left-color: grey;
-    border-radius: 20px;
+    border-left-color: black;
+    border-radius: 10px;
     font-size: 1em;
-    text-indent: 10px;
+    text-indent: 5px;
+    padding: 10px 10px;
+    margin-bottom: 10px;
+    width: 200px;
+}
+
+.checkbox {
+    font-size: 17px;
+    font-family: OpenSans Bold, sans-serif;
+    font-style: bold;
 }
 
 button {
     border-radius: 20px;
     border-color: black;
-    border-left-color: grey;
-    padding: 7px;
-    border-bottom: 10px;
+    border-left-color: black;
+    padding: 10px;
     font-weight: bold;
 }
 
@@ -44,6 +50,28 @@ button {
 
 .hide:checked + label + div {
     display: flex;
-    margin-left: 395px;
-    padding: 10px; 
+    margin: auto;
+    text-align: center;
+    padding: 15px; 
+}
+
+.demo {
+    border-color: black;
+    border-left-color: black;
+    border-radius: 10px;
+    text-indent: 5px;
+    max-height: inherit;
+    align-items: center;
+}
+
+.applyButton {
+    margin-top: 10px;
+    text-align: center;
+}
+
+.headName {
+    font-size: 25px;
+    font-family: OpenSans Bold, sans-serif;
+    font-style: bold;
+    text-transform: uppercase;
 }
