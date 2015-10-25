@@ -3,41 +3,31 @@
     <meta charset="utf-8">
     <head>
         <title>Вхід</title>
-        <link rel="stylesheet" href="authorization.css">
+        <link rel="stylesheet" href="Static/Styles/authorization.css">
     </head>
 
     <body> 
         <form id="loginScale" name="loginForm">
-        <div class="firstRow">
-            <p><h2><strong>Вхід</strong></h2></p>
-        </div>
+            <p class="headName">Вхід<p>
         
-        <div class="secondRow">
         <div class="inputForm">
-            <p>
-            <input id="emailAuth" type="text" name="email" placeholder="E-mail..."></input>
-            </p>
-        </div>
+            <input id="emailAuth" type="text" name="email" placeholder="E-mail...">
         </div>
     
-        <div class="thirdRegRow">
         <div class="inputForm">
-			<input id="passAuth" type="password" name="password" placeholder="Введіть пароль..." minlenght = 6 maxlength ="16".></input>
-		</div>
+		<input id="passAuth" type="password" name="password" placeholder="Введіть пароль..." minlenght = "6" maxlength = "16"> 
+	</div>
     
         <div class="checkbox">
-            <label>
-            <p><input type="checkbox" value="remember-me"> Запам'ятати мене</p>
-            </label>
-        </div>
-	    </div> 
+            <input type="checkbox" value="remember-me">                     
+            <label>Запам'ятати мене</label>
+        </div> 
 	
         <div class="applyButton">
-            <p>
             <button type="submit">Увійти</button>
-		    <button type="reset">Відміна</button>
-            </p>
-	    </div>      	
-        </form>
+	    <button type="reset">Відміна</button>
+	</div>      	
+      </form>
     </body> 
 </html>
+
