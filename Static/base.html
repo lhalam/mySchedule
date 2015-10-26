@@ -1,42 +1,71 @@
 <!DOCTYPE html>
 <html>
-   <head>
-      {% block head %}
-         <link href="http://s3.amazonaws.com/codecademy-content/courses/ltp/css/shift.css" rel="stylesheet">
-         <link rel="stylesheet" href="Styles/Bootstrap/css/bootstrap-theme.min.css">
-         <link rel="stylesheet" type="text/css" href="Styles/Style.css" href="menu.css">
-         <title> Головна </title>
-      {% endblock %}
-   </head>
+	<head>
+        <link href="http://s3.amazonaws.com/codecademy-content/courses/ltp/css/shift.css" rel="stylesheet">
+        <link rel="stylesheet" href="Styles/Bootstrap/css/bootstrap-theme.min.css">
+        <link rel="stylesheet" href="Styles/Style.css">
+        <title> Головна </title>
+	</head>
 
-   <body>
+	<body>
 
-   <div class="menu">
-      <ul>
-         <li><a href="base.html"> Головна сторінка </a></li>
-         <li><a href="profile.html"> Профіль </a></li>
-         <li><a href="groups.html"> Групи </a></li>
-         <li><a href="teachers.html"> Викладачі </a></li>
-         <li><a href="shedule.html"> Розклад </a></li>
-         <li><a href="literature.html"> Література</a></li>
-      </ul>
-   </div>
 
-   <div class="content">
-      {% block personal %}{% endblock %}
-      <p><a href="settings.html"> Налаштування </a></p>
+<div class="wrapper">
+    <header class="header">
+			<strong>Розклад</strong> 
+			{% block name %}{% end block %}
+			{% block group_name %}{% end block %}
+	</header>
 
-      <div class="shedule">
-         {% block shedule %}{% endblock %}
-      </div>
+	<div class="middle">
 
-      <div class="group">
-         <p><h1> My group </h1></p>
-         {% block group %}{% endblock %}
-      </div>
+		<div class="container">
+		 <main class="content">
+		 <div class="row">
+		 
+			<div class="menu">
+		    
+					<ul>
+					<li><a href="base.html"> Головна сторінка </a></li>
+					<li><a href="groups.html"> Групи </a></li>
+					<li><a href="teachers.html"> Викладачі </a></li>
+					<li><a href="shedule.html"> Розклад </a></li>
+					<li><a href="literature.html"> Література</a></li>
+					</ul>	
+		  
+				<p><a href="settings.html"> Налаштування </a></p>
+			</div>
+	
+			<div class="col-md-3">
+				<div class="group">
+					<h1> My group </h1>
+					<ul>
+						{% block group %}{% endblock %}
+					</ul>
+				</div>
+			</div>
+			
+			<div class="col-md-6">
+				<div class="schedule">
+					<h1>Schedule</h1>
+					<ul>
+						{%block shedule %}{% endblock %}
+					</ul>
+				</div>
+			</div>
+		
+		 </div>	
+		 </main>
+		</div>
+	</div>
 
-   </div>   
+</div>
 
-   </body>
-<html>
-         
+	<footer class="footer">
+		
+	</footer>
+
+</div>
+
+</body>
+</html>
