@@ -17,7 +17,7 @@ Entity * DAOAssignment::getById(MySQLAccess& connection, unsigned id) const
 		res = connection.executeQuery(
 			"select * from assignment where id=" + std::to_string(id));
 
-		Assignment *assignment = new Assignment(res);
+		Assignment *assignment = new Assignment(connection, res);
 		delete res;
 		return assignment;
 	} catch (SQLException& exp)
@@ -43,7 +43,7 @@ Assignment DAOAssignment::getByName(MySQLAccess& connection, string name) const
 		res = connection.executeQuery(
 			"select * from assignment where name='" + name + "'");
 
-		Assignment assignment(res);
+		Assignment assignment(connection, res);
 		delete res;
 		return assignment;
 	} catch (SQLException& exp)

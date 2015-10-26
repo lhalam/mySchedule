@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Role.h"
+#include "DAORole.h"
 
 class User : public Entity
 {
@@ -41,14 +41,16 @@ public:
 	{
 	}
 
-	User(const ResultSet *res) :
+	User(MySQLAccess& connection, const ResultSet *res) :
 		Entity(res),
-		role(res),
 		name(res->getString("name").asStdString()),
 		surname(res->getString("surname").asStdString()),
 		login(res->getString("login").asStdString()),
 		password(res->getString("password").asStdString())
 	{
+		Role *r = dynamic_cast<Role*>(DAORole::getInstance().getById(connection, res->getInt("role_id")));
+		this->role = *r;
+		delete r;
 	}
 
 	void setID(unsigned int id_) { this->id = id_; }

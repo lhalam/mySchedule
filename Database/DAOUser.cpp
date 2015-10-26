@@ -17,7 +17,7 @@ Entity * DAOUser::getById(MySQLAccess& connection, unsigned id) const
 		res = connection.executeQuery(
 			"select * from user where id='" + std::to_string(id) + "'");
 
-		User *user = new User(res);
+		User *user = new User(connection, res);
 		delete res;
 		return user;
 	} catch (SQLException& exp)
@@ -43,7 +43,7 @@ User DAOUser::getByLogin(MySQLAccess& connection, string login) const
 		res = connection.executeQuery(
 			"select * from user where login='" + login + "'");
 
-		User user(res);
+		User user(connection, res);
 		delete res;
 		return user;
 	} catch (SQLException& exp)
@@ -72,7 +72,7 @@ vector<User> DAOUser::getByName(MySQLAccess& connection, string name) const
 
 		while (res->next())
 		{
-			User user(res);
+			User user(connection, res);
 			result.push_back(user);
 		}
 	} catch (SQLException& exp)
@@ -101,7 +101,7 @@ vector<User> DAOUser::getBySurname(MySQLAccess& connection, string surname) cons
 
 		while (res->next())
 		{
-			User user(res);
+			User user(connection, res);
 			result.push_back(user);
 		}
 	} catch (SQLException& exp)
@@ -131,7 +131,7 @@ vector<User> DAOUser::getByFullName(MySQLAccess& connection, string name, string
 
 		while (res->next())
 		{
-			User user(res);
+			User user(connection, res);
 			result.push_back(user);
 		}
 	} catch (SQLException& exp)
@@ -160,7 +160,7 @@ vector<User> DAOUser::getByGroup(MySQLAccess& connection, string group) const
 
 		while (res->next())
 		{
-			User user(res);
+			User user(connection, res);
 			result.push_back(user);
 		}
 	} catch (SQLException& exp)
