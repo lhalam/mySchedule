@@ -15,7 +15,7 @@ Entity * DAOAssignment::getById(MySQLAccess& connection, unsigned id) const
 	try
 	{
 		res = connection.executeQuery(
-			"select (id, name) from assignment where id=" + std::to_string(id));
+			"select * from assignment where id=" + std::to_string(id));
 
 		Assignment *assignment = new Assignment(res);
 		delete res;
@@ -41,7 +41,7 @@ Assignment DAOAssignment::getByName(MySQLAccess& connection, string name) const
 	try
 	{
 		res = connection.executeQuery(
-			"select (id, name) from assignment where name='" + name + "'");
+			"select * from assignment where name='" + name + "'");
 
 		Assignment assignment(res);
 		delete res;

@@ -13,7 +13,7 @@ Entity * DAORole::getById(MySQLAccess& connection, unsigned id) const
 	try
 	{
 		res = connection.executeQuery(
-			"select (id, name) from role where id='" + std::to_string(id) + "'");
+			"select * from role where id='" + std::to_string(id) + "'");
 
 		Role *role = new Role(res);
 		delete res;
@@ -39,7 +39,7 @@ Role DAORole::getByName(MySQLAccess& connection, string name) const
 	try
 	{
 		res = connection.executeQuery(
-			"select (id, name) from role where name='" + name + "'");
+			"select * from role where name='" + name + "'");
 
 		Role role(res);
 		delete res;

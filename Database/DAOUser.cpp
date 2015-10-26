@@ -15,8 +15,7 @@ Entity * DAOUser::getById(MySQLAccess& connection, unsigned id) const
 	try
 	{
 		res = connection.executeQuery(
-			"select (id, login, password, name, surname, role) from user "
-			"where id='" + std::to_string(id) + "'");
+			"select * from user where id='" + std::to_string(id) + "'");
 
 		User *user = new User(res);
 		delete res;
@@ -42,8 +41,7 @@ User DAOUser::getByLogin(MySQLAccess& connection, string login) const
 	try
 	{
 		res = connection.executeQuery(
-			"select (id, login, password, name, surname, role) from user "
-			"where login='" + login + "'");
+			"select * from user where login='" + login + "'");
 
 		User user(res);
 		delete res;
@@ -70,8 +68,7 @@ vector<User> DAOUser::getByName(MySQLAccess& connection, string name) const
 	try
 	{
 		res = connection.executeQuery(
-			"select (id, login, password, name, surname, role) from user "
-			"where name='" + name + "' ORDER BY id");
+			"select * from user where name='" + name + "' ORDER BY id");
 
 		while (res->next())
 		{
@@ -100,8 +97,7 @@ vector<User> DAOUser::getBySurname(MySQLAccess& connection, string surname) cons
 	try
 	{
 		res = connection.executeQuery(
-			"select (id, login, password, name, surname, role) from user "
-			"where surname='" + surname + "' ORDER BY id");
+			"select * from user where surname='" + surname + "' ORDER BY id");
 
 		while (res->next())
 		{
@@ -130,8 +126,8 @@ vector<User> DAOUser::getByFullName(MySQLAccess& connection, string name, string
 	try
 	{
 		res = connection.executeQuery(
-			"select (id, login, password, name, surname, role) from user "
-			"where name='" + name + "' AND surname='" + surname + "'");
+			"select * from user where name='" + name +
+			"' AND surname='" + surname + "'");
 
 		while (res->next())
 		{
@@ -160,8 +156,7 @@ vector<User> DAOUser::getByGroup(MySQLAccess& connection, string group) const
 	try
 	{
 		res = connection.executeQuery(
-			"select (id, name, surname, role) from user "
-			"where group='" + group + "' ORDER BY surname");
+			"select * from user where group='" + group + "' ORDER BY surname");
 
 		while (res->next())
 		{

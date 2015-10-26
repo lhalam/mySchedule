@@ -15,7 +15,7 @@ Entity * DAOGroup::getById(MySQLAccess& connection, unsigned id) const
 	try
 	{
 		res = connection.executeQuery(
-			"select (id, name) from group where id=" + std::to_string(id));
+			"select * from group where id=" + std::to_string(id));
 
 		Group *group = new Group(res);
 		delete res;
@@ -41,7 +41,7 @@ Group DAOGroup::getByName(MySQLAccess& connection, string name) const
 	try
 	{
 		res = connection.executeQuery(
-			"select (id, name) from group where name=" + name);
+			"select * from group where name=" + name);
 
 		Group group(res);
 		delete res;
