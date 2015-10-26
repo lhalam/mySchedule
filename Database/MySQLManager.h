@@ -14,26 +14,23 @@ It is a singleton.
 class MySQLManager
 {
 private:
-	vector<MySQLAccess> connections;
+	vector<MySQLAccess*> connections;
 	unsigned int maxNumOfConnections;
 	/*Data used to connect to the database*/
+	string url;
 	string database;
 	string user;
 	string password;
 
-	MySQLManager(string database, string user, string password, unsigned int maxNumOfConnections);
+	MySQLManager(string url, string database, string user, string password, unsigned int maxNumOfConnections);
 	MySQLManager(const MySQLManager&);
 
 public:
-	static MySQLManager& getInstance(string database, string user, string password, unsigned int maxNumOfConnections);
+	static MySQLManager& getInstance(string url, string database, string user, string password, unsigned int maxNumOfConnections);
+	~MySQLManager();
 
-	MySQLAccess getConnection();
-	
-	/*
-	To be added in the near future:
-	1. Close one particular connection
-	2. Close all connections
-	*/
+	MySQLAccess* getConnection();
+	void closeConnection(MySQLAccess* connection);
 
 	unsigned int numberOfConnections() const;
 };

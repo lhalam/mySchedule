@@ -1,27 +1,38 @@
 #include <exception>
+#include <algorithm>
 #include "MySQLManager.h"
 
 using std::overflow_error;
+using std::logic_error;
+using std::find;
 
-MySQLManager::MySQLManager(string database, string user, string password, unsigned int maxNumOfConnections):
+MySQLManager::MySQLManager(string url, string database, string user, string password, unsigned int maxNumOfConnections):
+	url(url),
 	maxNumOfConnections(maxNumOfConnections),
 	database(database),
 	user(user),
 	password(password)
 {
 }
-
-MySQLManager& MySQLManager::getInstance(string database, string user, string password, unsigned int maxNumOfConnections)
+MySQLManager::~MySQLManager()
 {
-	static MySQLManager manager(database, user, password, maxNumOfConnections);
+	for (MySQLAccess* connection : connections)
+	{
+		delete connection;
+	}
+}
+
+MySQLManager& MySQLManager::getInstance(string url, string database, string user, string password, unsigned int maxNumOfConnections)
+{
+	static MySQLManager manager(url, database, user, password, maxNumOfConnections);
 	return manager;
 }
 
-MySQLAccess MySQLManager::getConnection()
+MySQLAccess* MySQLManager::getConnection()
 {
 	if (numberOfConnections() < maxNumOfConnections)
 	{
-		MySQLAccess newConnection(database, user, password);
+		MySQLAccess* newConnection = new MySQLAccess(url, user, password, database);
 		connections.push_back(newConnection);
 
 		return newConnection;
@@ -30,6 +41,19 @@ MySQLAccess MySQLManager::getConnection()
 	{
 		throw overflow_error("Failed to connect to the database. Too many connections.");
 	}
+}
+
+void MySQLManager::closeConnection(MySQLAccess* connection)
+{
+	try
+	{
+		connections.erase(find(connections.begin(), connections.end(), connection));
+	}
+	catch (...)
+	{
+		throw logic_error("Could not safely close connection");
+	}
+	delete connection;
 }
 
 unsigned int MySQLManager::numberOfConnections() const
