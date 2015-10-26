@@ -91,37 +91,7 @@ void Request_Handler(webserver::http_request* r)
 			"</table>" +
 			links;
 	}
-	else if (r->path_ == "/loginpage")	
-	{
-		bool status = false;
-		map<string, string> params;
-		params = r->params_;
-		MySQLAccess connection = MySQLManager::getInstance("MySchedule", "", "", 10).getConnection();
-		for (auto i = params.begin(); i != params.end();i++)
-		{
-			User user; 
-			user = DAOUser::getInstance().getByLogin(connection, i->second);
-			
-			if (user.getLogin() == i->second)
-			{
-				++i;
-				if (user.getPassword() == i->second)
-				{
-					status = true;
-				}
-			}
-		}
-		if (status)
-		{
-			r->answer_ = ("true");
-		}
-		else
-		{
-			r->answer_ = ("false");
-		}
 
-
-	}
 	
 	
 	else
