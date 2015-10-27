@@ -5,14 +5,14 @@
 
 using namespace std;
 
-Template::Template()
+Template::Template(): templ("none")
 {
 
 }
 
-string Template::render(Template temp, map<TKey key, Entity obj> mp)
+string Template::render(map<TKey key, Entity obj> mp)
 {
 	std::string str = std::to_string(mp.find(key));
-	temp = str;
+	templ = str;
 	return str;
 }
