@@ -7,10 +7,10 @@ using namespace std;
 class Template
 {
 private:
-
+string templ;
 public:
 	Template();
 
-	string render(Template, map<TKey, Entity>);
+	string render(map<TKey, Entity>);
 
 };
