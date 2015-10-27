@@ -10,7 +10,7 @@ private:
 string templ;
 public:
 	Template();
-
+	string load(file f);
 	string render(map<TKey, Entity>);
 
 };
