@@ -1,26 +1,31 @@
 #include <iostream>
+#include <fstream>
 #include <sstream>
 #include <map>
 #include "Template.h"
 
 using namespace std;
 
-Template::Template(): templ("none")
+Template::Template() : templ("none")
 {
 
 }
 
-string Template::load(char const * filepath)
+string Template::load(ifstream& InputFile)
 {
-    std::ifstream src(filepath);
-    std::ostringstream buf;
-    buf << src.rdbuf();
-    return buf.str();
+	string str;
+	InputFile >> str;
+	templ = str;
+	return str;
 }
 
 string Template::render(map<TKey key, Entity obj> mp)
 {
-	std::string str = std::to_string(mp.find(key));
+	string str = to_string(mp.find(key));
 	templ = str;
 	return str;
+}
+
+Template::~Template()
+{
 }
