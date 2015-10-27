@@ -7,10 +7,11 @@ using namespace std;
 class Template
 {
 private:
-string templ;
+	string templ;
 public:
 	Template();
-	string load(file f);
+	string load(ifstream& f);
 	string render(map<TKey, Entity>);
-
+	~Template();
 };
+
