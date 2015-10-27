@@ -15,7 +15,7 @@ Entity * DAOUser::getById(MySQLAccess& connection, unsigned id) const
 	try
 	{
 		res = connection.executeQuery(
-			"select * from user where id='" + std::to_string(id) + "'");
+			"select * from user where id='" + to_string(id) + "'");
 
 		User *user = new User(connection, res);
 		delete res;
@@ -148,7 +148,7 @@ vector<User> DAOUser::getByFullName(MySQLAccess& connection, string name, string
 	return result;
 }
 
-vector<User> DAOUser::getByGroup(MySQLAccess& connection, string group) const
+vector<User> DAOUser::getByRole(MySQLAccess& connection, int roleID) const
 {
 	vector<User> result;
 	ResultSet *res = nullptr;
@@ -156,7 +156,38 @@ vector<User> DAOUser::getByGroup(MySQLAccess& connection, string group) const
 	try
 	{
 		res = connection.executeQuery(
-			"select * from user where group='" + group + "' ORDER BY surname");
+			"select * from user where role_id='" + to_string(roleID) + "' "
+			"ORDER BY surname");
+
+		while (res->next())
+		{
+			User user(connection, res);
+			result.push_back(user);
+		}
+	} catch (SQLException& exp)
+	{
+		cerr << "An SQL exception in DAOUser::getByRole() occured.\n";
+		cerr << exp.what() << endl;
+	} catch (exception& exp)
+	{
+		cerr << "An exception in DAOUser::getByRole() occured.\n";
+		cerr << exp.what() << endl;
+	}
+
+	delete res;
+	return result;
+}
+
+vector<User> DAOUser::getByGroup(MySQLAccess& connection, int groupID) const
+{
+	vector<User> result;
+	ResultSet *res = nullptr;
+
+	try
+	{
+		res = connection.executeQuery(
+			"select * from user where group_id='" + to_string(groupID) + "' "
+			"ORDER BY surname");
 
 		while (res->next())
 		{
@@ -183,7 +214,12 @@ void DAOUser::add(MySQLAccess& connection, const User& user) const
 {
 	try
 	{
-		connection.execute("INSERT INTO user (name, surname, role) VALUES ('" + user.getName() + "', '" + user.getSurname() + "', " + std::to_string(user.getRoleID()) + ")");
+		connection.execute("INSERT INTO user "
+			"(login, password, name, surname, role_id, group_id) VALUES ('" +
+			user.getLogin() + "', '" + user.getPassword() + "', '" +
+			user.getName()  + "', '" + user.getSurname() + "', " +
+			to_string(user.getRoleID()) + ", " +
+			to_string(user.getGroupID()) + ")");
 	} catch (SQLException& exp)
 	{
 		cerr << "An SQL exception in DAOUser::add() occured.\n";
@@ -199,7 +235,8 @@ void DAOUser::updateLogin(MySQLAccess& connection, const User& user, string newL
 {
 	try
 	{
-		connection.execute("UPDATE user SET login='" + newLogin + "' WHERE id=" + std::to_string(user.getID()));
+		connection.execute("UPDATE user SET login='" + newLogin + "' "
+			"WHERE id=" + to_string(user.getID()));
 	} catch (SQLException& exp)
 	{
 		cerr << "An SQL exception in DAOUser::updateLogin() occured.\n";
@@ -215,7 +252,8 @@ void DAOUser::updateName(MySQLAccess& connection, const User& user, string newNa
 {
 	try
 	{
-		connection.execute("UPDATE user SET name='" + newName + "' WHERE id=" + std::to_string(user.getID()));
+		connection.execute("UPDATE user SET name='" + newName + "' "
+			"WHERE id=" + to_string(user.getID()));
 	} catch (SQLException& exp)
 	{
 		cerr << "An SQL exception in DAOUser::updateName() occured.\n";
@@ -231,7 +269,8 @@ void DAOUser::updateSurname(MySQLAccess& connection, const User& user, string ne
 {
 	try
 	{
-		connection.execute("UPDATE user SET surname='" + newSurname + "' WHERE id=" + std::to_string(user.getID()));
+		connection.execute("UPDATE user SET surname='" + newSurname + "' "
+			"WHERE id=" + to_string(user.getID()));
 	} catch (SQLException& exp)
 	{
 		cerr << "An SQL exception in DAOUser::updateSurname() occured.\n";
@@ -247,7 +286,8 @@ void DAOUser::updateRole(MySQLAccess& connection, const User& user, int newRole)
 {
 	try
 	{
-		connection.execute("UPDATE user SET role=" + std::to_string(newRole) + " WHERE id=" + std::to_string(user.getID()));
+		connection.execute("UPDATE user SET role=" + to_string(newRole) + " "
+			"WHERE id=" + to_string(user.getID()));
 	} catch (SQLException& exp)
 	{
 		cerr << "An SQL exception in DAOUser::updateRole() occured.\n";
@@ -255,6 +295,23 @@ void DAOUser::updateRole(MySQLAccess& connection, const User& user, int newRole)
 	} catch (exception& exp)
 	{
 		cerr << "An exception in DAOUser::updateRole() occured.\n";
+		cerr << exp.what() << endl;
+	}
+}
+
+void DAOUser::updateGroup(MySQLAccess& connection, const User& user, int newGroup) const
+{
+	try
+	{
+		connection.execute("UPDATE user SET role=" + to_string(newGroup) + " "
+			"WHERE id=" + to_string(user.getID()));
+	} catch (SQLException& exp)
+	{
+		cerr << "An SQL exception in DAOUser::updateGroup() occured.\n";
+		cerr << exp.what() << endl;
+	} catch (exception& exp)
+	{
+		cerr << "An exception in DAOUser::updateGroup() occured.\n";
 		cerr << exp.what() << endl;
 	}
 }

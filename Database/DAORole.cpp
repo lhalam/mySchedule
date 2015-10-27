@@ -13,7 +13,7 @@ Entity * DAORole::getById(MySQLAccess& connection, unsigned id) const
 	try
 	{
 		res = connection.executeQuery(
-			"select * from role where id='" + std::to_string(id) + "'");
+			"select * from role where id='" + to_string(id) + "'");
 
 		Role *role = new Role(res);
 		delete res;
@@ -78,7 +78,8 @@ void DAORole::updateName(MySQLAccess& connection, const Role& role, string newNa
 {
 	try
 	{
-		connection.execute("UPDATE role SET name='" + newName + "' WHERE id=" + std::to_string(role.getID()));
+		connection.execute("UPDATE role SET name='" + newName + "' "
+			"WHERE id=" + to_string(role.getID()));
 	} catch (SQLException& exp)
 	{
 		cerr << "An SQL exception in DAORole::updateName() occured.\n";

@@ -22,10 +22,10 @@
 
 using std::string;
 using std::vector;
-using std::auto_ptr;
 using std::exception;
 using std::cerr;
 using std::endl;
+using std::to_string;
 
 using sql::ResultSet;
 using sql::SQLException;

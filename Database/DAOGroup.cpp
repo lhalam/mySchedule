@@ -15,7 +15,7 @@ Entity * DAOGroup::getById(MySQLAccess& connection, unsigned id) const
 	try
 	{
 		res = connection.executeQuery(
-			"select * from group where id=" + std::to_string(id));
+			"select * from group where id=" + to_string(id));
 
 		Group *group = new Group(res);
 		delete res;
@@ -82,7 +82,8 @@ void DAOGroup::updateName(MySQLAccess& connection, const Group& group, string ne
 {
 	try
 	{
-		connection.execute("UPDATE group SET name='" + newName + "' WHERE id=" + std::to_string(group.getID()));
+		connection.execute("UPDATE group SET name='" + newName + "' "
+			"WHERE id=" + to_string(group.getID()));
 	} catch (SQLException& exp)
 	{
 		cerr << "An SQL exception in DAOUGroup::updateName() occured.\n";

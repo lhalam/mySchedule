@@ -13,11 +13,11 @@ Entity * DAOEvent::getById(MySQLAccess& connection, unsigned id) const
 	try
 	{
 		res = connection.executeQuery(
-			"select (id, name) from event where id='" + std::to_string(id) + "'");
+			"select * from event where id='" + to_string(id) + "'");
 
-		Event *_event = new Event(res);
+		Event *e = new Event(res);
 		delete res;
-		return _event;
+		return e;
 	}
 	catch (SQLException& exp)
 	{
@@ -41,7 +41,7 @@ Event DAOEvent::getByName(MySQLAccess& connection, string name) const
 	try
 	{
 		res = connection.executeQuery(
-			"select (id, name) from event where name='" + name + "'");
+			"select * from event where name='" + name + "'");
 
 		Event _event(res);
 		delete res;
@@ -62,11 +62,12 @@ Event DAOEvent::getByName(MySQLAccess& connection, string name) const
 	return Event();
 }
 
-void DAOEvent::add(MySQLAccess& connection, const Event& _event) const
+void DAOEvent::add(MySQLAccess& connection, const Event& e) const
 {
 	try
 	{
-		connection.execute("INSERT INTO event (name) VALUES ('" + _event.getName() + "')");
+		connection.execute("INSERT INTO event (name) VALUES ('" +
+			e.getName() + "')");
 	}
 	catch (SQLException& exp)
 	{
@@ -80,11 +81,12 @@ void DAOEvent::add(MySQLAccess& connection, const Event& _event) const
 	}
 }
 
-void DAOEvent::updateName(MySQLAccess& connection, const Event& _event, string newName) const
+void DAOEvent::updateName(MySQLAccess& connection, const Event& e, string newName) const
 {
 	try
 	{
-		connection.execute("UPDATE event SET name='" + newName + "' WHERE id=" + std::to_string(_event.getID()));
+		connection.execute("UPDATE event SET name='" + newName + "' "
+			"WHERE id=" + to_string(e.getID()));
 	}
 	catch (SQLException& exp)
 	{

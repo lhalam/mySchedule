@@ -22,15 +22,19 @@ private:
 	string user;
 	string password;
 
-	MySQLManager(string url, string database, string user, string password, unsigned int maxNumOfConnections);
-	MySQLManager(const MySQLManager&);
-
 public:
 	static MySQLManager& getInstance(string url, string database, string user, string password, unsigned int maxNumOfConnections);
+
 	~MySQLManager();
 
 	MySQLAccess* getConnection();
 	void closeConnection(MySQLAccess* connection);
 
 	unsigned int numberOfConnections() const;
+
+private:
+	MySQLManager(string url, string database, string user, string password, unsigned int maxNumOfConnections);
+
+	MySQLManager(const MySQLManager&) = delete;
+	MySQLManager& operator=(const MySQLManager&) = delete;
 };
