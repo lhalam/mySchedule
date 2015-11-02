@@ -2,7 +2,8 @@
 #include "socket.h"
 #include "../Logger/Logger.h"
 #include <fstream>
-
+#include "../Database/DAOUser.h"
+#include "../Database/MySQLManager.h"
 //Initializing a global static pointer
 Logger* Logger::instanceUnique = NULL;
 
@@ -56,7 +57,7 @@ void Request_Handler(webserver::http_request* r)
 
 
 		for (std::map<std::string, std::string>::const_iterator i = r->params_.begin();
-			i != r->params_.end();
+		i != r->params_.end();
 			i++) {
 
 			body += "<br>" + i->first + " = " + i->second;
@@ -90,6 +91,38 @@ void Request_Handler(webserver::http_request* r)
 			"</table>" +
 			links;
 	}
+	else if (r->path_ == "/loginpage")
+	{
+		bool status = false;
+		map<string, string> params;
+		params = r->params_;
+		MySQLAccess *connection = MySQLManager::getInstance("localhost", "myschedule", "root", "your password", 10).getConnection();
+		for (auto i = params.begin(); i != params.end(); i++)
+		{
+			User user;
+			const DAOUser *dao = DAOUser::getInstance();
+			user = DAOUser::getInstance()->getByLogin(connection, i->second);
+
+			if (user.getLogin() == i->second)
+			{
+				++i;
+				if (user.getPassword() == i->second)
+				{
+					status = true;
+				}
+			}
+		}
+		if (status)
+		{
+			r->authentication_given_ = 1;
+		}
+		else
+		{
+			r->authentication_given_ = 0;
+		}
+	}
+
+	
 	else
 	{
 		r->status_ = "404 Not Found";
@@ -105,5 +138,10 @@ void Request_Handler(webserver::http_request* r)
 	r->answer_ += "</body></html>";
 
 	//logging
+<<<<<<< HEAD
 	Logger::Instance("ServerLogger")->Log(LogMessage(r->status_, r->method_));
 }
+=======
+	Logger::Instance()->Log(LogMessage(r->status_, r->method_));
+}
+>>>>>>> 759690089a3b5bebc2e774d9a4069f67d8ab4980
