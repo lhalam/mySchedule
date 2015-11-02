@@ -121,7 +121,64 @@ void Request_Handler(webserver::http_request* r)
 			r->authentication_given_ = 0;
 		}
 	}
+	else if (r->path_ == "/registerpage") 
+	{ 
+		bool status = 0; 
+		map<string, string> params; 
+		params = r->params_;
+		
+		MySQLAccess *connection = MySQLManager::getInstance("localhost", "myschedule", "root", "your password", 10).getConnection(); 
 
+		User user; 
+
+		for (auto i = params.begin(); i != params.end(); i++) 
+		{ 
+			if (i->first == "name") 
+			{ 
+				user.setName(i->second); 
+			} 
+
+			if (i->first == "surname") 
+			{ 
+				user.setSurname(i->second); 
+			} 
+
+			if (i->first == "status") 
+			{ 
+				user.setStatus(i->second); 
+			} 
+
+			if (i->first == "password") 
+			{ 
+				user.setPassword(i->second); 
+			} 
+		} 
+
+		for (auto i = params.begin(); i != params.end(); i++) 
+		{ 
+			user = DAOUser::getInstance()->getByLogin(connection, i->second); 
+			if (user.getLogin() != i->second) 
+			{ 
+				++i; 
+				status = true; 
+				DAOUser::getInstance()->add(connection, user); 
+
+			} 
+
+		} 
+
+		if (status) 
+		{ 
+			r->authentication_given_ = 1; 
+		} 
+
+		else 
+		{ 
+			r->authentication_given_ = 0; 
+		} 
+
+
+	}
 	
 	else
 	{
