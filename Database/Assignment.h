@@ -37,16 +37,16 @@ public:
 	{
 	}
 
-	Assignment(MySQLAccess& connection, const ResultSet *res) :
+	Assignment(MySQLAccess *connection, const ResultSet *res) :
 		Entity(res),
 		subjectName(res->getString("name").asStdString()),
 		task(res->getString("task").asStdString())
 	{
-		Group *g = dynamic_cast<Group*>(DAOGroup::getInstance().getById(connection, res->getInt("group_id")));
+		Group *g = dynamic_cast<Group*>(DAOGroup::getInstance()->getById(connection, res->getInt("group_id")));
 		this->group = *g;
 		delete g;
 
-		User *lect = dynamic_cast<User*>(DAOUser::getInstance().getById(connection, res->getInt("user_id")));
+		User *lect = dynamic_cast<User*>(DAOUser::getInstance()->getById(connection, res->getInt("user_id")));
 		this->lecturer = *lect;
 		delete lect;
 	}
