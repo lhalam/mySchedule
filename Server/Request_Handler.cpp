@@ -195,10 +195,6 @@ void Request_Handler(webserver::http_request* r)
 	r->answer_ += "</body></html>";
 
 	//logging
-<<<<<<< HEAD
 	Logger::Instance("ServerLogger")->Log(LogMessage(r->status_, r->method_));
 }
-=======
-	Logger::Instance()->Log(LogMessage(r->status_, r->method_));
-}
->>>>>>> 759690089a3b5bebc2e774d9a4069f67d8ab4980
+
