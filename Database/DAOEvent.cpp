@@ -1,19 +1,20 @@
 #include "DAOEvent.h"
 
-const DAOEvent& DAOEvent::getInstance()
+const DAOEvent * DAOEvent::getInstance()
 {
 	static DAOEvent instance;
-	return instance;
+	return &instance;
 }
 
-Entity * DAOEvent::getById(MySQLAccess& connection, unsigned id) const
+Entity * DAOEvent::getById(MySQLAccess *connection, unsigned id) const
 {
 	ResultSet *res = nullptr;
 
 	try
 	{
-		res = connection.executeQuery(
-			"select * from event where id='" + to_string(id) + "'");
+		res = connection->executeQuery(
+			"select * from `event` where id=" + to_string(id));
+		res->next();
 
 		Event *e = new Event(res);
 		delete res;
@@ -34,18 +35,19 @@ Entity * DAOEvent::getById(MySQLAccess& connection, unsigned id) const
 	return nullptr;
 }
 
-Event DAOEvent::getByName(MySQLAccess& connection, string name) const
+Event DAOEvent::getByName(MySQLAccess *connection, string name) const
 {
 	ResultSet *res = nullptr;
 
 	try
 	{
-		res = connection.executeQuery(
-			"select * from event where name='" + name + "'");
+		res = connection->executeQuery(
+			"select * from `event` where name='" + name + "'");
+		res->next();
 
-		Event _event(res);
+		Event e(res);
 		delete res;
-		return _event;
+		return e;
 	}
 	catch (SQLException& exp)
 	{
@@ -62,11 +64,11 @@ Event DAOEvent::getByName(MySQLAccess& connection, string name) const
 	return Event();
 }
 
-void DAOEvent::add(MySQLAccess& connection, const Event& e) const
+void DAOEvent::add(MySQLAccess *connection, const Event& e) const
 {
 	try
 	{
-		connection.execute("INSERT INTO event (name) VALUES ('" +
+		connection->execute("insert into `event` (name) values ('" +
 			e.getName() + "')");
 	}
 	catch (SQLException& exp)
@@ -81,12 +83,29 @@ void DAOEvent::add(MySQLAccess& connection, const Event& e) const
 	}
 }
 
-void DAOEvent::updateName(MySQLAccess& connection, const Event& e, string newName) const
+void DAOEvent::remove(MySQLAccess *connection, const Event& e) const
 {
 	try
 	{
-		connection.execute("UPDATE event SET name='" + newName + "' "
-			"WHERE id=" + to_string(e.getID()));
+		connection->execute("delete from `event` "
+			"where id=" + to_string(e.getID()));
+	} catch (SQLException& exp)
+	{
+		cerr << "An SQL exception in DAOEvent::remove() occured.\n";
+		cerr << exp.what() << endl;
+	} catch (exception& exp)
+	{
+		cerr << "An exception in DAOEvent::remove() occured.\n";
+		cerr << exp.what() << endl;
+	}
+}
+
+void DAOEvent::updateName(MySQLAccess *connection, const Event& e, string newName) const
+{
+	try
+	{
+		connection->execute("update `event` set name='" + newName + "' "
+			"where id=" + to_string(e.getID()));
 	}
 	catch (SQLException& exp)
 	{

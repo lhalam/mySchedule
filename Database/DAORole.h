@@ -6,17 +6,19 @@
 class DAORole : public DAO
 {
 public:
-	static const DAORole& getInstance();
+	static const DAORole * getInstance();
 
 	//Getters
 
-	virtual Entity * getById(MySQLAccess& connection, unsigned id) const;
-	Role getByName(MySQLAccess& connection, string name) const;
+	virtual Entity * getById(MySQLAccess *connection, unsigned id) const;
+	Role getByName(MySQLAccess *connection, string name) const;
 
 	//Setters
 
-	void add(MySQLAccess& connection, const Role& role) const;
-	void updateName(MySQLAccess& connection, const Role& role, string newName) const;
+	void add(MySQLAccess *connection, const Role& role) const;
+	void remove(MySQLAccess *connection, const Role& role) const;
+
+	void updateName(MySQLAccess *connection, const Role& role, string newName) const;
 
 private:
 	DAORole() { }

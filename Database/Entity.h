@@ -1,5 +1,6 @@
 #pragma once
 
+#include <iostream>
 #include <string>
 #include <cppconn/resultset.h>
 
@@ -30,7 +31,7 @@ public:
 		id(res->getInt("id"))
 	{
 	}
-	
+
 	virtual void setID(uni) = 0;
 
 	virtual uni getID() const = 0;

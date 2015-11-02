@@ -6,17 +6,19 @@
 class DAOEvent : public DAO
 {
 public:
-	static const DAOEvent& getInstance();
+	static const DAOEvent * getInstance();
 
 	//Getters
 
-	virtual Entity * getById(MySQLAccess& connection, unsigned id) const;
-	Event getByName(MySQLAccess& connection, string name) const;
+	virtual Entity * getById(MySQLAccess *connection, unsigned id) const;
+	Event getByName(MySQLAccess *connection, string name) const;
 
 	//Setters
 
-	void add(MySQLAccess& connection, const Event& _event) const;
-	void updateName(MySQLAccess& connection, const Event& _event, string newName) const;
+	void add(MySQLAccess *connection, const Event& e) const;
+	void remove(MySQLAccess *connection, const Event& e) const;
+
+	void updateName(MySQLAccess *connection, const Event& e, string newName) const;
 
 private:
 	DAOEvent() { }

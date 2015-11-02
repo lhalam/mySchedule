@@ -46,18 +46,18 @@ public:
 	{
 	}
 
-	User(MySQLAccess& connection, const ResultSet *res) :
+	User(MySQLAccess *connection, const ResultSet *res) :
 		Entity(res),
 		name(res->getString("name").asStdString()),
 		surname(res->getString("surname").asStdString()),
 		login(res->getString("login").asStdString()),
 		password(res->getString("password").asStdString())
 	{
-		Role *r = dynamic_cast<Role*>(DAORole::getInstance().getById(connection, res->getInt("role_id")));
+		Role *r = dynamic_cast<Role*>(DAORole::getInstance()->getById(connection, res->getInt("role_id")));
 		this->role = *r;
 		delete r;
 
-		Group *g = dynamic_cast<Group*>(DAOGroup::getInstance().getById(connection, res->getInt("group_id")));
+		Group *g = dynamic_cast<Group*>(DAOGroup::getInstance()->getById(connection, res->getInt("group_id")));
 		this->group = *g;
 		delete g;
 	}

@@ -1,21 +1,22 @@
 #include "DAOGroup.h"
 
-const DAOGroup& DAOGroup::getInstance()
+const DAOGroup * DAOGroup::getInstance()
 {
 	static DAOGroup instance;
-	return instance;
+	return &instance;
 }
 
 //Getters
 
-Entity * DAOGroup::getById(MySQLAccess& connection, unsigned id) const
+Entity * DAOGroup::getById(MySQLAccess *connection, unsigned id) const
 {
 	ResultSet *res = nullptr;
 
 	try
 	{
-		res = connection.executeQuery(
-			"select * from group where id=" + to_string(id));
+		res = connection->executeQuery(
+			"select * from `group` where id=" + to_string(id));
+		res->next();
 
 		Group *group = new Group(res);
 		delete res;
@@ -34,14 +35,15 @@ Entity * DAOGroup::getById(MySQLAccess& connection, unsigned id) const
 	return nullptr;
 }
 
-Group DAOGroup::getByName(MySQLAccess& connection, string name) const
+Group DAOGroup::getByName(MySQLAccess *connection, string name) const
 {
 	ResultSet *res = nullptr;
 
 	try
 	{
-		res = connection.executeQuery(
-			"select * from group where name=" + name);
+		res = connection->executeQuery(
+			"select * from `group` where name='" + name + "'");
+		res->next();
 
 		Group group(res);
 		delete res;
@@ -62,11 +64,12 @@ Group DAOGroup::getByName(MySQLAccess& connection, string name) const
 
 //Setters
 
-void DAOGroup::add(MySQLAccess& connection, const Group& group) const
+void DAOGroup::add(MySQLAccess *connection, const Group& group) const
 {
 	try
 	{
-		connection.execute("INSERT INTO group (name) VALUES ('" + group.getName() + ")");
+		connection->execute("insert into `group` (name) "
+			"values ('" + group.getName() + "')");
 	} catch (SQLException& exp)
 	{
 		cerr << "An SQL exception in DAOUGroup::add() occured.\n";
@@ -78,12 +81,29 @@ void DAOGroup::add(MySQLAccess& connection, const Group& group) const
 	}
 }
 
-void DAOGroup::updateName(MySQLAccess& connection, const Group& group, string newName) const
+void DAOGroup::remove(MySQLAccess *connection, const Group& group) const
 {
 	try
 	{
-		connection.execute("UPDATE group SET name='" + newName + "' "
-			"WHERE id=" + to_string(group.getID()));
+		connection->execute("delete from `group` "
+			"where id=" + to_string(group.getID()));
+	} catch (SQLException& exp)
+	{
+		cerr << "An SQL exception in DAOUGroup::remove() occured.\n";
+		cerr << exp.what() << endl;
+	} catch (exception& exp)
+	{
+		cerr << "An exception in DAOUGroup::remove() occured.\n";
+		cerr << exp.what() << endl;
+	}
+}
+
+void DAOGroup::updateName(MySQLAccess *connection, const Group& group, string newName) const
+{
+	try
+	{
+		connection->execute("update `group` set name='" + newName + "' "
+			"where id=" + to_string(group.getID()));
 	} catch (SQLException& exp)
 	{
 		cerr << "An SQL exception in DAOUGroup::updateName() occured.\n";
