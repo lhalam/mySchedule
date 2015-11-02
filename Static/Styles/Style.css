@@ -2,95 +2,88 @@ body {
 	color: #ffffff;
 	padding-top: 60px;
 	padding-bottom: 40px;
-	background-image: url('http://www.iop.kiev.ua/~nano2015/images%20filmstrip/Univ1.jpg');
+	background-image: url('http://static.panoramio.com/photos/large/110367911.jpg');
 	background-repeat: no-repeat;
 	background-attachment: fixed;
 	background-position: center center;
 	background-size: cover;
 }
 
-.menu  a {
+.wrapper .header {
+	font-family: 'Shift', sans-serif;
+	font-size: 21px;
+}
+
+.middle {
+	background-color: #6495ED;
+}
+
+.middle:after {
+	display: table;
+	clear: both;
+	content: '';
+}
+
+.middle h1 {
+  font-family: 'Shift', sans-serif;
+  font-size: 19px;
+  font-weight: bold;
   color: #ffffff;
-  font-size: 18px;
+}
+
+.middle ul {
+  font-family: 'Shift', sans-serif;
+  font-size: 13px;
+  color: #ffffff;
+}
+
+
+
+.middle a {
+  font-family: 'Shift', sans-serif;
+  font-size: 15px;
   font-weight: bold;
   padding: 14px 10px;
   text-transform: uppercase;
+  color: #ffffff;
 }
 
-.nav li {
-  display: inline;
+.middle .menu {
+	float: left;
+	border-right:1px solid #999;
+	padding:10px 0px;
+	width: 235px;
 }
 
-.profile {
-	background-color: #000000;
-}
-
-.content {
+.middle .menu a {
+	display: block;
+	background: url(navigation.png);
+	height: 30px;
 	color: #ffffff;
-	top: 25px;
-}
-
-.content h1 {
-	color: #ffffff;
-	font-size: 24px;  
-	font-family: 'Open Sans', sans-serif;
+	font-size: 16px;
 	font-weight: bold;
 }
 
-.content h2 {
-	color: #ffffff; 
+.middle .schedule{
+	color: #ffffff;
 	font-family: 'Shift', sans-serif;
+	text-shadow: none;
+}
+
+.middle .schedule  h1{
+	font-family: 'Open Sans', sans-serif;
 	font-size: 18px;
-	font-weight: bold;
-}
-
-.content .schedule{
-	color: #ffffff;
-	font-family: 'Open Sans', sans-serif;
-	text-shadow: none;
-}
-
-.content p{
-	font-size: 12px;
-	font-family: 'Open Sans', sans-serif;
-	text-shadow: none;
-}
-
-.content a {
-	font-size: 15px;
-	font-weight: bold;
-	padding: 14px 10px;
 	color: #ffffff;
 }
 
-.content .group{
+.middle .group{
 	color: #ffffff;
-	font-family: 'Open Sans', sans-serif;
-	text-shadow: none;
-}
-
-.content .group  p{
 	font-family: 'Shift', sans-serif;
-	font-size: 14px;
+	text-shadow: none;
+}
+
+.middle .group  h1{
+	font-family: 'Open Sans', sans-serif;
+	font-size: 18px;
 	color: #ffffff;
-}
-
-.learn-more {
-  background-color: #f7f7f7;
-}
-
-.learn-more h3 {
-  font-family: 'Shift', sans-serif;
-  font-size: 18px;
-  font-weight: bold;
-}
-
-.learn-more p {
-  font-family: 'Shift', sans-serif;
-  font-size: 13px;
-  color: #000000;
-}
-
-.learn-more a {
-  color: #000000;
 }
