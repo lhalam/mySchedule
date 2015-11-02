@@ -17,6 +17,13 @@
 using namespace std;
 
 class MySQLAccess {
+private:
+	auto_ptr<sql::Connection> con;
+	auto_ptr<sql::Statement> stmt;
+	
+	void exceptionResult(sql::SQLException&);
+	MySQLAccess(const MySQLAccess&) = delete;
+	
 public:
 	MySQLAccess(const string, const string, const string, const string);
 	~MySQLAccess();
@@ -24,11 +31,4 @@ public:
 	bool execute(const sql::SQLString&);
 	int executeUpdate(const sql::SQLString&);
 	sql::ResultSet* executeQuery(const sql::SQLString&);
-
-private:
-	void exceptionResult(sql::SQLException&);
-	MySQLAccess(const MySQLAccess&) = delete;
-	
-	auto_ptr<sql::Connection> con;
-	auto_ptr<sql::Statement> stmt;
 };
