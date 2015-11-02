@@ -4,10 +4,10 @@
 */
 
 #pragma once
+#pragma warning(disable: 4251)
 
 #include <string>
 #include <vector>
-#include <sstream>
 #include <stdexcept>
 
 #include "mysql_connection.h"
