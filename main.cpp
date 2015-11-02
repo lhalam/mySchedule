@@ -1,6 +1,6 @@
 #pragma comment(lib, "Ws2_32.lib")
 #include "Server\webserver.h"
-#include "Server\Socket.h"
+#include "Server\socket.h"
 #include "Server\Request_Handler.h"
 
 int main()

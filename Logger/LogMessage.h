@@ -2,7 +2,7 @@
 #include <string>
 using namespace std;
 
-enum LogLevel {logError, logWarning, logInfo, logDebug};
+enum LogLevel { logError, logWarning, logInfo, logDebug };
 
 class LogMessage
 {
