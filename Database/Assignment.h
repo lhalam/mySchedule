@@ -37,7 +37,7 @@ public:
 	{
 	}
 
-	Assignment(MySQLAccess connection, const ResultSet *res) :
+	Assignment(MySQLAccess& connection, const ResultSet *res) :
 		Entity(res),
 		subjectName(res->getString("name").asStdString()),
 		task(res->getString("task").asStdString())
