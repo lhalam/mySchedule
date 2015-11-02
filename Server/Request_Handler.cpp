@@ -57,7 +57,7 @@ void Request_Handler(webserver::http_request* r)
 
 
 		for (std::map<std::string, std::string>::const_iterator i = r->params_.begin();
-			i != r->params_.end();
+		i != r->params_.end();
 			i++) {
 
 			body += "<br>" + i->first + " = " + i->second;
@@ -91,8 +91,37 @@ void Request_Handler(webserver::http_request* r)
 			"</table>" +
 			links;
 	}
+	else if (r->path_ == "/loginpage")
+	{
+		bool status = false;
+		map<string, string> params;
+		params = r->params_;
+		MySQLAccess *connection = MySQLManager::getInstance("localhost", "myschedule", "root", "your password", 10).getConnection();
+		for (auto i = params.begin(); i != params.end(); i++)
+		{
+			User user;
+			const DAOUser *dao = DAOUser::getInstance();
+			user = DAOUser::getInstance()->getByLogin(connection, i->second);
 
-	
+			if (user.getLogin() == i->second)
+			{
+				++i;
+				if (user.getPassword() == i->second)
+				{
+					status = true;
+				}
+			}
+		}
+		if (status)
+		{
+			r->authentication_given_ = 1;
+		}
+		else
+		{
+			r->authentication_given_ = 0;
+		}
+	}
+
 	
 	else
 	{
