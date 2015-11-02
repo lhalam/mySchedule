@@ -6,7 +6,5 @@ create table `User`(
 	`surname` varchar(50),
 	`role_id` int(20) not null,
 	`group_id` int(20) not null,
-	primary key(`id`),
-	foreign key(`group_id`) references `Group`(`id`),
-	foreign key(`role_id`) references `Role`(`id`)
+	primary key(`id`)
 	);
