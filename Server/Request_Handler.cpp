@@ -2,6 +2,7 @@
 #include "socket.h"
 #include "../Logger/Logger.h"
 #include <fstream>
+#include <iostream>
 #include "../Database/DAOUser.h"
 #include "../Database/MySQLManager.h"
 //Initializing a global static pointer
@@ -9,6 +10,19 @@ Logger* Logger::instanceUnique = NULL;
 
 //Stating the default logging level
 LogLevel Logger::ReportingLevel = LogLevel::logError;
+
+string load(ifstream& InputFile)
+{
+	string str = "";
+	string row = "";
+	while (!InputFile.eof())
+	{
+		getline(InputFile, row);
+		row += '\n';
+		str += row;
+	}
+	return str;
+}
 
 void Request_Handler(webserver::http_request* r)
 {
@@ -21,6 +35,9 @@ void Request_Handler(webserver::http_request* r)
 		"<p><a href='/red'>red</a> "
 		"<br><a href='/blue'>blue</a> "
 		"<br><a href='/form'>form</a> "
+		"<br><a href='/base'>base</a> "
+		"<br><a href='/login'>login</a> "
+		"<br><a href='/register'>register</a> "
 		"<br><a href='/auth'>authentication example</a> [use <b>adp</b> as username and <b>gmbh</b> as password"
 		"<br><a href='/header'>show some HTTP header details</a> "
 		;
@@ -42,6 +59,29 @@ void Request_Handler(webserver::http_request* r)
 		bgcolor = "#4444ff";
 		title = "You chose blue";
 		body = "<h1>Blue</h1>" + links;
+	}
+	else if (r->path_ == "/base")
+	{
+		ifstream fin;
+		fin.open("base.html");
+		body = load(fin);
+		fin.close();
+	}
+
+	else if (r->path_ == "/login")
+	{
+		ifstream fin;
+		fin.open("login_page.html");
+		body = load(fin);
+		fin.close();
+	}
+
+	else if (r->path_ == "/register")
+	{
+		ifstream fin;
+		fin.open("register page.html");
+		body = load(fin);
+		fin.close();
 	}
 	else if (r->path_ == "/form") {
 		title = "Fill a form";
