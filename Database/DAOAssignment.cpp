@@ -15,7 +15,7 @@ Entity * DAOAssignment::getById(MySQLAccess *connection, unsigned id) const
 	try
 	{
 		res = connection->executeQuery(
-			"select * from `assignment` where id=" + to_string(id));
+			"SELECT * FROM `assignment` WHERE id=" + to_string(id));
 		res->next();
 
 		Assignment *assignment = new Assignment(connection, res);
@@ -42,7 +42,7 @@ Assignment DAOAssignment::getByName(MySQLAccess *connection, string name) const
 	try
 	{
 		res = connection->executeQuery(
-			"select * from `assignment` where name='" + name + "'");
+			"SELECT * FROM `assignment` WHERE name='" + name + "'");
 		res->next();
 
 		Assignment assignment(connection, res);
@@ -70,7 +70,7 @@ vector<Assignment> DAOAssignment::getByGroup(MySQLAccess *connection, int groupI
 	try
 	{
 		res = connection->executeQuery(
-			"select * from `assignment` where group_id='" + to_string(groupID) + "' "
+			"SELECT * FROM `assignment` WHERE group_id=" + to_string(groupID) + " "
 			"ORDER BY id");
 
 		while (res->next())
@@ -100,7 +100,7 @@ vector<Assignment> DAOAssignment::getByLecturer(MySQLAccess *connection, int lec
 	try
 	{
 		res = connection->executeQuery(
-			"select * from `assignment` where user_id='" + to_string(lecturerID) + "' "
+			"SELECT * FROM `assignment` WHERE user_id=" + to_string(lecturerID) + " "
 			"ORDER BY id");
 
 		while (res->next())
@@ -128,8 +128,8 @@ void DAOAssignment::add(MySQLAccess *connection, const Assignment& assignment) c
 {
 	try
 	{
-		connection->execute("insert into `assignment` (name, task, user_id, group_id) "
-			"values ('" + assignment.getSubject() + "', '" + assignment.getTask()
+		connection->execute("INSERT INTO `assignment` (name, task, user_id, group_id) "
+			"VALUES ('" + assignment.getSubject() + "', '" + assignment.getTask()
 			+ "', " + to_string(assignment.getLecturer().getID()) + ", " +
 			to_string(assignment.getGroup().getID()) + "')");
 	} catch (SQLException& exp)
@@ -147,8 +147,8 @@ void DAOAssignment::remove(MySQLAccess *connection, const Assignment& assignment
 {
 	try
 	{
-		connection->execute("delete from `assignment` "
-			"where id=" + to_string(assignment.getID()));
+		connection->execute("DELETE FROM `assignment` "
+			"WHERE id=" + to_string(assignment.getID()));
 	} catch (SQLException& exp)
 	{
 		cerr << "An SQL exception in DAOAssignment::remove() occured.\n";
@@ -164,8 +164,8 @@ void DAOAssignment::updateName(MySQLAccess *connection, const Assignment& assign
 {
 	try
 	{
-		connection->execute("update `assignment` set name='" + newName + "' "
-			"where id=" + to_string(assignment.getID()));
+		connection->execute("UPDATE `assignment` SET name='" + newName + "' "
+			"WHERE id=" + to_string(assignment.getID()));
 	} catch (SQLException& exp)
 	{
 		cerr << "An SQL exception in DAOAssignment::updateName() occured.\n";
@@ -181,8 +181,8 @@ void DAOAssignment::updateTask(MySQLAccess *connection, const Assignment& assign
 {
 	try
 	{
-		connection->execute("update `assignment` set task='" + newTask + "' "
-			"where id=" + to_string(assignment.getID()));
+		connection->execute("UPDATE `assignment` SET task='" + newTask + "' "
+			"WHERE id=" + to_string(assignment.getID()));
 	} catch (SQLException& exp)
 	{
 		cerr << "An SQL exception in DAOAssignment::updateTask() occured.\n";
@@ -198,8 +198,8 @@ void DAOAssignment::updateGroup(MySQLAccess *connection, const Assignment& assig
 {
 	try
 	{
-		connection->execute("update assignment set group_id=" + to_string(newGroup) + " "
-			"where id=" + to_string(assignment.getID()));
+		connection->execute("UPDATE assignment SET group_id=" + to_string(newGroup) + " "
+			"WHERE id=" + to_string(assignment.getID()));
 	} catch (SQLException& exp)
 	{
 		cerr << "An SQL exception in DAOAssignment::updateGroup() occured.\n";
@@ -215,8 +215,8 @@ void DAOAssignment::updateLecturer(MySQLAccess *connection, const Assignment& as
 {
 	try
 	{
-		connection->execute("update assignment set user_id=" +
-			to_string(newLecturer) + " where id=" +
+		connection->execute("UPDATE assignment SET user_id=" +
+			to_string(newLecturer) + " WHERE id=" +
 			to_string(assignment.getID()));
 	} catch (SQLException& exp)
 	{

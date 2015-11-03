@@ -13,7 +13,7 @@ Entity * DAORole::getById(MySQLAccess *connection, unsigned id) const
 	try
 	{
 		res = connection->executeQuery(
-			"select * from `role` where id=" + to_string(id));
+			"SELECT * FROM `role` WHERE id=" + to_string(id));
 		res->next();
 
 		Role *role = new Role(res);
@@ -40,7 +40,7 @@ Role DAORole::getByName(MySQLAccess *connection, string name) const
 	try
 	{
 		res = connection->executeQuery(
-			"select * from `role` where name='" + name + "'");
+			"SELECT * FROM `role` WHERE name='" + name + "'");
 		res->next();
 
 		Role role(res);
@@ -64,8 +64,8 @@ void DAORole::add(MySQLAccess *connection, const Role& role) const
 {
 	try
 	{
-		connection->execute("insert into role (name) "
-			"values ('" + role.getName() + "')");
+		connection->execute("INSERT INTO `role` (name) "
+			"VALUES ('" + role.getName() + "')");
 	} catch (SQLException& exp)
 	{
 		cerr << "An SQL exception in DAORole::add() occured.\n";
@@ -81,8 +81,8 @@ void DAORole::remove(MySQLAccess *connection, const Role& role) const
 {
 	try
 	{
-		connection->execute("delete from role "
-			"where id=" + to_string(role.getID()));
+		connection->execute("DELETE FROM `role` "
+			"WHERE id=" + to_string(role.getID()));
 	} catch (SQLException& exp)
 	{
 		cerr << "An SQL exception in DAORole::remove() occured.\n";
@@ -98,8 +98,8 @@ void DAORole::updateName(MySQLAccess *connection, const Role& role, string newNa
 {
 	try
 	{
-		connection->execute("update role set name='" + newName + "' "
-			"where id=" + to_string(role.getID()));
+		connection->execute("UPDATE `role` SET name='" + newName + "' "
+			"WHERE id=" + to_string(role.getID()));
 	} catch (SQLException& exp)
 	{
 		cerr << "An SQL exception in DAORole::updateName() occured.\n";

@@ -15,7 +15,7 @@ Entity * DAOGroup::getById(MySQLAccess *connection, unsigned id) const
 	try
 	{
 		res = connection->executeQuery(
-			"select * from `group` where id=" + to_string(id));
+			"SELECT * FROM `group` WHERE id=" + to_string(id));
 		res->next();
 
 		Group *group = new Group(res);
@@ -42,7 +42,7 @@ Group DAOGroup::getByName(MySQLAccess *connection, string name) const
 	try
 	{
 		res = connection->executeQuery(
-			"select * from `group` where name='" + name + "'");
+			"SELECT * FROM `group` WHERE name='" + name + "'");
 		res->next();
 
 		Group group(res);
@@ -68,8 +68,8 @@ void DAOGroup::add(MySQLAccess *connection, const Group& group) const
 {
 	try
 	{
-		connection->execute("insert into `group` (name) "
-			"values ('" + group.getName() + "')");
+		connection->execute("INSERT INTO `group` (name) "
+			"VALUES ('" + group.getName() + "')");
 	} catch (SQLException& exp)
 	{
 		cerr << "An SQL exception in DAOUGroup::add() occured.\n";
@@ -85,8 +85,8 @@ void DAOGroup::remove(MySQLAccess *connection, const Group& group) const
 {
 	try
 	{
-		connection->execute("delete from `group` "
-			"where id=" + to_string(group.getID()));
+		connection->execute("DELETE FROM `group` "
+			"WHERE id=" + to_string(group.getID()));
 	} catch (SQLException& exp)
 	{
 		cerr << "An SQL exception in DAOUGroup::remove() occured.\n";
@@ -102,8 +102,8 @@ void DAOGroup::updateName(MySQLAccess *connection, const Group& group, string ne
 {
 	try
 	{
-		connection->execute("update `group` set name='" + newName + "' "
-			"where id=" + to_string(group.getID()));
+		connection->execute("UPDATE `group` SET name='" + newName + "' "
+			"WHERE id=" + to_string(group.getID()));
 	} catch (SQLException& exp)
 	{
 		cerr << "An SQL exception in DAOUGroup::updateName() occured.\n";

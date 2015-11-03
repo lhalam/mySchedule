@@ -15,7 +15,7 @@ Entity * DAOUser::getById(MySQLAccess *connection, unsigned id) const
 	try
 	{
 		res = connection->executeQuery(
-			"select * from `user` where id=" + to_string(id));
+			"SELECT * FROM `user` WHERE id=" + to_string(id));
 		res->next();
 
 		User *user = new User(connection, res);
@@ -42,7 +42,7 @@ User DAOUser::getByLogin(MySQLAccess *connection, string login) const
 	try
 	{
 		res = connection->executeQuery(
-			"select * from `user` where login='" + login + "'");
+			"SELECT * FROM `user` WHERE login='" + login + "'");
 		res->next();
 
 		User user(connection, res);
@@ -70,7 +70,7 @@ vector<User> DAOUser::getByName(MySQLAccess *connection, string name) const
 	try
 	{
 		res = connection->executeQuery(
-			"select * from `user` where name='" + name + "' order by id");
+			"SELECT * FROM `user` WHERE name='" + name + "' ORDER BY id");
 
 		while (res->next())
 		{
@@ -99,8 +99,8 @@ vector<User> DAOUser::getBySurname(MySQLAccess *connection, string surname) cons
 	try
 	{
 		res = connection->executeQuery(
-			"select * from `user` where surname='" + surname +
-			"' order by id");
+			"SELECT * FROM `user` WHERE surname='" + surname + "' "
+			"ORDER BY id");
 
 		while (res->next())
 		{
@@ -129,8 +129,8 @@ vector<User> DAOUser::getByFullName(MySQLAccess *connection, string name, string
 	try
 	{
 		res = connection->executeQuery(
-			"select * from `user` where name='" + name +
-			"' and surname='" + surname + "'");
+			"SELECT * FROM `user` WHERE name='" + name + "' "
+			"AND surname='" + surname + "'");
 
 		while (res->next())
 		{
@@ -159,8 +159,8 @@ vector<User> DAOUser::getByRole(MySQLAccess *connection, int roleID) const
 	try
 	{
 		res = connection->executeQuery(
-			"select * from `user` where role_id=" + to_string(roleID) +
-			"order by surname");
+			"SELECT * FROM `user` WHERE role_id=" + to_string(roleID) + " "
+			"ORDER BY surname");
 
 		while (res->next())
 		{
@@ -189,8 +189,8 @@ vector<User> DAOUser::getByGroup(MySQLAccess *connection, int groupID) const
 	try
 	{
 		res = connection->executeQuery(
-			"select * from `user` where group_id=" + to_string(groupID) +
-			"order by surname");
+			"SELECT * FROM `user` WHERE group_id=" + to_string(groupID) + " "
+			"ORDER BY surname");
 
 		while (res->next())
 		{
@@ -217,8 +217,8 @@ void DAOUser::add(MySQLAccess *connection, const User& user) const
 {
 	try
 	{
-		connection->execute("insert into `user` "
-			"(login, password, name, surname, role_id, group_id) values ('" +
+		connection->execute("INSERT INTO `user` "
+			"(login, password, name, surname, role_id, group_id) VALUES ('" +
 			user.getLogin() + "', '" + user.getPassword() + "', '" +
 			user.getName()  + "', '" + user.getSurname() + "', " +
 			to_string(user.getRoleID()) + ", " +
@@ -238,7 +238,7 @@ void DAOUser::remove(MySQLAccess *connection, const User& user) const
 {
 	try
 	{
-		connection->execute("delete from `user` where id=" +
+		connection->execute("DELETE FROM `user` WHERE id=" +
 			to_string(user.getID()));
 	} catch (SQLException& exp)
 	{
@@ -255,8 +255,8 @@ void DAOUser::updateLogin(MySQLAccess *connection, const User& user, string newL
 {
 	try
 	{
-		connection->execute("update `user` set login='" + newLogin + "' "
-			"where id=" + to_string(user.getID()));
+		connection->execute("UPDATE `user` SET login='" + newLogin + "' "
+			"WHERE id=" + to_string(user.getID()));
 	} catch (SQLException& exp)
 	{
 		cerr << "An SQL exception in DAOUser::updateLogin() occured.\n";
@@ -272,8 +272,8 @@ void DAOUser::updateName(MySQLAccess *connection, const User& user, string newNa
 {
 	try
 	{
-		connection->execute("update `user` set name='" + newName + "' "
-			"where id=" + to_string(user.getID()));
+		connection->execute("UPDATE `user` SET name='" + newName + "' "
+			"WHERE id=" + to_string(user.getID()));
 	} catch (SQLException& exp)
 	{
 		cerr << "An SQL exception in DAOUser::updateName() occured.\n";
@@ -289,8 +289,8 @@ void DAOUser::updateSurname(MySQLAccess *connection, const User& user, string ne
 {
 	try
 	{
-		connection->execute("update `user` set surname='" + newSurname + "' "
-			"where id=" + to_string(user.getID()));
+		connection->execute("UPDATE `user` SET surname='" + newSurname + "' "
+			"WHERE id=" + to_string(user.getID()));
 	} catch (SQLException& exp)
 	{
 		cerr << "An SQL exception in DAOUser::updateSurname() occured.\n";
@@ -306,8 +306,8 @@ void DAOUser::updateRole(MySQLAccess *connection, const User& user, int newRole)
 {
 	try
 	{
-		connection->execute("update `user` set role=" + to_string(newRole) + " "
-			"where id=" + to_string(user.getID()));
+		connection->execute("UPDATE `user` SET role_id=" + to_string(newRole) + " "
+			"WHERE id=" + to_string(user.getID()));
 	} catch (SQLException& exp)
 	{
 		cerr << "An SQL exception in DAOUser::updateRole() occured.\n";
@@ -323,8 +323,8 @@ void DAOUser::updateGroup(MySQLAccess *connection, const User& user, int newGrou
 {
 	try
 	{
-		connection->execute("update `user` set role=" + to_string(newGroup) + " "
-			"where id=" + to_string(user.getID()));
+		connection->execute("UPDATE `user` SET group_id=" + to_string(newGroup) + " "
+			"WHERE id=" + to_string(user.getID()));
 	} catch (SQLException& exp)
 	{
 		cerr << "An SQL exception in DAOUser::updateGroup() occured.\n";

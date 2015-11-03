@@ -13,7 +13,7 @@ Entity * DAOEvent::getById(MySQLAccess *connection, unsigned id) const
 	try
 	{
 		res = connection->executeQuery(
-			"select * from `event` where id=" + to_string(id));
+			"SELECT * FROM `event` WHERE id=" + to_string(id));
 		res->next();
 
 		Event *e = new Event(res);
@@ -42,7 +42,7 @@ Event DAOEvent::getByName(MySQLAccess *connection, string name) const
 	try
 	{
 		res = connection->executeQuery(
-			"select * from `event` where name='" + name + "'");
+			"SELECT * FROM `event` WHERE name='" + name + "'");
 		res->next();
 
 		Event e(res);
@@ -68,7 +68,7 @@ void DAOEvent::add(MySQLAccess *connection, const Event& e) const
 {
 	try
 	{
-		connection->execute("insert into `event` (name) values ('" +
+		connection->execute("INSERT INTO `event` (name) VALUES ('" +
 			e.getName() + "')");
 	}
 	catch (SQLException& exp)
@@ -87,8 +87,8 @@ void DAOEvent::remove(MySQLAccess *connection, const Event& e) const
 {
 	try
 	{
-		connection->execute("delete from `event` "
-			"where id=" + to_string(e.getID()));
+		connection->execute("DELETE FROM `event` "
+			"WHERE id=" + to_string(e.getID()));
 	} catch (SQLException& exp)
 	{
 		cerr << "An SQL exception in DAOEvent::remove() occured.\n";
@@ -104,8 +104,8 @@ void DAOEvent::updateName(MySQLAccess *connection, const Event& e, string newNam
 {
 	try
 	{
-		connection->execute("update `event` set name='" + newName + "' "
-			"where id=" + to_string(e.getID()));
+		connection->execute("UPDATE `event` SET name='" + newName + "' "
+			"WHERE id=" + to_string(e.getID()));
 	}
 	catch (SQLException& exp)
 	{
