@@ -8,27 +8,37 @@
 
 #include "mysql_connection.h"
 
-#include <cppconn/driver.h>
-#include <cppconn/exception.h>
-#include <cppconn/resultset.h>
-#include <cppconn/statement.h>
-#include <cppconn/prepared_statement.h>
+#include <cppconn\driver.h>
+#include <cppconn\exception.h>
+#include <cppconn\resultset.h>
+#include <cppconn\statement.h>
+#include <cppconn\prepared_statement.h>
 
 using namespace std;
 
+using sql::Connection;
+using sql::Statement;
+using sql::ResultSet;
+using sql::SQLString;
+using sql::SQLException;
+
 class MySQLAccess {
 private:
-	auto_ptr<sql::Connection> con;
-	auto_ptr<sql::Statement> stmt;
-	
-	void exceptionResult(sql::SQLException&);
-	MySQLAccess(const MySQLAccess&) = delete;
+	auto_ptr<Connection> con;
+	auto_ptr<Statement> stmt;
 	
 public:
-	MySQLAccess(const string, const string, const string, const string);
+	MySQLAccess(const string url, const string user, const string pass, const string db);
 	~MySQLAccess();
+
 	void close();
-	bool execute(const sql::SQLString&);
-	int executeUpdate(const sql::SQLString&);
-	sql::ResultSet* executeQuery(const sql::SQLString&);
+	bool execute(const SQLString&);
+	int executeUpdate(const SQLString&);
+	ResultSet* executeQuery(const SQLString&);
+
+private:
+	void exceptionResult(SQLException&);
+
+	MySQLAccess(const MySQLAccess&) = delete;
+	MySQLAccess& operator=(const MySQLAccess&) = delete;
 };
