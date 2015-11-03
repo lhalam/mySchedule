@@ -17,12 +17,12 @@ string Template::load(ifstream& InputFile)
 	string row = "";
 	while (!InputFile.eof())
 	{
-		getline(InputFile, w);
-		w += '\n';
-		arr += w;
+		getline(InputFile, row);
+		row += '\n';
+		str += row;
 	}
-	templ = arr;
-	return arr;
+	templ = str;
+	return str;
 }
 
 string Template::render(map<TKey key, Entity obj> mp)
