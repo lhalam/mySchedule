@@ -1,0 +1,6 @@
+(login)
+admin
+(password)
+admin
+(CSS)
+/Static/Style/
