@@ -13,10 +13,16 @@ Template::Template() : templ("none")
 
 string Template::load(ifstream& InputFile)
 {
-	string str;
-	InputFile >> str;
-	templ = str;
-	return str;
+	string str = "";
+	string row = "";
+	while (!InputFile.eof())
+	{
+		getline(InputFile, w);
+		w += '\n';
+		arr += w;
+	}
+	templ = arr;
+	return arr;
 }
 
 string Template::render(map<TKey key, Entity obj> mp)
