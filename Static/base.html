@@ -1,29 +1,18 @@
 ﻿<!DOCTYPE html>
 <html>
-<<<<<<< HEAD
 <head>
-    <meta charset="utf-8"></meta>
+    <meta charset="utf-8">
     <link href="http://s3.amazonaws.com/codecademy-content/courses/ltp/css/shift.css" rel="stylesheet"></link>
     <link rel="stylesheet" href="Styles/Bootstrap/css/bootstrap (base_page).css"></link>
     <link rel="stylesheet" href="Styles/Style.css"></link>
-    <title> Головна </title>
+    <title> Base </title>
 </head>
-=======
-	<head>
-	<meta charset="utf-8">
-        <link href="http://s3.amazonaws.com/codecademy-content/courses/ltp/css/shift.css" rel="stylesheet"></link>
-        <link rel="stylesheet" href="Styles/Bootstrap/css/bootstrap (base_page).css"></link>
-        <link rel="stylesheet" href="Styles/Style.css"></link>
-        <title> Головна </title>
-	</head>
->>>>>>> 4c33bb7340cd42778589eae5aa9db458107b1b14
 
 <body>
 
-
     <div class="wrapper">
         <header class="header">
-            <strong>Розклад</strong>
+            <strong>Schedule</strong>
             {% block name %}{% end block %}
             {% block group_name %}{% end block %}
         </header>
@@ -37,14 +26,14 @@
                         <div class="menu">
 
                             <ul>
-                                <li><a href="base.html"> Головна сторінка </a></li>
-                                <li><a href="groups.html"> Групи </a></li>
-                                <li><a href="teachers.html"> Викладачі </a></li>
-                                <li><a href="shedule.html"> Розклад </a></li>
-                                <li><a href="literature.html"> Література</a></li>
+                                <li><a href="base.html"> Main page </a></li>
+                                <li><a href="groups.html"> Groups </a></li>
+                                <li><a href="teachers.html"> Lecturers </a></li>
+                                <li><a href="shedule.html"> Schedule </a></li>
+                                <li><a href="literature.html"> Literature </a></li>
                             </ul>
 
-                            <p><a href="settings.html"> Налаштування </a></p>
+                            <p><a href="settings.html"> Settings </a></p>
                         </div>
 
                         <div class="col-md-3">
@@ -58,7 +47,7 @@
 
                         <div class="col-md-6">
                             <div class="schedule">
-                                <h1>Schedule</h1>
+                                <h1> My schedule</h1>
                                 <ul>
                                     {%block shedule %}{% endblock %}
                                 </ul>
