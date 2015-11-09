@@ -43,17 +43,20 @@ void Request_Handler(webserver::http_request* r)
 		title = "Our Web Server";
 		body = "<h1>Our Web Server</h1>"
 			"I wonder what you're going to click" + links;
-	} else if (r->path_ == "/red")
+	}
+	else if (r->path_ == "/red")
 	{
 		bgcolor = "#ff4444";
 		title = "You chose red";
 		body = "<h1>Red</h1>" + links;
-	} else if (r->path_ == "/blue")
+	}
+	else if (r->path_ == "/blue")
 	{
 		bgcolor = "#4444ff";
 		title = "You chose blue";
 		body = "<h1>Blue</h1>" + links;
-	} else if (r->path_ == "/base")
+	}
+	else if (r->path_ == "/base")
 	{
 		ifstream fin;
 		fin.open("base.html");
@@ -75,7 +78,8 @@ void Request_Handler(webserver::http_request* r)
 		fin.open("register page.html");
 		body = load(fin);
 		fin.close();
-	} else if (r->path_ == "/form") {
+	}
+	else if (r->path_ == "/form") {
 		title = "Fill a form";
 
 		body = "<h1>Fill a form</h1>";
@@ -98,18 +102,22 @@ void Request_Handler(webserver::http_request* r)
 
 		body += "<hr>" + links;
 
-	} else if (r->path_ == "/auth") {
+	}
+	else if (r->path_ == "/auth") {
 		if (r->authentication_given_) {
 			if (r->username_ == "adp" && r->password_ == "gmbh") {
 				body = "<h1>Successfully authenticated</h1>" + links;
-			} else {
+			}
+			else {
 				body = "<h1>Wrong username or password</h1>" + links;
 				r->auth_realm_ = "Private Stuff";
 			}
-		} else {
+		}
+		else {
 			r->auth_realm_ = "Private Stuff";
 		}
-	} else if (r->path_ == "/header") {
+	}
+	else if (r->path_ == "/header") {
 		title = "some HTTP header details";
 		body = std::string("<table>") +
 			"<tr><td>Accept:</td><td>" + r->accept_ + "</td></tr>" +
@@ -118,33 +126,44 @@ void Request_Handler(webserver::http_request* r)
 			"<tr><td>User-Agent:</td><td>" + r->user_agent_ + "</td></tr>" +
 			"</table>" +
 			links;
-	} else if (r->path_ == "/loginpage")
+	}
+	else if (r->path_ == "/loginpage")
 	{
-		bool status = false;
-		map<string, string> params;
-		params = r->params_;
-		MySQLAccess *connection = MySQLManager::getInstance("localhost", "myschedule", "root", "your password", 10).getConnection();
-		for (auto i = params.begin(); i != params.end(); i++)
+		if (r->method_ == "GET")
 		{
-			User user = daoUser.getByLogin(connection, i->second);
 
-			if (user.getLogin() == i->second)
+		}
+		else if (r->method_ == "POST")
+		{
+			bool status = false;
+			map<string, string> params;
+			params = r->params_;
+			MySQLAccess *connection = MySQLManager::getInstance("localhost", "myschedule", "root", "your password", 10).getConnection();
+			for (auto i = params.begin(); i != params.end(); i++)
 			{
-				++i;
-				if (user.getPassword() == i->second)
+
+				User user = daoUser.getByLogin(connection, i->second);
+
+				if (user.getLogin() == i->second)
 				{
-					status = true;
+					++i;
+					if (user.getPassword() == i->second)
+					{
+						status = true;
+					}
 				}
 			}
+			if (status)
+			{
+				r->authentication_given_ = 1;
+			}
+			else
+			{
+				r->authentication_given_ = 0;
+			}
 		}
-		if (status)
-		{
-			r->authentication_given_ = 1;
-		} else
-		{
-			r->authentication_given_ = 0;
-		}
-	} else if (r->path_ == "/registerpage")
+	}
+	else if (r->path_ == "/registerpage")
 	{
 		bool status = 0;
 		map<string, string> params;
