@@ -11,7 +11,7 @@ private:
 public:
 	Template();
 	string load(ifstream& f);
-	string render(map<TKey, Entity>);
+//	string render(map<TKey, Entity>);
 	~Template();
 };
 
