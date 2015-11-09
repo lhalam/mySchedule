@@ -4,6 +4,7 @@
 #include "..\Logger\Logger.h"
 #include "..\Database\DAOUser.h"
 #include "..\Database\MySQLManager.h"
+#include "..\Template.h"
 
 #include <fstream>
 
@@ -58,25 +59,10 @@ void Request_Handler(webserver::http_request* r)
 	}
 	else if (r->path_ == "/base")
 	{
+		Template templ;
 		ifstream fin;
 		fin.open("base.html");
-		body = load(fin);
-		fin.close();
-	}
-
-	else if (r->path_ == "/login")
-	{
-		ifstream fin;
-		fin.open("login_page.html");
-		body = load(fin);
-		fin.close();
-	}
-
-	else if (r->path_ == "/register")
-	{
-		ifstream fin;
-		fin.open("register page.html");
-		body = load(fin);
+		body = templ.load(fin);
 		fin.close();
 	}
 	else if (r->path_ == "/form") {
@@ -98,7 +84,6 @@ void Request_Handler(webserver::http_request* r)
 
 			body += "<br>" + i->first + " = " + i->second;
 		}
-
 
 		body += "<hr>" + links;
 
@@ -127,11 +112,15 @@ void Request_Handler(webserver::http_request* r)
 			"</table>" +
 			links;
 	}
-	else if (r->path_ == "/loginpage")
+	else if (r->path_ == "/login")
 	{
 		if (r->method_ == "GET")
 		{
-
+			Template templ;
+			ifstream fin;
+			fin.open("login_page.html");
+			body = templ.load(fin);
+			fin.close();
 		}
 		else if (r->method_ == "POST")
 		{
@@ -163,11 +152,15 @@ void Request_Handler(webserver::http_request* r)
 			}
 		}
 	}
-	else if (r->path_ == "/registerpage")
+	else if (r->path_ == "/register")
 	{
 		if (r->method_ == "GET")
 		{
-
+			Template templ;
+			ifstream fin;
+			fin.open("register page.html");
+			body = templ.load(fin);
+			fin.close();
 		}
 		else if (r->method_ == "POST")
 		{
