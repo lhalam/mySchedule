@@ -25,12 +25,14 @@ string Template::load(ifstream& InputFile)
 	return str;
 }
 
+/*
 string Template::render(map<TKey key, Entity obj> mp)
 {
 	string str = to_string(mp.find(key));
 	templ = str;
 	return str;
 }
+*/
 
 Template::~Template()
 {
