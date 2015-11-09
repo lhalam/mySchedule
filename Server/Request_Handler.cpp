@@ -4,21 +4,7 @@
 #include "..\Logger\Logger.h"
 #include "..\Database\DAOUser.h"
 #include "..\Database\MySQLManager.h"
-
-#include <fstream>
-
-string load(ifstream& InputFile)
-{
-	string str = "";
-	string row = "";
-	while (!InputFile.eof())
-	{
-		getline(InputFile, row);
-		row += '\n';
-		str += row;
-	}
-	return str;
-}
+#include "..\Template\Template.h"
 
 void Request_Handler(webserver::http_request* r)
 {
@@ -58,25 +44,28 @@ void Request_Handler(webserver::http_request* r)
 	}
 	else if (r->path_ == "/base")
 	{
+		Template templ;
 		ifstream fin;
 		fin.open("Static\\base.html"); //path for all .html should be given in config file
-		body = load(fin);
+		body = templ.load(fin);
 		fin.close();
 	}
 
 	else if (r->path_ == "/login")
 	{
+		Template templ;
 		ifstream fin;
 		fin.open("Static\\login_page.html"); //path for all .html should be given in config file
-		body = load(fin);
+		body = templ.load(fin);
 		fin.close();
 	}
 
 	else if (r->path_ == "/register")
 	{
+		Template templ;
 		ifstream fin;
 		fin.open("Static\\register page.html"); //path for all .html should be given in config file
-		body = load(fin);
+		body = templ.load(fin);
 		fin.close();
 	}
 	else if (r->path_ == "/form") {
@@ -98,7 +87,6 @@ void Request_Handler(webserver::http_request* r)
 
 			body += "<br>" + i->first + " = " + i->second;
 		}
-
 
 		body += "<hr>" + links;
 
@@ -127,11 +115,15 @@ void Request_Handler(webserver::http_request* r)
 			"</table>" +
 			links;
 	}
-	else if (r->path_ == "/loginpage")
+	else if (r->path_ == "/login")
 	{
 		if (r->method_ == "GET")
 		{
-
+			Template templ;
+			ifstream fin;
+			fin.open("login_page.html");
+			body = templ.load(fin);
+			fin.close();
 		}
 		else if (r->method_ == "POST")
 		{
@@ -163,11 +155,15 @@ void Request_Handler(webserver::http_request* r)
 			}
 		}
 	}
-	else if (r->path_ == "/registerpage")
+	else if (r->path_ == "/register")
 	{
 		if (r->method_ == "GET")
 		{
-
+			Template templ;
+			ifstream fin;
+			fin.open("register page.html");
+			body = templ.load(fin);
+			fin.close();
 		}
 		else if (r->method_ == "POST")
 		{
