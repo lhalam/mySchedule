@@ -1,70 +1,68 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
-	<meta charset="utf-8"></meta>
-	<head>
-        <link href="http://s3.amazonaws.com/codecademy-content/courses/ltp/css/shift.css" rel="stylesheet"></link>
-        <link rel="stylesheet" href="Styles/Bootstrap/css/bootstrap (base_page).css"></link>
-        <link rel="stylesheet" href="Styles/Style.css"></link>
-        <title> Головна </title>
-	</head>
+<head>
+    <meta charset="utf-8"></meta>
+    <link href="http://s3.amazonaws.com/codecademy-content/courses/ltp/css/shift.css" rel="stylesheet"></link>
+    <link rel="stylesheet" href="Styles/Bootstrap/css/bootstrap (base_page).css"></link>
+    <link rel="stylesheet" href="Styles/Style.css"></link>
+    <title> Головна </title>
+</head>
 
-	<body>
+<body>
 
 
-<div class="wrapper">
-    <header class="header">
-			<strong>Розклад</strong> 
-			{% block name %}{% end block %}
-			{% block group_name %}{% end block %}
-	</header>
+    <div class="wrapper">
+        <header class="header">
+            <strong>Розклад</strong>
+            {% block name %}{% end block %}
+            {% block group_name %}{% end block %}
+        </header>
 
-	<div class="middle">
+        <div class="middle">
 
-		<div class="container">
-		 <main class="content">
-		 <div class="row">
-		 
-			<div class="menu">
-		    
-					<ul>
-					<li><a href="base.html"> Головна сторінка </a></li>
-					<li><a href="groups.html"> Групи </a></li>
-					<li><a href="teachers.html"> Викладачі </a></li>
-					<li><a href="shedule.html"> Розклад </a></li>
-					<li><a href="literature.html"> Література</a></li>
-					</ul>	
-		  
-				<p><a href="settings.html"> Налаштування </a></p>
-			</div>
-	
-			<div class="col-md-3">
-				<div class="group">
-					<h1> My group </h1>
-					<ul>
-						{% block group %}{% endblock %}
-					</ul>
-				</div>
-			</div>
-			
-			<div class="col-md-6">
-				<div class="schedule">
-					<h1>Schedule</h1>
-					<ul>
-						{%block shedule %}{% endblock %}
-					</ul>
-				</div>
-			</div>
-		
-		 </div>	
-		 </main>
-		</div>
-	</div>
+            <div class="container">
+                <main class="content">
+                    <div class="row">
 
-</div>
+                        <div class="menu">
 
-	<footer class="footer">
-		
-	</footer>
+                            <ul>
+                                <li><a href="base.html"> Головна сторінка </a></li>
+                                <li><a href="groups.html"> Групи </a></li>
+                                <li><a href="teachers.html"> Викладачі </a></li>
+                                <li><a href="shedule.html"> Розклад </a></li>
+                                <li><a href="literature.html"> Література</a></li>
+                            </ul>
+
+                            <p><a href="settings.html"> Налаштування </a></p>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div class="group">
+                                <h1> My group </h1>
+                                <ul>
+                                    {% block group %}{% endblock %}
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="schedule">
+                                <h1>Schedule</h1>
+                                <ul>
+                                    {%block shedule %}{% endblock %}
+                                </ul>
+                            </div>
+                        </div>
+
+                    </div>
+                </main>
+            </div>
+        </div>
+
+    </div>
+
+    <footer class="footer"></footer>
 
 </body>
 </html>

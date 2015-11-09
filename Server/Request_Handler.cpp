@@ -59,7 +59,7 @@ void Request_Handler(webserver::http_request* r)
 	else if (r->path_ == "/base")
 	{
 		ifstream fin;
-		fin.open("base.html");
+		fin.open("Static\\base.html"); //path for all .html should be given in config file
 		body = load(fin);
 		fin.close();
 	}
@@ -67,7 +67,7 @@ void Request_Handler(webserver::http_request* r)
 	else if (r->path_ == "/login")
 	{
 		ifstream fin;
-		fin.open("login_page.html");
+		fin.open("Static\\login_page.html"); //path for all .html should be given in config file
 		body = load(fin);
 		fin.close();
 	}
@@ -75,7 +75,7 @@ void Request_Handler(webserver::http_request* r)
 	else if (r->path_ == "/register")
 	{
 		ifstream fin;
-		fin.open("register page.html");
+		fin.open("Static\\register page.html"); //path for all .html should be given in config file
 		body = load(fin);
 		fin.close();
 	}
