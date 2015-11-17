@@ -10,7 +10,7 @@ public:
 
 	//Getters
 
-	virtual Entity * getById(MySQLAccess *connection, unsigned id) const;
+	virtual User * getById(MySQLAccess *connection, unsigned id) const;
 	User getByLogin(MySQLAccess *connection, string login) const;
 	vector<User> getByName(MySQLAccess *connection, string name) const;
 	vector<User> getBySurname(MySQLAccess *connection, string name) const;

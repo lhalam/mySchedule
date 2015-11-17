@@ -10,7 +10,7 @@ public:
 
 	//Getters
 
-	virtual Entity * getById(MySQLAccess *connection, unsigned id) const;
+	virtual Assignment * getById(MySQLAccess *connection, unsigned id) const;
 	Assignment getByName(MySQLAccess *connection, string name) const;
 	vector<Assignment> getByGroup(MySQLAccess *connection, int groupID) const;
 	vector<Assignment> getByLecturer(MySQLAccess *connection, int lecturerID) const;

@@ -6,7 +6,7 @@ const DAORole * DAORole::getInstance()
 	return &instance;
 }
 
-Entity * DAORole::getById(MySQLAccess *connection, unsigned id) const
+Role * DAORole::getById(MySQLAccess *connection, unsigned id) const
 {
 	ResultSet *res = nullptr;
 

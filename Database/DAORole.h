@@ -10,7 +10,7 @@ public:
 
 	//Getters
 
-	virtual Entity * getById(MySQLAccess *connection, unsigned id) const;
+	virtual Role * getById(MySQLAccess *connection, unsigned id) const;
 	Role getByName(MySQLAccess *connection, string name) const;
 
 	//Setters

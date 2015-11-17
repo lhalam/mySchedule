@@ -6,7 +6,7 @@ const DAOEvent * DAOEvent::getInstance()
 	return &instance;
 }
 
-Entity * DAOEvent::getById(MySQLAccess *connection, unsigned id) const
+Event * DAOEvent::getById(MySQLAccess *connection, unsigned id) const
 {
 	ResultSet *res = nullptr;
 

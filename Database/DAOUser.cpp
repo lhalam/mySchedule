@@ -9,7 +9,7 @@ const DAOUser * DAOUser::getInstance()
 
 //Getters
 
-Entity * DAOUser::getById(MySQLAccess *connection, unsigned id) const
+User * DAOUser::getById(MySQLAccess *connection, unsigned id) const
 {
 	ResultSet *res = nullptr;
 	try

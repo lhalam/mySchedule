@@ -8,7 +8,7 @@ const DAOGroup * DAOGroup::getInstance()
 
 //Getters
 
-Entity * DAOGroup::getById(MySQLAccess *connection, unsigned id) const
+Group * DAOGroup::getById(MySQLAccess *connection, unsigned id) const
 {
 	ResultSet *res = nullptr;
 

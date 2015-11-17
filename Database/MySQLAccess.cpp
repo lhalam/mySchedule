@@ -18,9 +18,9 @@ void MySQLAccess::exceptionResult(sql::SQLException& e) {
 MySQLAccess::MySQLAccess(const string url, const string user, const string pass, const string db) {
 	try {
 		sql::Driver* driver(get_driver_instance());
-		con = auto_ptr<sql::Connection>(driver->connect(url, user, pass));
+		con = unique_ptr<sql::Connection>(driver->connect(url, user, pass));
 		con->setSchema(db);
-		stmt = auto_ptr<sql::Statement>(con->createStatement());
+		stmt = unique_ptr<sql::Statement>(con->createStatement());
 	}
 	catch (sql::SQLException& e) {
 		exceptionResult(e);
@@ -29,11 +29,15 @@ MySQLAccess::MySQLAccess(const string url, const string user, const string pass,
 }
 
 MySQLAccess::~MySQLAccess() {
-	con->close();
+	if (!con->isClosed()) {
+		con->close();
+	}
 }
 
 void MySQLAccess::close() {
-	con->close();
+	if (!con->isClosed()) {
+		con->close();
+	}
 }
 
 bool MySQLAccess::execute(const sql::SQLString& sql) {
@@ -43,6 +47,7 @@ bool MySQLAccess::execute(const sql::SQLString& sql) {
 	catch (sql::SQLException& e) {
 		exceptionResult(e);
 	}
+	return false;
 }
 
 int MySQLAccess::executeUpdate(const sql::SQLString& sql) {
@@ -52,6 +57,7 @@ int MySQLAccess::executeUpdate(const sql::SQLString& sql) {
 	catch (sql::SQLException& e) {
 		exceptionResult(e);
 	}
+	return -1;
 }
 
 sql::ResultSet* MySQLAccess::executeQuery(const sql::SQLString& sql) {
@@ -61,4 +67,5 @@ sql::ResultSet* MySQLAccess::executeQuery(const sql::SQLString& sql) {
 	catch (sql::SQLException& e) {
 		exceptionResult(e);
 	}
+	return nullptr;
 }
