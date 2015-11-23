@@ -46,7 +46,7 @@ void Request_Handler(webserver::http_request* r)
 	{
 		Template templ;
 		ifstream fin;
-		fin.open("Static\\base.html"); //path for all .html should be given in config file
+		fin.open("F:\\Programming\\2nd year\\OP\\mySchedule\\Static\\base.html"); //path for all .html should be given in config file
 		body = templ.load(fin);
 		fin.close();
 	}
@@ -55,7 +55,7 @@ void Request_Handler(webserver::http_request* r)
 	{
 		Template templ;
 		ifstream fin;
-		fin.open("Static\\login_page.html"); //path for all .html should be given in config file
+		fin.open("F:\\Programming\\2nd year\\OP\\mySchedule\\Static\\login_page.html"); //path for all .html should be given in config file
 		body = templ.load(fin);
 		fin.close();
 	}
@@ -64,7 +64,7 @@ void Request_Handler(webserver::http_request* r)
 	{
 		Template templ;
 		ifstream fin;
-		fin.open("Static\\register page.html"); //path for all .html should be given in config file
+		fin.open("F:\\Programming\\2nd year\\OP\\mySchedule\\Static\\register page.html"); //path for all .html should be given in config file
 		body = templ.load(fin);
 		fin.close();
 	}
