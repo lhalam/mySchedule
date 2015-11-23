@@ -3,6 +3,8 @@
 #include "Server\webserver.h"
 #include "Server\socket.h"
 #include "Server\Request_Handler.h"
+#include "Config\Config.h"
+#include <map>
 
 #include "globals.h"
 
