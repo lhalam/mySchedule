@@ -16,6 +16,8 @@ body {
 
 .middle {
 	background-color: #6495ED;
+	background-image: url('http://i76.beon.ru/21/54/15421/67/74050367/0.png');
+	background-repeat: repeat-x;
 }
 
 .middle:after {
