@@ -8,7 +8,7 @@ const DAOAssignment * DAOAssignment::getInstance()
 
 //Getters
 
-Entity * DAOAssignment::getById(MySQLAccess *connection, unsigned id) const
+Assignment * DAOAssignment::getById(MySQLAccess *connection, unsigned id) const
 {
 	ResultSet *res = nullptr;
 

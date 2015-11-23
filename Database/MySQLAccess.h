@@ -1,10 +1,11 @@
 #pragma once
 
-#include <stdlib.h>
+#include <cstdlib>
 #include <iostream>
 #include <sstream>
 #include <stdexcept>
 #include <string>
+#include <memory>
 
 #include "mysql_connection.h"
 
@@ -24,8 +25,8 @@ using sql::SQLException;
 
 class MySQLAccess {
 private:
-	auto_ptr<Connection> con;
-	auto_ptr<Statement> stmt;
+	unique_ptr<Connection> con;
+	unique_ptr<Statement> stmt;
 	
 public:
 	MySQLAccess(const string url, const string user, const string pass, const string db);

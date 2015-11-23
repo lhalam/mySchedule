@@ -10,7 +10,7 @@ public:
 
 	//Getters
 
-	virtual Entity * getById(MySQLAccess *connection, unsigned id) const;
+	virtual Group * getById(MySQLAccess *connection, unsigned id) const;
 	Group getByName(MySQLAccess *connection, string name) const;
 
 	// Setters

@@ -200,12 +200,12 @@ void Request_Handler(webserver::http_request* r)
 
 			for (auto i = params.begin(); i != params.end(); i++)
 			{
-				user = DAOUser::getInstance()->getByLogin(connection, i->second);
+				user = daoUser.getByLogin(connection, i->second);
 				if (user.getLogin() != i->second)
 				{
 					++i;
 					status = true;
-					DAOUser::getInstance()->add(connection, user);
+					daoUser.add(connection, user);
 
 				}
 

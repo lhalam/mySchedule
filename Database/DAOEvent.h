@@ -10,7 +10,7 @@ public:
 
 	//Getters
 
-	virtual Entity * getById(MySQLAccess *connection, unsigned id) const;
+	virtual Event * getById(MySQLAccess *connection, unsigned id) const;
 	Event getByName(MySQLAccess *connection, string name) const;
 
 	//Setters
