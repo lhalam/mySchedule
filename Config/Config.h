@@ -2,8 +2,6 @@
 #include <string>
 #include <fstream>
 #include <map>
-
-#include <iostream>
 using namespace std;
 
 class Config
@@ -23,8 +21,6 @@ private:
 	map<string, map<string, string> > pars()
 	{
 		map<string, map<string, string> > res;
-
-		cout << this->path;
 
 		ifstream fin(this->path);
 

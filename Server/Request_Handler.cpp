@@ -5,9 +5,13 @@
 #include "..\Database\DAOUser.h"
 #include "..\Database\MySQLManager.h"
 #include "..\Template\Template.h"
+#include "..\Config\Config.h"
 
 void Request_Handler(webserver::http_request* r)
 {
+	Config conf("F:\\Programming\\2nd year\\OP\\mySchedule\\config.conf");
+	map<string, map<string, string> > configData = conf.getConfig();
+
 	Socket s = *(r->s_);
 
 	std::string title;
@@ -46,7 +50,7 @@ void Request_Handler(webserver::http_request* r)
 	{
 		Template templ;
 		ifstream fin;
-		fin.open("F:\\Programming\\2nd year\\OP\\mySchedule\\Static\\base.html"); //path for all .html should be given in config file
+		fin.open(configData.at("myschedule").at("html") + "\\base.html");
 		body = templ.load(fin);
 		fin.close();
 	}
@@ -55,7 +59,7 @@ void Request_Handler(webserver::http_request* r)
 	{
 		Template templ;
 		ifstream fin;
-		fin.open("F:\\Programming\\2nd year\\OP\\mySchedule\\Static\\login_page.html"); //path for all .html should be given in config file
+		fin.open(configData.at("myschedule").at("html") + "\\login_page.html");
 		body = templ.load(fin);
 		fin.close();
 	}
@@ -64,7 +68,7 @@ void Request_Handler(webserver::http_request* r)
 	{
 		Template templ;
 		ifstream fin;
-		fin.open("F:\\Programming\\2nd year\\OP\\mySchedule\\Static\\register page.html"); //path for all .html should be given in config file
+		fin.open(configData.at("myschedule").at("html") + "\\register page.html");
 		body = templ.load(fin);
 		fin.close();
 	}
@@ -121,7 +125,7 @@ void Request_Handler(webserver::http_request* r)
 		{
 			Template templ;
 			ifstream fin;
-			fin.open("login_page.html");
+			fin.open(configData.at("myschedule").at("html") + "\\login_page.html");
 			body = templ.load(fin);
 			fin.close();
 		}
@@ -161,7 +165,7 @@ void Request_Handler(webserver::http_request* r)
 		{
 			Template templ;
 			ifstream fin;
-			fin.open("register page.html");
+			fin.open(configData.at("myschedule").at("html") + "\\register page.html");
 			body = templ.load(fin);
 			fin.close();
 		}
