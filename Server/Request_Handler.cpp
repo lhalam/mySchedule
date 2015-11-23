@@ -9,6 +9,7 @@
 
 void Request_Handler(webserver::http_request* r)
 {
+	//the path on your computer may be different, change if necessary
 	Config conf("F:\\Programming\\2nd year\\OP\\mySchedule\\config.conf");
 	map<string, map<string, string> > configData = conf.getConfig();
 
