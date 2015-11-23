@@ -21,14 +21,12 @@ public:
 protected:
 	static Logger* FindInRegistry(const char* name);
 private:
-	//internal message level
-	LogLevel _msgLevel;
 	static Logger* instanceUnique;
 	//default constructors and "=" operator in private
 	//to keep logger unique
 	Logger() {}
-	Logger(const Logger&) {}
-	Logger& operator=(Logger const&) {}
+	Logger(const Logger&) = delete;
+	Logger& operator=(Logger const&) = delete;
 
 	virtual ~Logger()
 	{
