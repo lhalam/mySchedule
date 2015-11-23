@@ -1,47 +1,57 @@
 #pragma once
+
 #include <string>
 #include <fstream>
 #include <map>
-using namespace std;
+
+using std::string;
+using std::ifstream;
+using std::map;
 
 class Config
 {
 private:
 	string path;
+
 public:
-	Config(string path)
+	Config(string path) :
+		path(path) { }
+
+	map<string, map<string, string>>  getConfig()
 	{
-		this->path = path;
+		return parse();
 	}
-	map<string, map<string, string> >  getConfig()
-	{
-		return pars();
-	}
+
 private:
-	map<string, map<string, string> > pars()
+	map<string, map<string, string>> parse()
 	{
 		map<string, map<string, string> > res;
 
 		ifstream fin(this->path);
 
-		while (!fin.eof())
+		if (fin.is_open())
 		{
-			fin.get();
-			string heading;
-			getline(fin, heading, ']');
-			fin.get();
-			while (fin.peek() != '\n' && !fin.eof())
+			while (!fin.eof())
 			{
-				string item;
-				string value;
-				getline(fin, item, ' ');
 				fin.get();
+				string heading;
+				getline(fin, heading, ']');
 				fin.get();
-				getline(fin, value);
+				while (fin.peek() != '\n' && !fin.eof())
+				{
+					string item;
+					string value;
+					getline(fin, item, ' ');
+					fin.get();
+					fin.get();
+					getline(fin, value);
 
-				res[heading][item] = value;
+					res[heading][item] = value;
+				}
+				fin.get();
 			}
-			fin.get();
+
+			fin.close();
 		}
 
 		return res;

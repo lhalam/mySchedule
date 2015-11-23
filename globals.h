@@ -7,15 +7,12 @@
 #include "Database\DAOUser.h"
 
 #include "Logger\Logger.h"
+#include "Config\Config.h"
 
-const DAOAssignment& daoAssignment = *DAOAssignment::getInstance();
-const DAOEvent& daoEvent = *DAOEvent::getInstance();
-const DAOGroup& daoGroup = *DAOGroup::getInstance();
-const DAORole& daoRole = *DAORole::getInstance();
-const DAOUser& daoUser = *DAOUser::getInstance();
+extern const DAOAssignment& daoAssignment;
+extern const DAOEvent& daoEvent;
+extern const DAOGroup& daoGroup;
+extern const DAORole& daoRole;
+extern const DAOUser& daoUser;
 
-//Initializing a global static pointer
-Logger* Logger::instanceUnique = NULL;
-
-//Stating the default logging level
-LogLevel Logger::ReportingLevel = LogLevel::logError;
+extern map<string, map<string, string>> config;

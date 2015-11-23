@@ -4,8 +4,17 @@
 #include "Server\socket.h"
 #include "Server\Request_Handler.h"
 
+#include "globals.h"
+
 int main()
 {
-	webserver(8080, Request_Handler);
+	int port = 8080;
+	try
+	{
+		port = stoi(config.at("myschedule").at("port"));
+	} catch (...) { }
+	
+	webserver(port, Request_Handler);
+
 	return 0;
 }
