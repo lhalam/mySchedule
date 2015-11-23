@@ -46,25 +46,23 @@ void Request_Handler(webserver::http_request* r)
 	{
 		Template templ;
 		ifstream fin;
-		fin.open("Static\\base.html"); //path for all .html should be given in config file
+		fin.open(config["myschedule"]["html"] + "base.html");
 		body = templ.load(fin);
 		fin.close();
 	}
-
 	else if (r->path_ == "/login")
 	{
 		Template templ;
 		ifstream fin;
-		fin.open("Static\\login_page.html"); //path for all .html should be given in config file
+		fin.open(config["myschedule"]["html"] + "login_page.html");
 		body = templ.load(fin);
 		fin.close();
 	}
-
 	else if (r->path_ == "/register")
 	{
 		Template templ;
 		ifstream fin;
-		fin.open("Static\\register page.html"); //path for all .html should be given in config file
+		fin.open(config["myschedule"]["html"] + "register page.html");
 		body = templ.load(fin);
 		fin.close();
 	}
@@ -80,11 +78,8 @@ void Request_Handler(webserver::http_request* r)
 			"</table>"
 			"<input type=submit></form>";
 
-
-		for (std::map<std::string, std::string>::const_iterator i = r->params_.begin();
-		i != r->params_.end();
-			i++) {
-
+		for (auto i = r->params_.begin(); i != r->params_.end(); i++)
+		{
 			body += "<br>" + i->first + " = " + i->second;
 		}
 
@@ -130,7 +125,7 @@ void Request_Handler(webserver::http_request* r)
 			bool status = false;
 			map<string, string> params;
 			params = r->params_;
-			MySQLAccess *connection = MySQLManager::getInstance("localhost", "myschedule", "root", "your password", 10).getConnection();
+			MySQLAccess *connection = MySQLManager::getInstance().getConnection();
 			for (auto i = params.begin(); i != params.end(); i++)
 			{
 
@@ -171,7 +166,7 @@ void Request_Handler(webserver::http_request* r)
 			map<string, string> params;
 			params = r->params_;
 
-			MySQLAccess *connection = MySQLManager::getInstance("localhost", "myschedule", "root", "your password", 10).getConnection();
+			MySQLAccess *connection = MySQLManager::getInstance().getConnection();
 
 			User user;
 

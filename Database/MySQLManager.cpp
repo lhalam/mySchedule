@@ -2,6 +2,8 @@
 #include <algorithm>
 #include "MySQLManager.h"
 
+#include "..\globals.h"
+
 using std::overflow_error;
 using std::logic_error;
 using std::find;
@@ -14,6 +16,7 @@ MySQLManager::MySQLManager(string url, string database, string user, string pass
 	password(password)
 {
 }
+
 MySQLManager::~MySQLManager()
 {
 	for (MySQLAccess* connection : connections)
@@ -22,9 +25,10 @@ MySQLManager::~MySQLManager()
 	}
 }
 
-MySQLManager& MySQLManager::getInstance(string url, string database, string user, string password, unsigned int maxNumOfConnections)
+MySQLManager& MySQLManager::getInstance()
 {
-	static MySQLManager manager(url, database, user, password, maxNumOfConnections);
+	static MySQLManager manager(config["db"]["host"], config["db"]["db_name"],
+		config["db"]["user"], config["db"]["pass"], stoi(config["db"]["pool_size"]));
 	return manager;
 }
 

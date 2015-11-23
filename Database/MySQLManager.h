@@ -8,22 +8,25 @@ using std::vector;
 using std::string;
 
 /*
-MySQLManager handles all the database connections in the project.
-It is a singleton.
+	MySQLManager handles all the database connections in the project.
+	It is a singleton.
 */
+
 class MySQLManager
 {
 private:
 	vector<MySQLAccess*> connections;
 	unsigned int maxNumOfConnections;
-	/*Data used to connect to the database*/
+
+	/* Data used to connect to the database */
+
 	string url;
 	string database;
 	string user;
 	string password;
 
 public:
-	static MySQLManager& getInstance(string url, string database, string user, string password, unsigned int maxNumOfConnections);
+	static MySQLManager& getInstance();
 
 	~MySQLManager();
 
