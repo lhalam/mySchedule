@@ -1,17 +1,17 @@
 #include "Logger.h"
-#include <cstdlib>
 
 void Logger::Log(const LogMessage& msg)
 {
-	/*
-	if(_msgLevel < ReportingLevel)
+	if(msg.getLogLevel() < ReportingLevel)
 	return;
-	*/
-	ofstream fout("Log.txt", ios::app);
+	
+	ofstream fout("Logs.log", ios::app);
 	if(!fout.is_open())
 		throw exception("Cannot open file for writing!");
 
-	fout << msg;
+	//will be changed in inherited classes
+	fout << "[ServerLogger]" << endl
+		<< msg;
 	fout.close();
 }
 

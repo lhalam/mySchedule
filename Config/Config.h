@@ -21,7 +21,6 @@ public:
 	{
 		return parse();
 	}
-
 private:
 	map<string, map<string, string>> parse()
 	{
