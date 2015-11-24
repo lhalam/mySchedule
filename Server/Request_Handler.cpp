@@ -51,14 +51,6 @@ void Request_Handler(webserver::http_request* r)
 		body = templ.load(fin);
 		fin.close();
 	}
-	else if (r->path_ == "/login")
-	{
-		Template templ;
-		ifstream fin;
-		fin.open(config.at("myschedule").at("html") + "\\login_page.html");
-		body = templ.load(fin);
-		fin.close();
-	}
 	else if (r->path_ == "/register")
 	{
 		Template templ;
@@ -177,18 +169,15 @@ void Request_Handler(webserver::http_request* r)
 				{
 					user.setName(i->second);
 				}
-
-				if (i->first == "surname")
+				else if (i->first == "surname")
 				{
 					user.setSurname(i->second);
 				}
-
-				if (i->first == "status")
+				else if (i->first == "status")
 				{
 					user.setStatus(i->second);
 				}
-
-				if (i->first == "password")
+				else if (i->first == "password")
 				{
 					user.setPassword(i->second);
 				}
@@ -202,7 +191,6 @@ void Request_Handler(webserver::http_request* r)
 					++i;
 					status = true;
 					daoUser.add(connection, user);
-
 				}
 
 			}
@@ -211,16 +199,12 @@ void Request_Handler(webserver::http_request* r)
 			{
 				r->authentication_given_ = 1;
 			}
-
 			else
 			{
 				r->authentication_given_ = 0;
 			}
 		}
-
-
 	}
-
 	else
 	{
 		r->status_ = "404 Not Found";
@@ -235,6 +219,5 @@ void Request_Handler(webserver::http_request* r)
 	r->answer_ += body;
 	r->answer_ += "</body></html>";
 
-	//logging
 	Logger::Instance("ServerLogger")->Log(LogMessage(r->status_, r->method_));
 }
