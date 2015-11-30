@@ -83,7 +83,7 @@ void Request_Handler(webserver::http_request* r)
 	}
 	else if (r->path_ == "/login")
 	{
-		if (r->method_ == "GET")
+		if (r->params_.begin()==r->params_.end())
 		{
 			Template templ;
 			ifstream fin;
@@ -91,7 +91,7 @@ void Request_Handler(webserver::http_request* r)
 			r->answer_ = templ.load(fin);
 			fin.close();
 		}
-		else if (r->method_ == "POST")
+		else
 		{
 			bool status = false;
 			map<string, string> params;
@@ -113,11 +113,15 @@ void Request_Handler(webserver::http_request* r)
 			}
 			if (status)
 			{
-				r->authentication_given_ = 1;
+				Template templ;
+				ifstream fin;
+				fin.open(config.at("myschedule").at("html") + "\\base.html");
+				r->answer_ = templ.load(fin);
+				fin.close();
 			}
 			else
 			{
-				r->authentication_given_ = 0;
+				
 			}
 		}
 	}
