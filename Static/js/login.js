@@ -11,11 +11,11 @@ $(document).ready(function () {
         $.ajax({
             url: 'login',
 			type: 'GET',
-			data: {"a":"a","b":"b"}, // todo change the data
-			/*
-             *  verification interaction by server and
-             *  client(browser)
-            */
+			data: {"E-mail : " +em, "Password : " +ps}, // todo change the data
+	/*
+         *  verification interaction by server and
+         *  client(browser)
+         */
             success: function (data) {
                 var success = data.success;
                 if (success === true) {
