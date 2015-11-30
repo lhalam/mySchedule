@@ -15,8 +15,6 @@ void Request_Handler(webserver::http_request* r)
 	std::string body;
 	std::string bgcolor = "#ffffff";
 	std::string links =
-		"<p><a href='/red'>red</a> "
-		"<br><a href='/blue'>blue</a> "
 		"<br><a href='/form'>form</a> "
 		"<br><a href='/base'>base</a> "
 		"<br><a href='/login'>login</a> "
@@ -31,32 +29,12 @@ void Request_Handler(webserver::http_request* r)
 		body = "<h1>Our Web Server</h1>"
 			"I wonder what you're going to click" + links;
 	}
-	else if (r->path_ == "/red")
-	{
-		bgcolor = "#ff4444";
-		title = "You chose red";
-		body = "<h1>Red</h1>" + links;
-	}
-	else if (r->path_ == "/blue")
-	{
-		bgcolor = "#4444ff";
-		title = "You chose blue";
-		body = "<h1>Blue</h1>" + links;
-	}
 	else if (r->path_ == "/base")
 	{
 		Template templ;
 		ifstream fin;
 		fin.open(config.at("myschedule").at("html") + "\\base.html");
-		body = templ.load(fin);
-		fin.close();
-	}
-	else if (r->path_ == "/register")
-	{
-		Template templ;
-		ifstream fin;
-		fin.open(config.at("myschedule").at("html") + "\\register page.html");
-		body = templ.load(fin);
+		r->answer_ = templ.load(fin);
 		fin.close();
 	}
 	else if (r->path_ == "/form") {
@@ -110,7 +88,7 @@ void Request_Handler(webserver::http_request* r)
 			Template templ;
 			ifstream fin;
 			fin.open(config.at("myschedule").at("html") + "\\login_page.html");
-			body = templ.load(fin);
+			r->answer_ = templ.load(fin);
 			fin.close();
 		}
 		else if (r->method_ == "POST")
@@ -150,7 +128,7 @@ void Request_Handler(webserver::http_request* r)
 			Template templ;
 			ifstream fin;
 			fin.open(config.at("myschedule").at("html") + "\\register page.html");
-			body = templ.load(fin);
+			r->answer_ = templ.load(fin);
 			fin.close();
 		}
 		else if (r->method_ == "POST")
@@ -213,11 +191,14 @@ void Request_Handler(webserver::http_request* r)
 		body += "Path is : &gt;" + r->path_ + "&lt;";
 	}
 
-	r->answer_ = "<html><head><title>";
-	r->answer_ += title;
-	r->answer_ += "</title></head><body bgcolor='" + bgcolor + "'>";
-	r->answer_ += body;
-	r->answer_ += "</body></html>";
+	if (r->answer_ == "")
+	{
+		r->answer_ = "<html><head><title>";
+		r->answer_ += title;
+		r->answer_ += "</title></head><body bgcolor='" + bgcolor + "'>";
+		r->answer_ += body;
+		r->answer_ += "</body></html>";
+	}
 
 	Logger::Instance("ServerLogger")->Log(LogMessage(r->status_, r->method_));
 }
