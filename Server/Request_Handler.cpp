@@ -15,12 +15,9 @@ void Request_Handler(webserver::http_request* r)
 	std::string body;
 	std::string bgcolor = "#ffffff";
 	std::string links =
-		"<br><a href='/form'>form</a> "
 		"<br><a href='/base'>base</a> "
 		"<br><a href='/login'>login</a> "
 		"<br><a href='/register'>register</a> "
-		"<br><a href='/auth'>authentication example</a> [use <b>adp</b> as username and <b>gmbh</b> as password"
-		"<br><a href='/header'>show some HTTP header details</a> "
 		;
 
 	if (r->path_ == "/")
@@ -36,50 +33,6 @@ void Request_Handler(webserver::http_request* r)
 		fin.open(config.at("myschedule").at("html") + "\\base.html");
 		r->answer_ = templ.load(fin);
 		fin.close();
-	}
-	else if (r->path_ == "/form") {
-		title = "Fill a form";
-
-		body = "<h1>Fill a form</h1>";
-		body += "<form action='/form'>"
-			"<table>"
-			"<tr><td>Field 1</td><td><input name=field_1></td></tr>"
-			"<tr><td>Field 2</td><td><input name=field_2></td></tr>"
-			"<tr><td>Field 3</td><td><input name=field_3></td></tr>"
-			"</table>"
-			"<input type=submit></form>";
-
-		for (auto i = r->params_.begin(); i != r->params_.end(); i++)
-		{
-			body += "<br>" + i->first + " = " + i->second;
-		}
-
-		body += "<hr>" + links;
-
-	}
-	else if (r->path_ == "/auth") {
-		if (r->authentication_given_) {
-			if (r->username_ == "adp" && r->password_ == "gmbh") {
-				body = "<h1>Successfully authenticated</h1>" + links;
-			}
-			else {
-				body = "<h1>Wrong username or password</h1>" + links;
-				r->auth_realm_ = "Private Stuff";
-			}
-		}
-		else {
-			r->auth_realm_ = "Private Stuff";
-		}
-	}
-	else if (r->path_ == "/header") {
-		title = "some HTTP header details";
-		body = std::string("<table>") +
-			"<tr><td>Accept:</td><td>" + r->accept_ + "</td></tr>" +
-			"<tr><td>Accept-Encoding:</td><td>" + r->accept_encoding_ + "</td></tr>" +
-			"<tr><td>Accept-Language:</td><td>" + r->accept_language_ + "</td></tr>" +
-			"<tr><td>User-Agent:</td><td>" + r->user_agent_ + "</td></tr>" +
-			"</table>" +
-			links;
 	}
 	else if (r->path_ == "/login")
 	{
