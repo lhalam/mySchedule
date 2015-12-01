@@ -1,54 +1,139 @@
 #include "Logger.h"
 
-void Logger::Log(const LogMessage& msg)
+ServerLogger* ServerLogger::Instance()
 {
-	if(msg.getLogLevel() < ReportingLevel)
-	return;
-	
-	ofstream fout("Logs.log", ios::app);
-	if(!fout.is_open())
-		throw exception("Cannot open file for writing!");
+	if (!slogger_instance)
+	{
+		slogger_instance = new ServerLogger;
+		//Register("ServerLogger", slogger_instance);
+	}
+	/*else
+	{
+		slogger_instance = dynamic_cast<ServerLogger*>(registry.at("ServerLogger"));
+	}*/
+	return slogger_instance;
+}
 
-	//will be changed in inherited classes
+//void ServerLogger::Register(string name, ServerLogger* lg)
+//{
+//	auto it = registry.find(name);
+//	if (it == registry.end())
+//	{
+//		registry[name] = lg;
+//	}
+//}
+
+void ServerLogger::Log(const LogMessage& msg)
+{
+	if (msg.getLogLevel() < Logger::ReportingLevel)
+		return;
+	ofstream fout("Logs.log", ios::app);
+	if (!fout.is_open())
+	{
+		throw exception("Cannot open file for writing.");
+	}
 	fout << "[ServerLogger]" << endl
 		<< msg;
 	fout.close();
+
+	fout.open("ServerLog.log", ios::app);
+	if (!fout.is_open())
+	{
+		throw exception("Cannot open file for writing.");
+	}
+	fout << msg;
+	fout.close();
 }
 
-Logger* Logger::FindInRegistry(const char* name)
+//void DBLogger::Register(string name, DBLogger* lg)
+//{
+//	auto it = registry.find(name);
+//	if (it == registry.end())
+//	{
+//		registry[name] = lg;
+//	}
+//}
+
+DBLogger* DBLogger::Instance()
 {
-	Logger* res = NULL;
-	auto it = registry.find(name);
-	if (it != registry.end())
+	if (!dblogger_instance)
 	{
-		res = (*it).second;
+		dblogger_instance = new DBLogger;
+		//Register("DBLogger", dblogger_instance);
 	}
-	return res;
+	/*else
+	{
+		dblogger_instance = dynamic_cast<DBLogger*>(registry.at("DBLogger"));
+	}*/
+	return dblogger_instance;
 }
 
-Logger* Logger::Instance(const char* name)
+void DBLogger::Log(const LogMessage& msg) 
 {
-	if(!instanceUnique)
+	if (msg.getLogLevel() < Logger::ReportingLevel)
+		return;
+
+	ofstream fout("Logs.log", ios::app);
+	if (!fout.is_open())
 	{
-		Logger* found = FindInRegistry(name);
-		if (!found)
-		{
-			instanceUnique = new Logger;
-			Register(name, instanceUnique);
-		}
-		else
-		{
-			instanceUnique = found;
-		}
+		throw exception("Cannot open file for writing.");
 	}
-	return instanceUnique;
+	fout << "[DatabaseLogger]" << endl
+		<< msg;
+	fout.close();
+
+	fout.open("DatabaseLog.log", ios::app);
+	if (!fout.is_open())
+	{
+		throw exception("Cannot open file for writing.");
+	}
+	fout << msg;
+	fout.close();
+}
+//
+//void ConfigLogger::Register(string name, ConfigLogger* lg)
+//{
+//	auto it = registry.find(name);
+//	if (it == registry.end())
+//	{
+//		registry[name] = lg;
+//	}
+//}
+//
+ConfigLogger* ConfigLogger::Instance()
+{
+	if (!clogger_instance)
+	{
+		clogger_instance = new ConfigLogger;
+		//Register("ConfigLogger", clogger_instance);
+	}
+	/*else
+	{
+		clogger_instance = dynamic_cast<ConfigLogger*>(registry.at("ConfigLogger"));
+	}*/
+	return clogger_instance;
 }
 
-void Logger::Register(const char* name, Logger* lg)
+
+void ConfigLogger::Log(const LogMessage& msg)
 {
-	auto it = registry.find(name);
-	if (it == registry.end())
+	if (msg.getLogLevel() < Logger::ReportingLevel)
+		return;
+
+	ofstream fout("Logs.log", ios::app);
+	if (!fout.is_open())
 	{
-		registry[name] = lg;
+		throw exception("Cannot open file for writing.");
 	}
+	fout << "[ConfigLogger]" << endl
+		<< msg;
+	fout.close();
+
+	fout.open("ConfigLog.log", ios::app);
+	if (!fout.is_open())
+	{
+		throw exception("Cannot open file for writing.");
+	}
+	fout << msg;
+	fout.close();
 }

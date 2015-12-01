@@ -14,7 +14,9 @@ class LogMessage
 {
 public:
 	LogMessage();
-	LogMessage(string, string, LogLevel = logError);
+	LogMessage(string status, string method, LogLevel = logError); //server
+	LogMessage(string filename, unsigned line, string method, string err_code, string mysql_err_code, string sqlstate); //sql
+	LogMessage(string filename, unsigned line, string status, string method); //config
 	LogMessage(const LogMessage&);
 
 	LogLevel getLogLevel() const;

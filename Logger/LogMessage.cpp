@@ -33,6 +33,22 @@ _llevel(obj._llevel)
 {
 }
 
+LogMessage::LogMessage(string filename, unsigned line, string method,
+	string err_code, string mysql_err_code, string sqlstate) :
+	_status("File: " + filename + "\t Line: " + to_string(line) 
+		+ "\t Err_code: " + err_code + "\t SQL_err_code: " 
+		+ mysql_err_code + "\t State: " + sqlstate),
+	_method(method)
+{
+}
+
+LogMessage::LogMessage(string filename, unsigned line, string status, string method):
+	_status("File: " + filename + "\t Line: " + to_string(line)
+		+ "\t Status: " + status),
+	_method(method)
+{
+}
+
 LogLevel LogMessage::getLogLevel() const
 {
 	return this->_llevel;

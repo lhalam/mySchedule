@@ -1,35 +1,83 @@
 #pragma once
 #include "LogMessage.h"
+#include <iostream>
 #include <fstream>
 #include <map>
-
-class Logger;
-
-static map<const char*, Logger*> registry;
+//
+//class Logger;
+//
+//static map<string, Logger*> registry;
 
 class Logger
 {
 public:
-	//log given message
-	void Log(const LogMessage& msg);
+	virtual void Log(const LogMessage& msg) = 0;
 
 	//General reporting level
 	static LogLevel ReportingLevel;
 
-	static Logger* Instance(const char* name);
-	static void Register(const char* name, Logger* lg);
 protected:
-	static Logger* FindInRegistry(const char* name);
-private:
-	static Logger* instanceUnique;
-	//default constructors and "=" operator in private
-	//to keep logger unique
 	Logger() {}
 	Logger(const Logger&) = delete;
 	Logger& operator=(Logger const&) = delete;
 
-	virtual ~Logger()
+	virtual ~Logger() {}
+};
+
+class ServerLogger : public Logger
+{
+private:
+	ServerLogger() : Logger() {}
+	ServerLogger(const ServerLogger& slog) = delete;
+	ServerLogger& operator=(const ServerLogger& slog) = delete;
+
+	static ServerLogger* slogger_instance;
+protected:
+	//static void Register(string name, ServerLogger* lg);
+public:
+	static ServerLogger* Instance();
+	virtual void Log(const LogMessage& msg);
+	virtual ~ServerLogger()
 	{
-		delete instanceUnique;
+		delete slogger_instance;
+	}
+};
+
+class DBLogger : public Logger
+{
+private:
+	DBLogger() : Logger() {}
+	DBLogger(const DBLogger& slog) = delete;
+	DBLogger& operator=(const DBLogger& slog) = delete;
+
+	static DBLogger* dblogger_instance;
+protected:
+	//static void Register(string name, DBLogger* lg);
+public:
+	static DBLogger* Instance();
+	virtual void Log(const LogMessage& msg);
+
+	virtual ~DBLogger()
+	{
+		delete dblogger_instance;
+	}
+};
+
+class ConfigLogger : public Logger
+{
+private:
+	ConfigLogger() : Logger() {}
+	ConfigLogger(const ConfigLogger& slog) = delete;
+	ConfigLogger& operator=(const ConfigLogger& slog) = delete;
+
+	static ConfigLogger* clogger_instance;
+protected:
+	//static void Register(string name, ConfigLogger* lg);
+public:
+	static ConfigLogger* Instance();
+	virtual void Log(const LogMessage& msg);
+	virtual ~ConfigLogger()
+	{
+		delete clogger_instance;
 	}
 };

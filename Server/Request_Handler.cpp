@@ -161,5 +161,5 @@ void Request_Handler(webserver::http_request* r)
 		r->answer_ += "</body></html>";
 	}
 
-	Logger::Instance("ServerLogger")->Log(LogMessage(r->status_, r->method_));
+	ServerLogger::Instance()->Log(LogMessage(r->status_, r->method_));
 }

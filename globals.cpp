@@ -6,7 +6,9 @@ const DAOGroup& daoGroup = *DAOGroup::getInstance();
 const DAORole& daoRole = *DAORole::getInstance();
 const DAOUser& daoUser = *DAOUser::getInstance();
 
-Logger* Logger::instanceUnique = NULL;
+DBLogger*	  DBLogger::dblogger_instance = nullptr;
+ServerLogger* ServerLogger::slogger_instance = nullptr;
+ConfigLogger* ConfigLogger::clogger_instance = nullptr;
 
 LogLevel Logger::ReportingLevel = LogLevel::logError;
 

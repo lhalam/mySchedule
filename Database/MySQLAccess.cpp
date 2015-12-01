@@ -1,4 +1,5 @@
 #include "MySQLAccess.h"
+#include "../globals.h"
 
 void MySQLAccess::exceptionResult(sql::SQLException& e) {
 	/*
@@ -13,6 +14,8 @@ void MySQLAccess::exceptionResult(sql::SQLException& e) {
 	cout << "# ERR: " << e.what();
 	cout << " (MySQL error code: " << e.getErrorCode();
 	cout << ", SQLState: " << e.getSQLState() << " )" << endl;
+
+	DBLogger::Instance()->Log(LogMessage(__FILE__, __LINE__, __FUNCTION__, string(e.what()), to_string(e.getErrorCode()), string(e.getSQLState())));
 }
 
 MySQLAccess::MySQLAccess(const string url, const string user, const string pass, const string db) {
