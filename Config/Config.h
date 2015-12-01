@@ -1,5 +1,9 @@
 #pragma once
 
+#ifndef __func__
+#define __func__ __FUNCTION__
+#endif
+
 #include <string>
 #include <fstream>
 #include <map>
