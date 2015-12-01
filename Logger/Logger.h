@@ -3,10 +3,6 @@
 #include <iostream>
 #include <fstream>
 #include <map>
-//
-//class Logger;
-//
-//static map<string, Logger*> registry;
 
 class Logger
 {
@@ -32,8 +28,6 @@ private:
 	ServerLogger& operator=(const ServerLogger& slog) = delete;
 
 	static ServerLogger* slogger_instance;
-protected:
-	//static void Register(string name, ServerLogger* lg);
 public:
 	static ServerLogger* Instance();
 	virtual void Log(const LogMessage& msg);
@@ -51,8 +45,6 @@ private:
 	DBLogger& operator=(const DBLogger& slog) = delete;
 
 	static DBLogger* dblogger_instance;
-protected:
-	//static void Register(string name, DBLogger* lg);
 public:
 	static DBLogger* Instance();
 	virtual void Log(const LogMessage& msg);
@@ -71,8 +63,6 @@ private:
 	ConfigLogger& operator=(const ConfigLogger& slog) = delete;
 
 	static ConfigLogger* clogger_instance;
-protected:
-	//static void Register(string name, ConfigLogger* lg);
 public:
 	static ConfigLogger* Instance();
 	virtual void Log(const LogMessage& msg);
