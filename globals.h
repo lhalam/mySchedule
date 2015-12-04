@@ -8,11 +8,14 @@
 
 #include "Logger\Logger.h"
 #include "Config\Config.h"
+#include "Session.h"
 
 extern const DAOAssignment& daoAssignment;
 extern const DAOEvent& daoEvent;
 extern const DAOGroup& daoGroup;
 extern const DAORole& daoRole;
 extern const DAOUser& daoUser;
+
+extern Session* session;
 
 extern map<string, map<string, string>> config;
